@@ -29,7 +29,7 @@ namespace: 작업하는 테이블들을 구분해주기 위한 식별자 -->
   	update member set status = if(status = 0, 1, 0) where id = #{id}
   </delete>
 
-  <select id="login" parameterType="String">
+  <select id="login" parameterType="String" resultType="Member">
     select * from member where id = #{id} and password = #{password}
   </select>
 </mapper>
