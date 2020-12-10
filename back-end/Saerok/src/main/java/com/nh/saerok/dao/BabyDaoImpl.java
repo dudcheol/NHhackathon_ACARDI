@@ -14,8 +14,8 @@ public class BabyDaoImpl implements BabyDao {
 	@Autowired BabyMapper babyMapper;
 	
 	@Override
-	public void addBaby(Baby baby) {
-		babyMapper.addBaby(baby);
+	public int addBaby(Baby baby) {
+		return babyMapper.addBaby(baby);
 	}
 
 	@Override
@@ -34,13 +34,13 @@ public class BabyDaoImpl implements BabyDao {
 	}
 
 	@Override
-	public void modifyBaby(Baby baby) {
-		babyMapper.modifyBaby(baby);
+	public int modifyBaby(Baby baby) {
+		return babyMapper.modifyBaby(baby);
 	}
 
 	@Override
-	public void deleteBaby(String babyno) {
-		babyMapper.deleteBaby(babyno);
+	public int deleteBaby(String babyno) {
+		return babyMapper.deleteBaby(babyno);
 	}
 
 

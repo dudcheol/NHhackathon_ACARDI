@@ -14,8 +14,8 @@ public class BabyServiceImpl implements BabyService {
 	@Autowired BabyDao babyDao;
 	
 	@Override
-	public void addBaby(Baby baby) {
-		babyDao.addBaby(baby);
+	public int addBaby(Baby baby) {
+		return babyDao.addBaby(baby);
 	}
 
 	@Override
@@ -34,13 +34,13 @@ public class BabyServiceImpl implements BabyService {
 	}
 
 	@Override
-	public void modifyBaby(Baby baby) {
-		babyDao.modifyBaby(baby);
+	public int modifyBaby(Baby baby) {
+		return babyDao.modifyBaby(baby);
 	}
 
 	@Override
-	public void deleteBaby(String babyno) {
-		babyDao.deleteBaby(babyno);
+	public int deleteBaby(String babyno) {
+		return babyDao.deleteBaby(babyno);
 	}
 
 }

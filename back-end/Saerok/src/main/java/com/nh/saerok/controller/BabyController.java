@@ -19,47 +19,75 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nh.saerok.dto.Baby;
 import com.nh.saerok.service.BabyService;
 
-@MapperScan(basePackages = {"com.nh.saerok.mapper"})
+@MapperScan(basePackages = { "com.nh.saerok.mapper" })
 @CrossOrigin
 @RestController
 @RequestMapping("/baby")
 public class BabyController {
-	private static final String SUCCESS = "success";
-	private static final String FAIL = "fail";
-	
+
 	@Autowired
 	private BabyService babyService;
-	
+
 	@PostMapping
-	public ResponseEntity<String> addBaby(@RequestBody Baby baby) throws Exception {
-		babyService.addBaby(baby);
-		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	public int addBaby(@RequestBody Baby baby) throws Exception {
+		try {
+			return babyService.addBaby(baby);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<Baby>> listBaby() throws Exception {
-		return new ResponseEntity<List<Baby>>(babyService.listBaby(), HttpStatus.OK);
+	public List<Baby> listBaby() {
+		List<Baby> list = null;
+		try {
+			list = babyService.listBaby();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
-	
+
 	@GetMapping("{babyno}")
-	public ResponseEntity<Baby> getBaby(@PathVariable("babyno") String babyno) throws Exception {
-		return new ResponseEntity<Baby>(babyService.getBaby(babyno), HttpStatus.OK);
+	public Baby getBaby(@PathVariable("babyno") String babyno) throws Exception {
+		Baby baby = null;
+		try {
+			baby = babyService.getBaby(babyno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return baby;
 	}
-	
+
 	@PostMapping("{babyno}")
-	public ResponseEntity<String> getBabyAccount(@PathVariable("babyno") String babyno) throws Exception {
-		return new ResponseEntity<String>(babyService.getBabyAccount(babyno), HttpStatus.OK);
+	public Baby getBabyAccount(@PathVariable("babyno") String babyno) throws Exception {
+		Baby baby = null;
+		try {
+			babyService.getBabyAccount(babyno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return baby;
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<String> modifyBaby(@RequestBody Baby baby) throws Exception {
-		babyService.modifyBaby(baby);
-		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	public int modifyBaby(@RequestBody Baby baby) throws Exception {
+		try {
+			return babyService.modifyBaby(baby);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
-	
+
 	@DeleteMapping("{babyno}")
-	public ResponseEntity<String> deleteBaby(@PathVariable("babyno") String babyno) throws Exception {
-		babyService.deleteBaby(babyno);
-		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	public int deleteBaby(@PathVariable("babyno") String babyno) throws Exception {
+		try {
+			return babyService.deleteBaby(babyno);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 }
