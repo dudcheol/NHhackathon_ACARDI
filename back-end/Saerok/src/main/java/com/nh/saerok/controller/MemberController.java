@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +43,7 @@ public class MemberController {
 	}
 	
 	// 삭제 -> status를 업데이트
-	@PutMapping(value="/member/delete/{id}")
+	@DeleteMapping(value="/member/{id}")
 	public Map delete(@PathVariable String id) {
 		service.delete(id);
 		
@@ -60,7 +61,6 @@ public class MemberController {
 		return map;
 	}
 	
-	// Get:http://localhost/customers/1,   한 개 데이터
 	@GetMapping(value="/login/{id}")
 	public void login(@PathVariable String id){
 		service.login(id);

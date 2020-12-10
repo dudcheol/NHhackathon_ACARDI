@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nh.saerok.mapper.DiaryMapper">
+
+	<select id="selectAll" resultType="Diary">
+		select * from diary order by registered_at
+	</select>
+
+	<select id="selectOne" parameterType="java.lang.String"
+		resultType="Diary">
+		select * from diary where baby_no = #{baby_no} and no = #{num}
+	</select>
+
+	<insert id="insert" parameterType="Diary">
+		INSERT INTO diary VALUES (null, #{title}, #{content}, sysdate(), #{cost},
+		#{baby_no}, #{member_id})
+	</insert>
+
+	<delete id="delete" parameterType="string">
+		delete from diary where no = #{num}
+	</delete>
+
+	<update id="update" parameterType="Diary">
+		UPDATE diary SET CONTENT = #{content} where no = #{no}
+	</update>
+
+</mapper>
