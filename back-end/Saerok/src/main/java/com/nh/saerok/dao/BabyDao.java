@@ -7,10 +7,10 @@ import com.nh.saerok.dto.Baby;
 public interface BabyDao {
 
 	void addBaby(Baby baby);
-	Baby getBaby(int babyno);
-	String getBabyAccount(int babyno);
+	Baby getBaby(String babyno);
+	String getBabyAccount(String babyno);
 	List<Baby> listBaby();
 	void modifyBaby(Baby baby);
-	void deleteBaby(int babyno);
+	void deleteBaby(String babyno);
 
 }

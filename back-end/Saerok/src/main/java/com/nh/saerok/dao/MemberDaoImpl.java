@@ -40,8 +40,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	
 	@Override
-	public int login(String id) {
-		int x = mapper.login(id);
-		return x;
+	public Member login(String id) {
+		return mapper.login(id);
 	}
 }

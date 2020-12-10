@@ -8,11 +8,11 @@
 		values(#{nickname}, #{birthday}, #{gender}, #{birth_time}, #{account}, #{profile})
 	</insert>
 	
-	<select id="getBaby" parameterType="int" resultType="Baby">
+	<select id="getBaby" parameterType="String" resultType="Baby">
 		select * from baby where no = #{babyno}
 	</select>
 	
-	<select id="getBabyAccount" parameterType="int" resultType="Baby">
+	<select id="getBabyAccount" parameterType="String" resultType="Baby">
 		select account from baby where no = #{babyno}
 	</select>	
 	
@@ -25,7 +25,7 @@
 		birth_time = #{birth_time}, account = #{account}, profile = #{profile}
 	</update>
 	
-	<delete id="deleteBaby" parameterType="int">
+	<delete id="deleteBaby" parameterType="String">
 		delete from baby where no = #{babyno}
 	</delete>
 

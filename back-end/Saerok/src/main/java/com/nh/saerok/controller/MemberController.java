@@ -62,7 +62,7 @@ public class MemberController {
 	}
 	
 	@GetMapping(value="/login/{id}")
-	public void login(@PathVariable String id){
-		service.login(id);
+	public Member login(@PathVariable String id){
+		return service.login(id);
 	}
 }

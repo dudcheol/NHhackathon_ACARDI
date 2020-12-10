@@ -42,12 +42,12 @@ public class BabyController {
 	}
 	
 	@GetMapping("{babyno}")
-	public ResponseEntity<Baby> getBaby(@PathVariable("Babyno") int babyno) throws Exception {
+	public ResponseEntity<Baby> getBaby(@PathVariable("babyno") String babyno) throws Exception {
 		return new ResponseEntity<Baby>(babyService.getBaby(babyno), HttpStatus.OK);
 	}
 	
 	@PostMapping("{babyno}")
-	public ResponseEntity<String> getBabyAccount(@PathVariable("Babyno") int babyno) throws Exception {
+	public ResponseEntity<String> getBabyAccount(@PathVariable("babyno") String babyno) throws Exception {
 		return new ResponseEntity<String>(babyService.getBabyAccount(babyno), HttpStatus.OK);
 	}
 	
@@ -58,7 +58,7 @@ public class BabyController {
 	}
 	
 	@DeleteMapping("{babyno}")
-	public ResponseEntity<String> deleteBaby(@PathVariable("Babyno") int babyno) throws Exception {
+	public ResponseEntity<String> deleteBaby(@PathVariable("babyno") String babyno) throws Exception {
 		babyService.deleteBaby(babyno);
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}

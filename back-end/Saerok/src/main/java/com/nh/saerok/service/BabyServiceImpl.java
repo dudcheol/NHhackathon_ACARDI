@@ -19,12 +19,12 @@ public class BabyServiceImpl implements BabyService {
 	}
 
 	@Override
-	public Baby getBaby(int babyno) {
+	public Baby getBaby(String babyno) {
 		return babyDao.getBaby(babyno);
 	}
 
 	@Override
-	public String getBabyAccount(int babyno) {
+	public String getBabyAccount(String babyno) {
 		return babyDao.getBabyAccount(babyno);
 	}
 	
@@ -39,7 +39,7 @@ public class BabyServiceImpl implements BabyService {
 	}
 
 	@Override
-	public void deleteBaby(int babyno) {
+	public void deleteBaby(String babyno) {
 		babyDao.deleteBaby(babyno);
 	}
 
