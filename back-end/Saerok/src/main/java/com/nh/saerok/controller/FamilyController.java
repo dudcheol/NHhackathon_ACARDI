@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nh.saerok.dto.Family;
@@ -31,7 +32,7 @@ public class FamilyController {
 	}
 	
 	@PostMapping(value="/family")
-	public Map create(Family f) {
+	public Map create(@RequestBody Family f) {
 		familyservice.createFamily(f);
 		Map<String, String> map = new HashMap();
 		map.put("result", "추가성공");
@@ -49,7 +50,7 @@ public class FamilyController {
 //	}
 	
 	@PutMapping(value="/family")
-	public Map updateFamily(Family f) {
+	public Map updateFamily(@RequestBody Family f) {
 		familyservice.updateFamily(f);
 		
 		Map<String, String> map = new HashMap();

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nh.saerok.dto.Member;
@@ -32,7 +33,8 @@ public class MemberController {
 	}
 	
 	@PostMapping(value="/member")
-	public Map create(Member m) {
+	public Map create(@RequestBody Member m) {
+		System.out.println(m.getId());
 		service.create(m);
 		Map<String, String> map = new HashMap();
 		map.put("result", "추가성공");
@@ -40,8 +42,8 @@ public class MemberController {
 	}
 	
 	// 삭제 -> status를 업데이트
-	@PutMapping(value="/member/delete")
-	public Map delete(String id) {
+	@PutMapping(value="/member/delete/{id}")
+	public Map delete(@PathVariable String id) {
 		service.delete(id);
 		
 		Map<String, String> map = new HashMap();
@@ -50,11 +52,17 @@ public class MemberController {
 	}
 	
 	@PutMapping(value="/member")
-	public Map update(Member m) {
+	public Map update(@RequestBody Member m) {
 		service.update(m);
 		
 		Map<String, String> map = new HashMap();
 		map.put("result", "수정성공");
 		return map;
+	}
+	
+	// Get:http://localhost/customers/1,   한 개 데이터
+	@GetMapping(value="/login/{id}")
+	public void login(@PathVariable String id){
+		service.login(id);
 	}
 }

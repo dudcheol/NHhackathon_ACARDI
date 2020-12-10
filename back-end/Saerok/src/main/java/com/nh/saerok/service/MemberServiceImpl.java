@@ -39,8 +39,8 @@ public class MemberServiceImpl implements MemberService{
 		return dao.update(m);
 	}
 	
-	public void login(Member m) {
-		dao.login(m);
+	public void login(String id) {
+		dao.login(id);
 	}
 
 }

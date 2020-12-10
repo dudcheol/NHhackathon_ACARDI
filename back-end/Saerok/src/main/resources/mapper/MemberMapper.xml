@@ -16,7 +16,7 @@ namespace: 작업하는 테이블들을 구분해주기 위한 식별자 -->
   </select>
   
   <insert id="create" parameterType="Member">
-  	insert into member (id, password, name) values (#{id}, #{password}, #{name}) 
+  	insert into member (id, password, name, phone_number, email) values (#{id}, #{password}, #{name}, #{phone_number}, #{email}) 
   </insert>
   
   <update id="update" parameterType="Member">
@@ -29,7 +29,7 @@ namespace: 작업하는 테이블들을 구분해주기 위한 식별자 -->
   	update member set status = if(status = 0, 1, 0) where id = #{id}
   </delete>
 
-  <select id="login" parameterType="Member">
-    select * from member where id = #{id} and password = #password
+  <select id="login" parameterType="String">
+    select * from member where id = #{id} and password = #{password}
   </select>
 </mapper>
