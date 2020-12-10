@@ -6,7 +6,7 @@ import com.nh.saerok.dto.Diary;
 
 public interface DiaryDao {
 
-	List<Diary> selectAll();
+	List<Diary> selectAll(String baby_no);
 
 	Diary selectOne(String baby_no, String num);
 

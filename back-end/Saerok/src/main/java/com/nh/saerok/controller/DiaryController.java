@@ -24,12 +24,12 @@ public class DiaryController {
 	@Autowired
 	DiaryService service;
 	
-	@GetMapping(value="/diary")
-	public List<Diary> selectAll() {
+	@GetMapping(value="/diary/{baby_no}")
+	public List<Diary> selectAll(@PathVariable String baby_no) {
 		System.out.println("REQUEST!! selectAll");
 		List<Diary> list = null;
 		try {
-			list = service.selectAll();
+			list = service.selectAll(baby_no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

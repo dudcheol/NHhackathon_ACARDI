@@ -6,7 +6,7 @@ import com.nh.saerok.dto.Diary;
 
 public interface DiaryService {
 
-	List<Diary> selectAll();
+	List<Diary> selectAll(String baby_no);
 	Diary selectOne(String baby_no, String num);
 	int insert(Diary diary);
 	int delete(String num);
