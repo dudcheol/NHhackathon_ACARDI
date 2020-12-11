@@ -27,6 +27,18 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register,
+    children: [
+      {
+        path: 'profile',
+        name: 'RegisterProfile',
+        component: () => import('@/components/register/RegisterProfile.vue'),
+      },
+      {
+        path: 'account',
+        name: 'RegisterAccount',
+        component: () => import('@/components/register/RegisterAccount.vue'),
+      },
+    ],
   },
   {
     path: '/main',
