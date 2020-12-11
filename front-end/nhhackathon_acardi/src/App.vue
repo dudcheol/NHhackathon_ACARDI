@@ -14,6 +14,17 @@
 #app {
   min-height: 100vh;
 }
+
+.footer-fixed {
+  position: fixed;
+  height: 58px;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-spacing {
+  padding-bottom: 58px;
+}
 /* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
