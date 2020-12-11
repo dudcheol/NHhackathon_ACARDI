@@ -1,7 +1,9 @@
 <template>
   <div>
-    <router-link to="/register/profile">profile</router-link> |
-    <router-link to="/register/account">account</router-link>
+    <div class="temp">
+      <router-link to="/register/profile">profile</router-link> |
+      <router-link to="/register/account">account</router-link>
+    </div>
     <router-view></router-view>
     <div class="footer-fixed">
       <b-button block squared style="height:58px" variant="warning"
@@ -15,4 +17,9 @@
 export default {};
 </script>
 
-<style scoped></style>
+<style scoped>
+.temp {
+  padding-top: 20px;
+  position: fixed;
+}
+</style>
