@@ -10,13 +10,17 @@
             </h1>
           </b-row>
           <b-row class="mt-2">
-            <b-input></b-input>
+            <b-input v-model="memberInfo.id" placeholder="ID"></b-input>
           </b-row>
           <b-row class="mt-2">
-            <b-input></b-input>
+            <b-input
+              type="password"
+              v-model="memberInfo.password"
+              placeholder="비밀번호"
+            ></b-input>
           </b-row>
           <b-row class="mt-4">
-            <b-button block pill>로그인</b-button>
+            <b-button block pill @click="login">로그인</b-button>
           </b-row>
           <b-row class="mt-2">
             <b-button block pill>회원가입</b-button>
@@ -27,7 +31,43 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import axios from 'axios';
+export default {
+  data() {
+    return {
+      memberInfo: {
+        id: '',
+        password: '',
+      },
+    };
+  },
+  methods: {
+    login() {
+      axios
+        .post('http://localhost/login', this.memberInfo)
+        .then((response) => {
+          console.log(response.data.message);
+          if (response.data.message == '로그인 성공') {
+            this.$session.start();
+            this.$session.set('userID', this.memberInfo.id);
+            alert(this.$session.get('userID') + '님, 환영합니다!');
+            this.$router.push({
+              path: '/main',
+            });
+            window.location.reload('/main');
+          } else {
+            alert('ID와 비밀번호를 다시 입력해주세요.');
+            (this.memberInfo.id = ''), (this.memberInfo.password = '');
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+};
+</script>
 
 <style scoped>
 #container {
