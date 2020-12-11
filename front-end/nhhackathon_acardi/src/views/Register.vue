@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
     <h1>register</h1>
     <b-button @click="test" variant="dark">계좌 얻어오기 Test</b-button>
     <p>{{ this.name }}</p>
@@ -23,6 +24,12 @@
 
     <router-link to="/register/profile">profile</router-link> |
     <router-link to="/register/account">account</router-link>
+=======
+    <div class="temp">
+      <router-link to="/register/profile">profile</router-link> |
+      <router-link to="/register/account">account</router-link>
+    </div>
+>>>>>>> main
     <router-view></router-view>
     <div class="footer-fixed">
       <b-button block squared style="height:58px" variant="warning"
@@ -234,4 +241,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.temp {
+  padding-top: 20px;
+  position: fixed;
+}
+</style>

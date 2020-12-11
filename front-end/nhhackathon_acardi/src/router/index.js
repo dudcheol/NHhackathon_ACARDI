@@ -4,6 +4,7 @@ import Main from '../views/Main.vue';
 import Join from '../views/Join.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
+import Write from '../views/Write.vue';
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,23 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/write',
+    name: 'Write',
+    component: Write,
+    children: [
+      {
+        path: 'account',
+        name: 'WriteAccount',
+        component: () => import('@/components/write/WriteAccount.vue'),
+      },
+      {
+        path: 'content',
+        name: 'WriteContent',
+        component: () => import('@/components/write/WriteContent.vue'),
+      },
+    ],
   },
   {
     path: '/register',

@@ -13,6 +13,7 @@
     "bootstrap-vue": "^2.20.1",
     "core-js": "^3.6.5",
     "session": "^0.1.0",
+    "v-calendar": "^2.1.1",
     "vue": "^2.6.12",
     "vue-router": "^3.2.0",
     "vue-session": "^1.0.0",

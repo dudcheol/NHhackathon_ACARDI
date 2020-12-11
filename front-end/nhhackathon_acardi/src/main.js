@@ -4,14 +4,16 @@ import router from './router';
 import store from './store';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import VueSession from 'vue-session';
+import VCalendar from 'v-calendar';
 
 var sessionOptions = {
-  persist: true
-}
+  persist: true,
+};
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VueSession, sessionOptions);
+Vue.use(VCalendar);
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
