@@ -6,8 +6,8 @@
           <b-avatar></b-avatar>
         </b-col>
         <b-col cols="8" class="p-0">
-          <h5>babyname 최고야❤️</h5>
-          <h6>d-day area</h6>
+          <h5>{{ this.baby.nickname }} 최고야❤️</h5>
+          <h6>d-day area {{ this.baby.birthday }}</h6>
         </b-col>
         <b-col cols="2" class="ml-auto text-right p-0">
           <b-button pill><b-icon icon="pencil"></b-icon></b-button>
@@ -18,7 +18,40 @@
 </template>
 
 <script>
-export default {};
+import axios from 'axios';
+export default {
+  props: ['babyno'],
+  data() {
+    return {
+      baby: {
+        no: '',
+        nickname: '',
+        birthday: '',
+        gender: '',
+        birth_time: '',
+        account: '',
+        profile: '',
+      },
+    };
+  },
+  created() {
+    //console.log(this.$route.query.baby_no);
+    console.log(this.babyno);
+    axios
+      .get('http://localhost/baby/' + this.babyno)
+      .then((response) => {
+        console.log(response);
+        this.baby = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  updated() {
+    //console.log(this.babyno);
+    //console.log(this.$route.query.baby_no);
+  },
+};
 </script>
 
 <style scoped></style>
