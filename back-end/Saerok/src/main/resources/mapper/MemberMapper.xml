@@ -16,7 +16,7 @@ namespace: 작업하는 테이블들을 구분해주기 위한 식별자 -->
   </select>
   
   <insert id="create" parameterType="Member">
-  	insert into member (id, password, name, phone_number, email) values (#{id}, #{password}, #{name}, #{phone_number}, #{email}) 
+  	insert into member (id, password, name, phone_number, email, fin_account) values (#{id}, #{password}, #{name}, #{phone_number}, #{email}, #{fin_account}) 
   </insert>
   
   <update id="update" parameterType="Member">

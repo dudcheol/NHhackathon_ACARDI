@@ -40,7 +40,7 @@ public class MemberController {
 	
 	@PostMapping(value="/member")
 	public Map create(@RequestBody Member m) {
-		System.out.println(m.getId());
+		System.out.println(m.getPhone_number());
 		service.create(m);
 		Map<String, String> map = new HashMap();
 		map.put("result", "추가성공");
@@ -70,10 +70,12 @@ public class MemberController {
 	public ResponseEntity<Map<String, Object>> login(@RequestBody Member m, HttpSession session){
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
+		System.out.println(m.getId() + " " + m.getPassword());
 		try {
 			Member loginUser = service.login(m.getId(), m.getPassword());
 		
 			if(loginUser != null) {
+				resultMap.put("message", "로그인 성공");
 				resultMap.put("id", loginUser.getId());
 				resultMap.put("password", loginUser.getPassword());
 				status = HttpStatus.ACCEPTED;
