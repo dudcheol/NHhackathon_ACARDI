@@ -88,6 +88,7 @@
 
 <script>
 import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -107,6 +108,8 @@ export default {
         fin_account: '',
         status: 1,
       },
+      AccessToken: '',
+      Iscd: '',
     };
   },
   methods: {
@@ -139,12 +142,11 @@ export default {
               ApiNm: 'InquireDepositorAccountNumber',
               Tsymd: today,
               Trtm: '112428',
-              Iscd: '000541',
+              Iscd: '기관코드',
               FintechApsno: '001',
               ApiSvcCd: 'DrawingTransferA',
               IsTuno: tuno,
-              AccessToken:
-                '7420ed5362e94397e8c59d66a5e4b17548c1ace502f5ca404ba2ed446d63aa38',
+              AccessToken: '인증키',
             },
             Bncd: '011',
             Acno: this.account,
@@ -166,12 +168,11 @@ export default {
                   ApiNm: 'OpenFinAccountDirect',
                   Tsymd: today,
                   Trtm: '112428',
-                  Iscd: '000541',
+                  Iscd: '기관코드',
                   FintechApsno: '001',
                   ApiSvcCd: 'DrawingTransferA',
                   IsTuno: tuno,
-                  AccessToken:
-                    '7420ed5362e94397e8c59d66a5e4b17548c1ace502f5ca404ba2ed446d63aa38',
+                  AccessToken: '인증키',
                 },
                 DrtrRgyn: 'Y',
                 BrdtBrno: birth,
@@ -189,12 +190,11 @@ export default {
                         ApiNm: 'CheckOpenFinAccountDirect',
                         Tsymd: today,
                         Trtm: '112428',
-                        Iscd: '000541',
+                        Iscd: '기관코드',
                         FintechApsno: '001',
                         ApiSvcCd: 'DrawingTransferA',
                         IsTuno: tuno,
-                        AccessToken:
-                          '7420ed5362e94397e8c59d66a5e4b17548c1ace502f5ca404ba2ed446d63aa38',
+                        AccessToken: '인증키',
                       },
                       Rgno: response.data.Rgno,
                       BrdtBrno: birth,
