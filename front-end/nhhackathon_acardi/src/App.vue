@@ -25,6 +25,11 @@
 .footer-spacing {
   padding-bottom: 58px;
 }
+
+#nav {
+  position: fixed;
+  z-index: 1000;
+}
 /* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
