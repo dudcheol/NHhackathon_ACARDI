@@ -15,8 +15,8 @@ public class DiaryDaoImpl implements DiaryDao {
 	DiaryMapper mapper;
 	
 	@Override
-	public List<Diary> selectAll() {
-		return mapper.selectAll();
+	public List<Diary> selectAll(String baby_no) {
+		return mapper.selectAll(baby_no);
 	}
 
 	@Override

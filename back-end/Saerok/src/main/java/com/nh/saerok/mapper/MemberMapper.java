@@ -14,5 +14,5 @@ public interface MemberMapper {
 	public int delete(String id);
 	public int update(Member m);
 	
-	public Member login(String id);
+	public Member login(String id, String password);
 }

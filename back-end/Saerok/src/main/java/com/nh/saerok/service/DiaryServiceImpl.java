@@ -15,8 +15,8 @@ public class DiaryServiceImpl implements DiaryService {
 	DiaryDao dao;
 	
 	@Override
-	public List<Diary> selectAll() {
-		return dao.selectAll();
+	public List<Diary> selectAll(String baby_no) {
+		return dao.selectAll(baby_no);
 	}
 
 	@Override

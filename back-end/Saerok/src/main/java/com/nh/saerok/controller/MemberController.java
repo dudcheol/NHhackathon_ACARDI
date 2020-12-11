@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +48,7 @@ public class MemberController {
 	}
 	
 	// 삭제 -> status를 업데이트
-	@DeleteMapping(value="/member/{id}")
+	@PutMapping(value="/member/delete/{id}")
 	public Map delete(@PathVariable String id) {
 		service.delete(id);
 		
@@ -62,9 +65,26 @@ public class MemberController {
 		map.put("result", "수정성공");
 		return map;
 	}
-	
-	@GetMapping(value="/login/{id}")
-	public Member login(@PathVariable String id){
-		return service.login(id);
+
+	@PostMapping(value="/login") // Member로 수정
+	public ResponseEntity<Map<String, Object>> login(@RequestBody Member m, HttpSession session){
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		try {
+			Member loginUser = service.login(m.getId(), m.getPassword());
+		
+			if(loginUser != null) {
+				resultMap.put("id", loginUser.getId());
+				resultMap.put("password", loginUser.getPassword());
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", "로그인 실패");
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 }

@@ -3,8 +3,8 @@
 
 <mapper namespace="com.nh.saerok.mapper.DiaryMapper">
 
-	<select id="selectAll" resultType="Diary">
-		select * from diary order by registered_at
+	<select id="selectAll" parameterType="java.lang.String" resultType="Diary">
+		select * from diary where baby_no = #{baby_no} order by registered_at
 	</select>
 
 	<select id="selectOne" parameterType="java.lang.String"
