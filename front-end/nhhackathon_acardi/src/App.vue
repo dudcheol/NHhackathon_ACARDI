@@ -4,7 +4,8 @@
       <router-link to="/main">Main</router-link> |
       <router-link to="/login">Login</router-link> |
       <router-link to="/join">Join</router-link> |
-      <router-link to="/register">Register</router-link>
+      <router-link to="/register">Register</router-link> |
+      <router-link to="/write">Write</router-link>
     </div>
     <router-view />
   </div>
