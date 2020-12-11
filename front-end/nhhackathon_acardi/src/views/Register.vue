@@ -38,6 +38,8 @@ export default {
   data() {
     return {
       form: {
+        // 1. Header : Header
+        // 2.
         Header: {
           // store에서 필요한 값들은 얻어와야 할 듯. (Iscd, AccessToken)
           // 날짜도 자동으로 바뀌게 해줘야 함.
@@ -47,7 +49,7 @@ export default {
           Iscd: '000536',
           FintechApsno: '001',
           ApiSvcCd: 'DrawingTransferA',
-          IsTuno: '202012100000000017', // 누를때마다 계속 +1 해줘야함. 랜덤 생성해도 될 듯.
+          IsTuno: '123456789', //시간 + 고유값.
           AccessToken:
             'f97844c4b63e36f17d0d67c8bd9761768f50a38dc14c3fef4c7b812e427f0d59',
         },
@@ -96,7 +98,7 @@ export default {
           Iscd: '000536',
           FintechApsno: '001',
           ApiSvcCd: 'DrawingTransferA',
-          IsTuno: '202012110000000021',
+          IsTuno: '202012110000000060',
           AccessToken:
             'f97844c4b63e36f17d0d67c8bd9761768f50a38dc14c3fef4c7b812e427f0d59',
         },
@@ -110,7 +112,7 @@ export default {
           Iscd: '000536',
           FintechApsno: '001',
           ApiSvcCd: 'DrawingTransferA',
-          IsTuno: '202012110000000032',
+          IsTuno: '202012110000000100',
           AccessToken:
             'f97844c4b63e36f17d0d67c8bd9761768f50a38dc14c3fef4c7b812e427f0d59',
         },
@@ -127,7 +129,7 @@ export default {
           Iscd: '000536',
           FintechApsno: '001',
           ApiSvcCd: 'DrawingTransferA',
-          IsTuno: '202012110000000033',
+          IsTuno: '202012110000000101',
           AccessToken:
             'f97844c4b63e36f17d0d67c8bd9761768f50a38dc14c3fef4c7b812e427f0d59',
         },
@@ -161,7 +163,15 @@ export default {
           console.log(response);
           //여기서 받아오는 Rgno를 저장해두어야 함.
           this.pinCheck.Rgno = response.data.Rgno;
-          console.log(response.data.Rgno);
+          CheckPinAccount(
+            this.pinCheck,
+            (response) => {
+              console.log(response);
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
         },
         (error) => {
           console.log(error);
