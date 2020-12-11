@@ -112,6 +112,10 @@ export default {
       Iscd: '',
     };
   },
+  mounted() {
+    this.AccessToken = this.$store.state.AccessToken;
+    this.Iscd = this.$store.state.Iscd;
+  },
   methods: {
     onContext(ctx) {
       this.formatted = ctx.selectedFormatted;
@@ -126,14 +130,15 @@ export default {
     },
     makeFin() {
       var date = new Date();
-      var year = String(date.getFullYear());
-      var month = String(date.getMonth() + 1);
-      var day = String(date.getDate());
-      var today = year + month + day;
+      var today =
+        String(date.getFullYear()) +
+        String(date.getMonth() + 1) +
+        String(date.getDate());
       console.log(today);
       var tuno = Math.floor(Math.random() * 99999999999999999999);
       console.log(tuno);
       console.log(this.account);
+      console.log(this.Iscd, this.AccessToken);
       axios
         .post(
           'https://developers.nonghyup.com/InquireDepositorAccountNumber.nh',
@@ -142,11 +147,11 @@ export default {
               ApiNm: 'InquireDepositorAccountNumber',
               Tsymd: today,
               Trtm: '112428',
-              Iscd: '기관코드',
+              Iscd: this.Iscd,
               FintechApsno: '001',
               ApiSvcCd: 'DrawingTransferA',
               IsTuno: tuno,
-              AccessToken: '인증키',
+              AccessToken: this.AccessToken,
             },
             Bncd: '011',
             Acno: this.account,
@@ -168,11 +173,11 @@ export default {
                   ApiNm: 'OpenFinAccountDirect',
                   Tsymd: today,
                   Trtm: '112428',
-                  Iscd: '기관코드',
+                  Iscd: this.Iscd,
                   FintechApsno: '001',
                   ApiSvcCd: 'DrawingTransferA',
                   IsTuno: tuno,
-                  AccessToken: '인증키',
+                  AccessToken: this.AccessToken,
                 },
                 DrtrRgyn: 'Y',
                 BrdtBrno: birth,
@@ -190,11 +195,11 @@ export default {
                         ApiNm: 'CheckOpenFinAccountDirect',
                         Tsymd: today,
                         Trtm: '112428',
-                        Iscd: '기관코드',
+                        Iscd: this.Iscd,
                         FintechApsno: '001',
                         ApiSvcCd: 'DrawingTransferA',
                         IsTuno: tuno,
-                        AccessToken: '인증키',
+                        AccessToken: this.AccessToken,
                       },
                       Rgno: response.data.Rgno,
                       BrdtBrno: birth,
