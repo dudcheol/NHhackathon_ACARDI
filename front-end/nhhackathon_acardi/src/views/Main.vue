@@ -28,7 +28,7 @@
         >List</router-link
       >
       |
-      <router-view></router-view>
+      <router-view :babyno="babyno"></router-view>
     </div>
     <Profile
       ref="Profile"
@@ -43,6 +43,7 @@
 import Header from '@/components/main/Header.vue';
 import Profile from '@/components/main/Profile.vue';
 import axios from 'axios';
+// import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'Main',
