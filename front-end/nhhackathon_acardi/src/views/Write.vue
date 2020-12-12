@@ -128,7 +128,6 @@ export default {
           this.$router.push({
             path: '/main',
           });
-          window.location.reload('/main');
         })
         .catch((error) => {
           console.log(error);

@@ -85,8 +85,8 @@ export default {
       console.log('babyno - ' + this.babyno);
       // 서버에 년,달에 해당하는 다이어리 요청 response받으면 attributes clear 후 push
       axios
-        // .get(`http://localhost/diary/${this.babyno}/${date.year}/${date.month}`)
-        .get(`http://localhost/diary/1/${date.year}/${date.month}`)
+        .get(`http://localhost/diary/${this.babyno}/${date.year}/${date.month}`)
+        // .get(`http://localhost/diary/1/${date.year}/${date.month}`)
         .then((response) => {
           console.log(response.data);
           this.updateAttributes(response.data);
