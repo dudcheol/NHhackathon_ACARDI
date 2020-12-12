@@ -7,7 +7,16 @@
 		select * from diary where baby_no = #{baby_no} order by registered_at
 	</select>
 	
-		<select id="selectByDate" parameterType="java.lang.String" resultType="Diary">
+	<select id="maxId" resultType="String">
+		select max(no) from diary
+	</select>
+
+	<insert id="savePhoto" parameterType="Photo">
+		insert into photo (diary_no, save_path, upload_name, save_name)
+		values (#{diary_no}, #{save_path}, #{upload_name}, #{save_name})
+	</insert>
+	
+	<select id="selectByDate" parameterType="java.lang.String" resultType="Diary">
 		select * from diary where baby_no = #{baby_no} and registered_at like concat(#{year}, '-', #{month}, '%') order by registered_at
 	</select>
 
