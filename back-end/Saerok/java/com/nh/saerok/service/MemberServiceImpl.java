@@ -42,14 +42,4 @@ public class MemberServiceImpl implements MemberService{
 	public Member login(String id, String password) {
 		return dao.login(id, password);
 	}
-
-	@Override
-	public int savePhoto(Photo photo) {
-		return dao.savePhoto(photo);
-	}
-
-	@Override
-	public String maxId() {
-		return dao.maxId();
-	}
 }
