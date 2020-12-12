@@ -4,6 +4,7 @@ import Main from '../views/Main.vue';
 import Join from '../views/Join.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
+import RegisterFam from '../views/RegisterFam.vue';
 import Write from '../views/Write.vue';
 import Detail from '../views/Detail.vue';
 import Profile from '../components/main/Profile.vue';
@@ -69,6 +70,11 @@ const routes = [
         component: () => import('@/components/register/RegisterAccount.vue'),
       },
     ],
+  },
+  {
+    path: '/registerFam',
+    name: 'RegisterFam',
+    component: RegisterFam,
   },
   {
     path: '/main',

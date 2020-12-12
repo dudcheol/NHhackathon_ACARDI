@@ -14,6 +14,11 @@
       <ul>
         <li @click="registerBaby">아이 추가하기</li>
       </ul>
+
+      <!-- 가족 추가-->
+      <ul>
+        <li @click="registerFamily">가족 추가하기</li>
+      </ul>
     </b-sidebar>
     <Header
       class="header-fixed"
@@ -79,6 +84,12 @@ export default {
     registerBaby() {
       this.$router.push({
         path: '/register',
+      });
+    },
+    registerFamily() {
+      this.$router.push({
+        name: 'RegisterFam',
+        params: { babyno: this.babyno },
       });
     },
   },
