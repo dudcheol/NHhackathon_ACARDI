@@ -3,6 +3,7 @@ package com.nh.saerok.dao;
 import java.util.List;
 
 import com.nh.saerok.dto.Baby;
+import com.nh.saerok.dto.Photo;
 
 public interface BabyDao {
 

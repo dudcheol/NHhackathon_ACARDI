@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nh.saerok.dto.Baby;
+import com.nh.saerok.dto.Photo;
 import com.nh.saerok.service.BabyService;
 
 @MapperScan(basePackages = { "com.nh.saerok.mapper" })

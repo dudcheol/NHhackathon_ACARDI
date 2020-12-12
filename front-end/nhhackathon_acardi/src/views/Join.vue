@@ -110,11 +110,16 @@ export default {
       },
       AccessToken: '',
       Iscd: '',
+
+      // 링크를 통해 가입하는 경우
+      linkNo: '',
     };
   },
   // 쿼리 얻어오는 구문.
-  created() {},
-
+  created() {
+    this.linkNo = this.$route.query.babyno;
+    console.log(this.linkNo);
+  },
   mounted() {
     this.AccessToken = this.$store.state.AccessToken;
     this.Iscd = this.$store.state.Iscd;
@@ -237,6 +242,23 @@ export default {
             alert('새록새록 육아통장에 오신 것을 환영합니다!');
             this.$session.start();
             this.$session.set('userID', this.memberInfo.id);
+            if (this.linkNo.length > 0) {
+              console.log('linkTest');
+              var family = {
+                member_id: this.memberInfo.id,
+                baby_no: this.linkNo,
+                relation: '', // 가입할 때는 비워둠.
+              };
+              console.log(family);
+              axios
+                .post('http://localhost/family', family)
+                .then((response) => {
+                  console.log(response);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            }
             this.$router.push({
               path: '/main',
             });

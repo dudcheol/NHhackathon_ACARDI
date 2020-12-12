@@ -8,17 +8,22 @@ import com.nh.saerok.dto.Photo;
 public interface DiaryService {
 
 	List<Diary> selectAll(String baby_no);
+	
 	Diary selectOne(String baby_no, String num);
 	
-	// 사진 업로드
-	int savePhoto(Photo photo);
-	
-	//
 	int insert(Diary diary);
 	
 	int delete(String num);
+	
 	int update(Diary diary);
-	String maxId();
+	
 	List<Diary> selectByDate(String baby_no, String year, String month);
+	
+	String maxId();
+	
+	// 사진 업로드
+	int savePhoto(Photo photo);
 
+	List<Photo> selectPhotos(String diary_no);
+	
 }

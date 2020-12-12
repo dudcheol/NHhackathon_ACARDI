@@ -6,8 +6,13 @@
           <b-avatar></b-avatar>
         </b-col>
         <b-col cols="8" class="p-0">
-          <h5>{{ this.baby.nickname }} 최고야❤️</h5>
-          <h6>우리가 만난지 {{ this.dday }}일</h6>
+          <h5>
+            <strong>{{ baby.nickname }}</strong> 최고야❤️
+          </h5>
+          <h6>
+            우리가 만난지 <strong>{{ dday }}</strong
+            >일
+          </h6>
         </b-col>
         <b-col cols="2" class="ml-auto text-right p-0">
           <b-button pill
@@ -22,35 +27,18 @@
 <script>
 import axios from 'axios';
 export default {
-  props: ['babyno'],
+  props: ['baby'],
   data() {
     return {
-      baby: {
-        no: '',
-        nickname: '',
-        birthday: '',
-        gender: '',
-        birth_time: '',
-        account: '',
-        profile: '',
-      },
       dday: '',
     };
   },
-  created() {
-    this.babyno = this.$route.params.no;
-
-    axios
-      .get('http://localhost/baby/' + this.babyno)
-      .then((response) => {
-        console.log(response);
-        this.baby = response.data;
-        this.dday = this.calDay(this.baby.birthday);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  watch: {
+    baby: function(val) {
+      this.dday = this.calDay(val.birthday);
+    },
   },
+  created() {},
   methods: {
     setValue(val) {
       //console.log('profile: ' + this.babyno + val);

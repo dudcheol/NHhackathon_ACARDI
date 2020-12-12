@@ -54,4 +54,9 @@ public class DiaryServiceImpl implements DiaryService {
 		return dao.selectByDate(baby_no, year, month);
 	}
 
+	@Override
+	public List<Photo> selectPhotos(String diary_no) {
+		return dao.selectPhotos(diary_no);
+	}
+
 }

@@ -56,4 +56,9 @@ public class DiaryDaoImpl implements DiaryDao {
 		return mapper.selectByDate(baby_no, year, month);
 	}
 
+	@Override
+	public List<Photo> selectPhotos(String diary_no) {
+		return mapper.selectPhotos(diary_no);
+	}
+
 }

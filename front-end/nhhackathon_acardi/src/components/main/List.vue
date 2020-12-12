@@ -17,6 +17,9 @@
 <script>
 import axios from 'axios';
 export default {
+  props: {
+    babyno: String,
+  },
   data() {
     return {
       items: [],
@@ -24,6 +27,7 @@ export default {
   },
   created() {
     console.log(this.$route.params.babyno);
+    console.log(this.babyno);
     axios
       .get('http://localhost/diary/' + this.$route.params.babyno)
       .then((response) => {

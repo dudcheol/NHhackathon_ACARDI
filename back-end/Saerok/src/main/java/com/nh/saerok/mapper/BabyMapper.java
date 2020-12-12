@@ -3,6 +3,7 @@ package com.nh.saerok.mapper;
 import java.util.List;
 
 import com.nh.saerok.dto.Baby;
+import com.nh.saerok.dto.Photo;
 
 public interface BabyMapper {
 
@@ -13,5 +14,6 @@ public interface BabyMapper {
 	int modifyBaby(Baby baby);
 	int deleteBaby(String babyno);
 	int getBabyNoByAccount(String account);
+	Photo getPhoto(String baby_no);
 	
 }

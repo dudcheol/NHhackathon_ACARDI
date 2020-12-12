@@ -1,5 +1,7 @@
 package com.nh.saerok.dto;
 
+import java.util.List;
+
 public class Diary {
 	
 	private String no;

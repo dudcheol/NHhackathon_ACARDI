@@ -19,11 +19,6 @@ public class Baby {
 		this.account = account;
 		this.profile = profile;
 	}
-	
-	public Baby(String no, String nickname) {
-		this.no = no;
-		this.nickname = nickname;
-	}
 
 	public String getNo() {
 		return no;

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.nh.saerok.dao.BabyDao;
 import com.nh.saerok.dto.Baby;
+import com.nh.saerok.dto.Photo;
 
 @Service
 public class BabyServiceImpl implements BabyService {
@@ -27,6 +28,11 @@ public class BabyServiceImpl implements BabyService {
 	public String getBabyAccount(String babyno) {
 		return babyDao.getBabyAccount(babyno);
 	}
+	
+	@Override
+	public List<Baby> listBaby(String id) {
+		return babyDao.listBaby(id);
+	}
 
 	@Override
 	public int modifyBaby(Baby baby) {
@@ -36,11 +42,6 @@ public class BabyServiceImpl implements BabyService {
 	@Override
 	public int deleteBaby(String babyno) {
 		return babyDao.deleteBaby(babyno);
-	}
-
-	@Override
-	public List<Baby> listBaby(String id) {
-		return babyDao.listBaby(id);
 	}
 
 }

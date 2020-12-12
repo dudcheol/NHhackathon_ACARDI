@@ -21,4 +21,6 @@ public interface DiaryMapper {
 	String maxId();
 
 	List<Diary> selectByDate(String baby_no, String year, String month);
+
+	List<Photo> selectPhotos(String diary_no);
 }

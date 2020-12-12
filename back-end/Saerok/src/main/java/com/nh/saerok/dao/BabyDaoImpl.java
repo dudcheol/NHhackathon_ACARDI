@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nh.saerok.dto.Baby;
+import com.nh.saerok.dto.Photo;
 import com.nh.saerok.mapper.BabyMapper;
 
 @Repository
