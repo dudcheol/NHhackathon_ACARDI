@@ -20,7 +20,7 @@
       style="height:56px"
       @open-sidebar="openSidebar"
     ></Header>
-    <div style="padding-top:73px;padding-bottom:110px">
+    <div style="padding-top:73px;padding-bottom:117px">
       <router-link to="/main/calendar">Calendar</router-link> |
       <router-link
         :to="{ name: 'List', params: { babyno: this.babyno } }"
@@ -105,6 +105,7 @@ export default {
   position: fixed;
   bottom: 0;
   width: 100%;
+  z-index: 999;
 }
 ul {
   list-style: none;
