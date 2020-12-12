@@ -11,6 +11,9 @@
       <ul v-for="baby in babyList" :key="baby">
         <li @click="getBaby(baby.no)">{{ baby.nickname }}</li>
       </ul>
+      <ul>
+        <li @click="registerBaby">아이 추가하기</li>
+      </ul>
     </b-sidebar>
     <Header
       class="header-fixed"
@@ -19,10 +22,20 @@
     ></Header>
     <div style="padding-top:73px;padding-bottom:110px">
       <router-link to="/main/calendar">Calendar</router-link> |
-      <router-link to="/main/list">List</router-link> |
+      <router-link
+        :to="{ name: 'List', params: { babyno: this.babyno } }"
+        ref="List"
+        >List</router-link
+      >
+      |
       <router-view></router-view>
     </div>
-    <Profile class="profile-fixed" style="" :babyno="babyno"></Profile>
+    <Profile
+      ref="Profile"
+      class="profile-fixed"
+      style=""
+      babyno="babyno"
+    ></Profile>
   </div>
 </template>
 
@@ -32,17 +45,21 @@ import Profile from '@/components/main/Profile.vue';
 import axios from 'axios';
 
 export default {
+  name: 'Main',
+  props: ['params'],
   components: { Header, Profile },
   data() {
     return {
       isSidebarOpen: false,
       babyList: [],
       babyno: '',
+      diaryList: [],
     };
   },
   created() {
     var id = this.$session.get('userID');
-    console.log(id);
+    this.babyno = this.$route.params.no;
+    console.log(this.babyno);
     axios
       .get('http://localhost/baby/list/' + id)
       .then((response) => {
@@ -52,8 +69,6 @@ export default {
       .catch((error) => {
         console.log(error);
       });
-    console.log(this.$route.query.baby_no);
-    this.babyno = this.$route.query.baby_no;
   },
   methods: {
     openSidebar() {
@@ -65,14 +80,15 @@ export default {
       this.isSidebarOpen = false;
     },
     getBaby(no) {
-      console.log(no);
       this.babyno = no;
-      this.$router.push({
-        path: '/main',
-        query: { baby_no: no },
-      });
+      console.log(this.babyno);
+      this.$refs.Profile.setValue(this.babyno);
       this.isSidebarOpen = false;
-      window.location.reload('/main?baby_no=' + no);
+    },
+    registerBaby() {
+      this.$router.push({
+        path: '/register',
+      });
     },
   },
 };

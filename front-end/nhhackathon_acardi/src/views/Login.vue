@@ -52,10 +52,19 @@ export default {
             this.$session.start();
             this.$session.set('userID', this.memberInfo.id);
             alert(this.$session.get('userID') + '님, 환영합니다!');
-            this.$router.push({
-              path: '/main',
-            });
-            window.location.reload('/main');
+            axios
+              .get('http://localhost/baby/list/' + this.memberInfo.id)
+              .then((response) => {
+                console.log(response);
+                console.log(response.data[0].no);
+                this.$router.push({
+                  name: 'Main',
+                  params: { no: response.data[0].no },
+                });
+              })
+              .catch((error) => {
+                console.log(error);
+              });
           } else {
             alert('ID와 비밀번호를 다시 입력해주세요.');
             (this.memberInfo.id = ''), (this.memberInfo.password = '');
