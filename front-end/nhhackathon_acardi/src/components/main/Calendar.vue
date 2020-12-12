@@ -18,7 +18,7 @@
               v-for="attr in attributes"
               :key="attr.key"
               class="text-xs leading-tight rounded-sm font-size p-1 m-0"
-              @click="onClickDate(attr)"
+              @click="onClickDate(attr.customData)"
             >
               <b-row>
                 <b-col class="p-0 m-0"
@@ -75,14 +75,18 @@ export default {
   methods: {
     onClickDate(attr) {
       console.log(attr);
+      this.$router.push({
+        name: 'Detail',
+        params: attr,
+      });
     },
     updatePage(date) {
       console.log('updated - ' + date.year + '.' + date.month);
       console.log('babyno - ' + this.babyno);
       // 서버에 년,달에 해당하는 다이어리 요청 response받으면 attributes clear 후 push
       axios
-        .get(`http://localhost/diary/${this.babyno}/${date.year}/${date.month}`)
-        // .get(`http://localhost/diary/1/${date.year}/${date.month}`)
+        // .get(`http://localhost/diary/${this.babyno}/${date.year}/${date.month}`)
+        .get(`http://localhost/diary/1/${date.year}/${date.month}`)
         .then((response) => {
           console.log(response.data);
           this.updateAttributes(response.data);
@@ -106,6 +110,7 @@ export default {
             member_id: d.member_id,
             no: d.no,
             imgsrc: d.imgsrc,
+            date: d.registered_at,
           },
           dates: new Date(d.registered_at),
         }); //baby_no, content, cost, member_id, no, registered_at, title
