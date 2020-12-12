@@ -26,10 +26,20 @@ public class DiaryController {
 	
 	@GetMapping(value="/diary/{baby_no}")
 	public List<Diary> selectAll(@PathVariable String baby_no) {
-		System.out.println("REQUEST!! selectAll");
 		List<Diary> list = null;
 		try {
 			list = service.selectAll(baby_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	@GetMapping(value="/diary/{baby_no}/{year}/{month}")
+	public List<Diary> selectByDate(@PathVariable String baby_no, @PathVariable String year, @PathVariable String month) {
+		List<Diary> list = null;
+		try {
+			list = service.selectByDate(baby_no, year, month);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

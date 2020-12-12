@@ -33,11 +33,17 @@ export default {
     return {
       body: {},
       todayDiary: '',
+      AccessToken: '',
+      Iscd: '',
     };
   },
   created() {
     this.body = this.$route.params;
     console.log(this.body);
+  },
+  mounted() {
+    this.AccessToken = this.$store.state.AccessToken;
+    this.Iscd = this.$store.state.Iscd;
   },
   methods: {
     finish() {
@@ -54,17 +60,15 @@ export default {
             ApiNm: 'DrawingTransfer',
             Tsymd: today,
             Trtm: '112428',
-            Iscd: '000536',
+            Iscd: this.Iscd,
             FintechApsno: '001',
             ApiSvcCd: 'DrawingTransferA',
             IsTuno: tuno,
-            AccessToken:
-              'f97844c4b63e36f17d0d67c8bd9761768f50a38dc14c3fef4c7b812e427f0d59',
+            AccessToken: this.AccessToken,
           },
           FinAcno: this.$route.params.pinAccount,
           Tram: this.body.sum,
-          DractOtlt: '테스트',
-          MractOtlt: '테스트',
+          MractOtlt: '새록새록',
         },
         (response) => {
           console.log(response);
@@ -74,12 +78,11 @@ export default {
                 ApiNm: 'ReceivedTransferAccountNumber',
                 Tsymd: today,
                 Trtm: '112428',
-                Iscd: '000536',
+                Iscd: this.Iscd,
                 FintechApsno: '001',
                 ApiSvcCd: 'DrawingTransferA',
                 IsTuno: tuno2,
-                AccessToken:
-                  'f97844c4b63e36f17d0d67c8bd9761768f50a38dc14c3fef4c7b812e427f0d59',
+                AccessToken: this.AccessToken,
               },
               Bncd: '011',
               Acno: this.body.babyAccount,

@@ -11,7 +11,7 @@
         <b-button @click="addFive">+5만</b-button>
         <b-button @click="addTen">+10만</b-button>
         <b-button @click="addHundred">+100만</b-button>
-        <b-button>잔액</b-button>
+        <b-button @click="allMoney">잔액</b-button>
       </b-button-group>
       <b-input
         type="text"
@@ -64,6 +64,9 @@ export default {
     },
     addHundred() {
       this.body.sum += 1000000;
+    },
+    allMoney() {
+      this.body.sum = this.money;
     },
     signin() {
       if (this.body.sum > this.money) {

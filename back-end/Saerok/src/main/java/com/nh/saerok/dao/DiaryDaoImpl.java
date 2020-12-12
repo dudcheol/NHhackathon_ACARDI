@@ -40,4 +40,9 @@ public class DiaryDaoImpl implements DiaryDao {
 		return mapper.update(diary);
 	}
 
+	@Override
+	public List<Diary> selectByDate(String baby_no, String year, String month) {
+		return mapper.selectByDate(baby_no, year, month);
+	}
+
 }

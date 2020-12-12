@@ -10,7 +10,9 @@
           <h6>d-day area {{ this.baby.birthday }}</h6>
         </b-col>
         <b-col cols="2" class="ml-auto text-right p-0">
-          <b-button pill><b-icon icon="pencil"></b-icon></b-button>
+          <b-button pill
+            ><b-icon icon="pencil" @click="onClick"></b-icon
+          ></b-button>
         </b-col>
       </b-row>
     </b-card>
@@ -50,6 +52,12 @@ export default {
   updated() {
     //console.log(this.babyno);
     //console.log(this.$route.query.baby_no);
+  },
+  methods: {
+    onClick() {
+      console.log(this.babyno);
+      this.$router.push({ name: 'Write', params: { babyno: this.baby.no } });
+    },
   },
 };
 </script>
