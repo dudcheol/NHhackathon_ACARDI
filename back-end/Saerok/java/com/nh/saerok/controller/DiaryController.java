@@ -53,6 +53,17 @@ public class DiaryController {
 		return list;
 	}
 	
+	@GetMapping(value="/diary/photo/{diary_no}")
+	public List<Photo> selectPhotos(@PathVariable String diary_no) {
+		List<Photo> list = null;
+		try {
+			list = service.selectPhotos(diary_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	@GetMapping(value="/diary/{baby_no}/{year}/{month}")
 	public List<Diary> selectByDate(@PathVariable String baby_no, @PathVariable String year, @PathVariable String month) {
 		List<Diary> list = null;
