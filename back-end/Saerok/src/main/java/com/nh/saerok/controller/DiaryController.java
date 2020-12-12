@@ -133,7 +133,7 @@ public class DiaryController {
 						photo.setUpload_name(fileName);
 						photo.setSave_name(saveFileName);
 		
-						File file = new File(saveFolder + "\\"+ fileName);
+						File file = new File(saveFolder + "\\"+ saveFileName);
 		
 						multipartFiles[i].transferTo(file);
 					}
