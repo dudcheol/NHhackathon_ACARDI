@@ -22,6 +22,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 Vue.config.productionTip = false;
 
+
+window.Kakao.init('7b9314f4f254e9d9634e8c638bcc81ea');
+
 new Vue({
   router,
   store,

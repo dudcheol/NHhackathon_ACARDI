@@ -112,6 +112,9 @@ export default {
       Iscd: '',
     };
   },
+  // 쿼리 얻어오는 구문.
+  created() {},
+
   mounted() {
     this.AccessToken = this.$store.state.AccessToken;
     this.Iscd = this.$store.state.Iscd;
