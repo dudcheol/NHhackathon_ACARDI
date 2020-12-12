@@ -10,7 +10,9 @@
           <h6>우리가 만난지 {{ this.dday }}일</h6>
         </b-col>
         <b-col cols="2" class="ml-auto text-right p-0">
-          <b-button pill><b-icon icon="pencil"></b-icon></b-button>
+          <b-button pill
+            ><b-icon icon="pencil" @click="insertDiary"></b-icon
+          ></b-button>
         </b-col>
       </b-row>
     </b-card>
@@ -37,6 +39,7 @@ export default {
   },
   created() {
     this.babyno = this.$route.params.no;
+
     axios
       .get('http://localhost/baby/' + this.babyno)
       .then((response) => {
@@ -52,7 +55,7 @@ export default {
     setValue(val) {
       //console.log('profile: ' + this.babyno + val);
       this.babyno = val;
-      console.log(this.babyno);
+
       axios
         .get('http://localhost/baby/' + this.babyno)
         .then((response) => {
@@ -69,6 +72,13 @@ export default {
       var now = new Date();
       var gap = now.getTime() - day.getTime();
       return Math.floor(gap / (1000 * 60 * 60 * 24));
+    },
+    insertDiary() {
+      console.log(this.baby.no);
+      this.$router.push({
+        name: 'Write',
+        params: { babyno: this.baby.no },
+      });
     },
   },
 };
