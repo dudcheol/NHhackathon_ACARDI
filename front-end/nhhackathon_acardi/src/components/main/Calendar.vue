@@ -7,7 +7,6 @@
       :attributes="attributes"
       is-expanded
       trim-weeks
-      v-model="date"
       @update:from-page="updatePage"
     >
       <template v-slot:day-content="{ day, attributes }">
@@ -19,7 +18,6 @@
               v-for="attr in attributes"
               :key="attr.key"
               class="text-xs leading-tight rounded-sm font-size p-1 m-0"
-              :class="attr.customData.class"
               @click="onClickDate(attr)"
             >
               <b-row>
@@ -34,7 +32,7 @@
                   <b-img
                     rounded
                     fluid
-                    src="https://contents.sixshop.com/thumbnails/uploadedFiles/27688/default/image_1579233003051_1000.png"
+                    :src="attr.customData.imgsrc"
                     style="max-height:50px"
                   ></b-img>
                   <!-- <div
@@ -58,92 +56,19 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 
 export default {
+  props: {
+    babyno: String,
+  },
   data() {
-    const month = new Date().getMonth();
-    const year = new Date().getFullYear();
-
     return {
       date: new Date(),
       masks: {
         weekdays: 'WWW',
       },
-      attributes: [
-        {
-          key: 1,
-          customData: {
-            title: '테스트',
-            class: 'text-black',
-          },
-          dates: new Date(year, month, 1),
-        },
-        {
-          key: 2,
-          customData: {
-            title: '테스트용',
-            class: ' text-black',
-          },
-          dates: new Date(year, month, 2),
-        },
-        {
-          key: 3,
-          customData: {
-            title: '테',
-            class: ' text-black',
-          },
-          dates: new Date(year, month, 5),
-        },
-        {
-          key: 4,
-          customData: {
-            title: '테스트용이다',
-            class: ' text-black',
-          },
-          dates: new Date(year, month, 5),
-        },
-        {
-          key: 4,
-          customData: {
-            title: '테스트용이다',
-            class: ' text-black',
-          },
-          dates: new Date(year, month, 7),
-        },
-        {
-          key: 5,
-          customData: {
-            title: '테스트용이다',
-            class: ' text-black',
-          },
-          dates: new Date(year, month, 11),
-        },
-        // {
-        //   key: 6,
-        //   customData: {
-        //     title: 'Cookout with friends.',
-        //     class: ' text-black',
-        //   },
-        //   dates: { months: 5, ordinalWeekdays: { 2: 1 } },
-        // },
-        {
-          key: 7,
-          customData: {
-            title: '테스트용이다',
-            class: ' text-black',
-          },
-          dates: new Date(year, month, 22),
-        },
-        {
-          key: 8,
-          customData: {
-            title: '테스트용이다',
-            class: ' text-black',
-          },
-          dates: new Date(year, month, 25),
-        },
-      ],
+      attributes: [{ title: 'asdf' }],
     };
   },
   created() {},
@@ -153,19 +78,40 @@ export default {
     },
     updatePage(date) {
       console.log('updated - ' + date.year + '.' + date.month);
+      console.log('babyno - ' + this.babyno);
       // 서버에 년,달에 해당하는 다이어리 요청 response받으면 attributes clear 후 push
-      // axios.get(url,params)
-      // .then(res => {
-      //   console.log(res)
-      // })
-      // .catch(err => {
-      //   console.error(err);
-      // })
+      axios
+        .get(`http://localhost/diary/${this.babyno}/${date.year}/${date.month}`)
+        // .get(`http://localhost/diary/1/${date.year}/${date.month}`)
+        .then((response) => {
+          console.log(response.data);
+          this.updateAttributes(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    updateAttributes(diary) {
-      console.log(diary);
-      this.attributes = [];
+    updateAttributes(diaries) {
+      console.log(diaries);
       // diary 순회해서 push
+      var tmp = [];
+      for (let index = 0; index < diaries.length; index++) {
+        const d = diaries[index];
+        tmp.push({
+          key: index,
+          customData: {
+            title: d.title,
+            content: d.content,
+            cost: d.cost,
+            member_id: d.member_id,
+            no: d.no,
+            imgsrc: d.imgsrc,
+          },
+          dates: new Date(d.registered_at),
+        }); //baby_no, content, cost, member_id, no, registered_at, title
+      }
+      this.attributes = tmp;
+      console.log(this.attributes);
     },
   },
   filters: {},

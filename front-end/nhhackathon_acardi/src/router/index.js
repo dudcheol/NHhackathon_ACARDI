@@ -5,6 +5,7 @@ import Join from '../views/Join.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 import Write from '../views/Write.vue';
+import Detail from '../views/Detail.vue';
 import Profile from '../components/main/Profile.vue';
 
 Vue.use(VueRouter);
@@ -29,6 +30,11 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: Profile,
+  },
+  {
+    path: '/detail',
+    name: 'Detail',
+    component: Detail,
   },
   {
     path: '/write',
