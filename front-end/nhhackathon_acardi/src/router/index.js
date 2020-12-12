@@ -5,6 +5,7 @@ import Join from '../views/Join.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 import Write from '../views/Write.vue';
+import Profile from '../components/main/Profile.vue';
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
   },
   {
     path: '/write',
@@ -62,6 +68,7 @@ const routes = [
     path: '/main',
     name: 'Main',
     component: Main,
+    props: true,
     children: [
       {
         path: 'calendar',
@@ -72,6 +79,7 @@ const routes = [
         path: 'list',
         name: 'List',
         component: () => import('@/components/main/List.vue'),
+        props: true,
       },
     ],
   },

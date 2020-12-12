@@ -1,10 +1,10 @@
-package com.nh.saerok.mapper;
+package com.nh.saerok.dao;
 
 import java.util.List;
 
 import com.nh.saerok.dto.Diary;
 
-public interface DiaryMapper {
+public interface DiaryDao {
 
 	List<Diary> selectAll(String baby_no);
 
@@ -15,5 +15,7 @@ public interface DiaryMapper {
 	int delete(String num);
 
 	int update(Diary diary);
+	
+	List<Diary> selectByDate(String baby_no, String year, String month);
 
 }
