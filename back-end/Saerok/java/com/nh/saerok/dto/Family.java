@@ -2,9 +2,9 @@ package com.nh.saerok.dto;
 
 public class Family {
 	
-	private String memberId;
+	private String member_id;
 	
-	private int babyNo;
+	private int baby_no;
 	
 	private int no;
 	
@@ -12,27 +12,27 @@ public class Family {
 	
 	public Family() {}
 	
-	public Family(String memberId, int babyNo, int no, String relation) {
-		this.memberId = memberId;
-		this.babyNo = babyNo;
+	public Family(String member_id, int baby_no, int no, String relation) {
+		this.member_id = member_id;
+		this.baby_no = baby_no;
 		this.no = no;
 		this.relation = relation;
 	}
 	
 	public String getMemberId() {
-		return memberId;
+		return member_id;
 	}
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setMemberId(String member_id) {
+		this.member_id = member_id;
 	}
 
 	public int getBabyNo() {
-		return babyNo;
+		return baby_no;
 	}
 
-	public void setBabyNo(int babyNo) {
-		this.babyNo = babyNo;
+	public void setBabyNo(int baby_no) {
+		this.baby_no = baby_no;
 	}
 
 	public int getNo() {
