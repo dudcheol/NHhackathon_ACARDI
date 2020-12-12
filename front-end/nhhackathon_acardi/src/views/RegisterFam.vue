@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     onClick() {
-      var url = 'http://localhost:8080/join?babyno=' + 1;
+      var url = 'http://localhost:8080/join?babyno=' + this.babyno;
       console.log(url);
       window.Kakao.Link.createDefaultButton({
         container: '.kakao-link',
