@@ -39,4 +39,9 @@ public class DiaryServiceImpl implements DiaryService {
 		return dao.update(diary);
 	}
 
+	@Override
+	public List<Diary> selectByDate(String baby_no, String year, String month) {
+		return dao.selectByDate(baby_no, year, month);
+	}
+
 }

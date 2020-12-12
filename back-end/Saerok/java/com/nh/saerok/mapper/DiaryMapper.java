@@ -16,4 +16,6 @@ public interface DiaryMapper {
 
 	int update(Diary diary);
 
+	List<Diary> selectByDate(String baby_no, String year, String month);
+
 }

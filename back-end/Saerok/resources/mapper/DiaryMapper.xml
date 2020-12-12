@@ -6,6 +6,10 @@
 	<select id="selectAll" parameterType="java.lang.String" resultType="Diary">
 		select * from diary where baby_no = #{baby_no} order by registered_at
 	</select>
+	
+		<select id="selectByDate" parameterType="java.lang.String" resultType="Diary">
+		select * from diary where baby_no = #{baby_no} and registered_at like concat(#{year}, '-', #{month}, '%') order by registered_at
+	</select>
 
 	<select id="selectOne" parameterType="java.lang.String"
 		resultType="Diary">

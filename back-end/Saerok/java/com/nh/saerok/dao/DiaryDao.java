@@ -15,5 +15,7 @@ public interface DiaryDao {
 	int delete(String num);
 
 	int update(Diary diary);
+	
+	List<Diary> selectByDate(String baby_no, String year, String month);
 
 }
