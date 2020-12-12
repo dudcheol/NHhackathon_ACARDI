@@ -12,10 +12,13 @@ public interface DiaryDao {
 
 	int insert(Diary diary);
 
+	int savePhoto(Photo photo);
+	
 	int delete(String num);
 
 	int update(Diary diary);
 	
 	List<Diary> selectByDate(String baby_no, String year, String month);
-
+	
+	String maxId();
 }
