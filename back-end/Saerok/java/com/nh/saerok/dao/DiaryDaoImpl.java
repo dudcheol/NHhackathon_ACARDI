@@ -44,5 +44,15 @@ public class DiaryDaoImpl implements DiaryDao {
 	public List<Diary> selectByDate(String baby_no, String year, String month) {
 		return mapper.selectByDate(baby_no, year, month);
 	}
+	
+	@Override
+	public int savePhoto(Photo photo) {
+		return mapper.savePhoto(photo);
+	}
+	
+	@Override
+	public String maxId() {
+		return mapper.maxId();
+	}
 
 }
