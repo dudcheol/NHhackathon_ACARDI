@@ -38,11 +38,11 @@ public class BabyController {
 		}
 	}
 
-	@GetMapping("/list/{id}")
-	public List<Baby> listBaby(@PathVariable("id") String id) {
+	@GetMapping
+	public List<Baby> listBaby() {
 		List<Baby> list = null;
 		try {
-			list = babyService.listBaby(id);
+			list = babyService.listBaby();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -29,8 +29,8 @@ public class BabyDaoImpl implements BabyDao {
 	}
 
 	@Override
-	public List<Baby> listBaby(String id) {
-		return babyMapper.listBaby(id);
+	public List<Baby> listBaby() {
+		return babyMapper.listBaby();
 	}
 
 	@Override

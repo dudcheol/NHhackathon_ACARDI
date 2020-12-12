@@ -29,8 +29,8 @@ public class BabyServiceImpl implements BabyService {
 	}
 	
 	@Override
-	public List<Baby> listBaby(String id) {
-		return babyDao.listBaby(id);
+	public List<Baby> listBaby() {
+		return babyDao.listBaby();
 	}
 
 	@Override

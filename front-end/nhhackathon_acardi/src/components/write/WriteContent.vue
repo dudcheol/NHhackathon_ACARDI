@@ -2,10 +2,12 @@
   <div>
     <b-container>
       <b-button><b-icon icon="camera-fill"></b-icon></b-button>
-      <p>{{ this.body.title }}</p>
-      <b-textarea> {{ this.body.title }} </b-textarea>
+      <b-textarea :readonly="true" :placeholder="body.content"> </b-textarea>
       <!-- 제목 표시가 안됨! -->
-      <b-textarea placeholder="내용을 입력하세요"></b-textarea>
+      <b-textarea
+        v-model="todayDiary"
+        placeholder="내용을 입력하세요"
+      ></b-textarea>
     </b-container>
 
     <div class="footer-fixed">
@@ -22,60 +24,72 @@
 </template>
 
 <script>
-import { WithdrawalAccount, DepositAccount } from '@/api/account.js';
+import { WithdrawalAccount, DepositAccount } from '../../api/account.js';
 
 export default {
+  name: 'writecontent',
+
   data() {
     return {
-      // 아이의 계좌 얻어오는 방법을 고민해봐야 함.
-      body: this.$route.params.body,
-      getMoney: {
-        Header: {
-          ApiNm: 'DrawingTransfer',
-          Tsymd: '20201212',
-          Trtm: '112428',
-          Iscd: '000536',
-          FintechApsno: '001',
-          ApiSvcCd: 'DrawingTransferA',
-          IsTuno: '202012110000000100',
-          AccessToken:
-            'f97844c4b63e36f17d0d67c8bd9761768f50a38dc14c3fef4c7b812e427f0d59',
-        },
-        FinAcno: this.body.pinAccount,
-        Tram: '1000000',
-        DractOtlt: '테스트',
-        MractOtlt: '테스트',
-      },
-      sendMoney: {
-        Header: {
-          ApiNm: 'ReceivedTransferAccountNumber',
-          Tsymd: '20201212',
-          Trtm: '112428',
-          Iscd: '000536',
-          FintechApsno: '001',
-          ApiSvcCd: 'DrawingTransferA',
-          IsTuno: '202012110000000101',
-          AccessToken:
-            'f97844c4b63e36f17d0d67c8bd9761768f50a38dc14c3fef4c7b812e427f0d59',
-        },
-        Bncd: '011',
-        Acno: '3020000002233',
-        Tram: this.body.sum,
-        DractOtlt: '테스트',
-        MractOtlt: this.body.content,
-      },
+      body: {},
+      todayDiary: '',
     };
+  },
+  created() {
+    this.body = this.$route.params;
+    console.log(this.body);
   },
   methods: {
     finish() {
+      var date = new Date();
+      var today =
+        String(date.getFullYear()) +
+        String(date.getMonth() + 1) +
+        String(date.getDate());
+      var tuno = Math.floor(Math.random() * 99999999999999999999);
+      var tuno2 = Math.floor(Math.random() * 99999999999999999999);
       WithdrawalAccount(
-        this.getMoney,
+        {
+          Header: {
+            ApiNm: 'DrawingTransfer',
+            Tsymd: today,
+            Trtm: '112428',
+            Iscd: '000536',
+            FintechApsno: '001',
+            ApiSvcCd: 'DrawingTransferA',
+            IsTuno: tuno,
+            AccessToken:
+              'f97844c4b63e36f17d0d67c8bd9761768f50a38dc14c3fef4c7b812e427f0d59',
+          },
+          FinAcno: this.$route.params.pinAccount,
+          Tram: this.body.sum,
+          DractOtlt: '테스트',
+          MractOtlt: '테스트',
+        },
         (response) => {
           console.log(response);
           DepositAccount(
-            this.sendMoney,
+            {
+              Header: {
+                ApiNm: 'ReceivedTransferAccountNumber',
+                Tsymd: today,
+                Trtm: '112428',
+                Iscd: '000536',
+                FintechApsno: '001',
+                ApiSvcCd: 'DrawingTransferA',
+                IsTuno: tuno2,
+                AccessToken:
+                  'f97844c4b63e36f17d0d67c8bd9761768f50a38dc14c3fef4c7b812e427f0d59',
+              },
+              Bncd: '011',
+              Acno: this.body.babyAccount,
+              Tram: this.body.sum,
+              DractOtlt: '테스트',
+              MractOtlt: this.body.content,
+            },
             (response) => {
               console.log(response);
+              this.$emit('finishTransfer', this.todayDiary);
             },
             (error) => {
               console.log(error);
