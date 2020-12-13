@@ -44,4 +44,9 @@ public class BabyServiceImpl implements BabyService {
 		return babyDao.deleteBaby(babyno);
 	}
 
+	@Override
+	public String maxId() {
+		return babyDao.maxId();
+	}
+
 }

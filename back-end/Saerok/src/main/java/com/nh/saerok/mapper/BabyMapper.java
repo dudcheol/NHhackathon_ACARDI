@@ -15,5 +15,6 @@ public interface BabyMapper {
 	int deleteBaby(String babyno);
 	int getBabyNoByAccount(String account);
 	Photo getPhoto(String baby_no);
+	String maxId();
 	
 }

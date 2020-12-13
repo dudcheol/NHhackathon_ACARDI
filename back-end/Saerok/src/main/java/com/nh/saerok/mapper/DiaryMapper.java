@@ -25,4 +25,6 @@ public interface DiaryMapper {
 	List<Photo> selectPhotos(String diary_no);
 
 	int updatePhoto(Photo photo);
+
+	String maxBabyNo();
 }

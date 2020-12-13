@@ -37,8 +37,12 @@ public class BabyController {
 			if(baby.getProfile() != null) {
 				String savePath = 
 						"C:\\ssafy\\NHhackathon_ACARDI\\front-end\\nhhackathon_acardi\\src\\assets\\img";
-				String today = new SimpleDateFormat("yyMMdd").format(new Date()); // 오늘 날짜
-				String saveFolder = savePath + File.separator + today + File.separator + "profile";
+
+				String baby_no = babyService.maxId();// 다이어리 넘버 구하기
+				int maxBaby_no = Integer.parseInt(baby_no) + 1;
+				System.out.println(maxBaby_no);
+				
+				String saveFolder = savePath + File.separator + maxBaby_no + File.separator + "profile";
 				baby.setProfile(saveFolder);
 				
 				System.out.println(baby.getProfile());

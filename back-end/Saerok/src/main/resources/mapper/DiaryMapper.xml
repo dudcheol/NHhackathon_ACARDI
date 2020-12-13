@@ -48,4 +48,8 @@
 		where diary_no = #{diary_no}
 	</select>
 
+	<select id="maxBabyNo" resultType="String">
+		select max(no) from baby
+	</select>
+	
 </mapper>

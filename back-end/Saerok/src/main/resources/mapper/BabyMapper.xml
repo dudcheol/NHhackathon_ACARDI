@@ -33,4 +33,7 @@
 		delete from baby where no = #{babyno}
 	</delete>
 
+	<select id="maxId" resultType="String">
+		select max(no) from baby
+	</select>
 </mapper>
