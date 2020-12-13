@@ -24,7 +24,7 @@ export default {
     };
   },
   created() {
-    this.babyno = this.$route.params.babyno;
+    this.babyno = this.$store.state.babyno;
     console.log(this.babyno);
   },
   methods: {

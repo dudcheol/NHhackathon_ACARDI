@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nh.saerok.mapper.DiaryMapper">
+
+	<select id="selectAll" parameterType="java.lang.String" resultType="Diary">
+		select * from diary where baby_no = #{baby_no} order by registered_at
+	</select>
+	
+	<select id="selectByDate" parameterType="java.lang.String" resultType="Diary">
+		select * from diary where baby_no = #{baby_no} and registered_at like concat(#{year}, '-', #{month}, '%') order by registered_at
+	</select>
+	
+	<select id="selectPhotos" parameterType="java.lang.String" resultType="Photo">
+		select * from photo where diary_no = #{diary_no};
+	</select>
+
+	<select id="selectOne" parameterType="java.lang.String"
+		resultType="Diary">
+		select * from diary where baby_no = #{baby_no} and no = #{num}
+	</select>
+
+	<insert id="insert" parameterType="Diary">
+		INSERT INTO diary VALUES (null, #{title}, #{content}, sysdate(), #{cost},
+		#{baby_no}, #{member_id})
+	</insert>
+
+	<delete id="delete" parameterType="string">
+		delete from diary where no = #{num}
+	</delete>
+
+	<update id="update" parameterType="Diary">
+		UPDATE diary SET CONTENT = #{content} where no = #{no}
+	</update>
+
+	<select id="maxId" resultType="String">
+		select max(no) from diary
+	</select>
+
+	<insert id="savePhoto" parameterType="Photo">
+		insert into photo (diary_no, save_path, upload_name, save_name)
+		values (#{diary_no}, #{save_path}, #{upload_name}, #{save_name})
+	</insert>
+	
+	<select id="fileInfoList" resultType="Photo">
+		select save_path, upload_name, save_name
+		from file_info
+		where diary_no = #{diary_no}
+	</select>
+
+</mapper>

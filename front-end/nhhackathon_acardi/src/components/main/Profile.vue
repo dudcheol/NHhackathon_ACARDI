@@ -7,7 +7,7 @@
         </b-col>
         <b-col cols="8" class="p-0">
           <h5>
-            <strong>{{ baby.nickname }}</strong> 최고야❤️
+            <strong>{{ baby.nickname }}</strong> {{ this.message }}
           </h5>
           <h6>
             우리가 만난지 <strong>{{ dday }}</strong
@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       dday: '',
+      message: '',
     };
   },
   watch: {
@@ -38,7 +39,23 @@ export default {
       this.dday = this.calDay(val.birthday);
     },
   },
-  created() {},
+  created() {
+    var num = Math.floor(Math.random() * 4);
+    switch (num) {
+      case 0:
+        this.message = '최고야❤️';
+        break;
+      case 1:
+        this.message = '멋있어❤️';
+        break;
+      case 2:
+        this.message = '사랑해❤️';
+        break;
+      case 3:
+        this.message = '좋아해❤️';
+        break;
+    }
+  },
   methods: {
     setValue(val) {
       //console.log('profile: ' + this.babyno + val);
