@@ -8,11 +8,16 @@
       bg-variant="white"
     >
       <br />
-      <ul v-for="baby in babyList" :key="baby">
+      <ul v-for="baby in getBabyInfos" :key="baby">
         <li @click="getBaby(baby.no)">{{ baby.nickname }}</li>
       </ul>
       <ul>
         <li @click="registerBaby">아이 추가하기</li>
+      </ul>
+
+      <!-- 가족 추가-->
+      <ul>
+        <li @click="registerFamily">가족 추가하기</li>
       </ul>
     </b-sidebar>
     <Header
@@ -24,18 +29,18 @@
       <router-link to="/main/calendar">Calendar</router-link>
       |
       <router-link
-        :to="{ name: 'List', params: { babyno: this.babyno } }"
+        :to="{ name: 'List', params: { babyno: getBabyNo } }"
         ref="List"
         >List</router-link
       >
       |
-      <router-view :babyno="babyno"></router-view>
+      <router-view :babyno="getBabyNo"></router-view>
     </div>
     <Profile
       ref="Profile"
       class="profile-fixed"
       style=""
-      babyno="babyno"
+      :baby="getBabyInfos[getBabyIdx]"
     ></Profile>
   </div>
 </template>
@@ -43,8 +48,7 @@
 <script>
 import Header from '@/components/main/Header.vue';
 import Profile from '@/components/main/Profile.vue';
-import axios from 'axios';
-// import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'Main',
@@ -53,26 +57,17 @@ export default {
   data() {
     return {
       isSidebarOpen: false,
-      babyList: [],
-      babyno: '',
-      diaryList: [],
     };
+  },
+  computed: {
+    ...mapGetters(['getBabyInfos', 'getBabyNo', 'getBabyIdx']),
   },
   created() {
     var id = this.$session.get('userID');
-    this.babyno = this.$route.params.no;
-    console.log(this.babyno);
-    axios
-      .get('http://localhost/baby/list/' + id)
-      .then((response) => {
-        console.log(response);
-        this.babyList = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.GET_BABYNO(id);
   },
   methods: {
+    ...mapActions(['GET_BABYNO']),
     openSidebar() {
       console.log('open sidebar');
       this.isSidebarOpen = true;
@@ -90,6 +85,12 @@ export default {
     registerBaby() {
       this.$router.push({
         path: '/register',
+      });
+    },
+    registerFamily() {
+      this.$router.push({
+        name: 'RegisterFam',
+        params: { babyno: this.babyno },
       });
     },
   },

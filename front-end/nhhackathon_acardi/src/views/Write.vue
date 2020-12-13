@@ -17,11 +17,13 @@
 <script>
 import axios from 'axios';
 import { SearchAccount } from '@/api/account.js';
+import { mapGetters } from 'vuex';
 export default {
   name: 'write',
   tuno: Math.floor(Math.random() * 99999999999999999999),
   data() {
     return {
+      ...mapGetters(['getBabyNo']),
       body: {
         id: '', //사용할 아이디.
         pinAccount: '', //사용할 핀어카운트.
@@ -96,8 +98,8 @@ export default {
     var id = this.$session.get('userID');
     this.body.id = id;
     // 여기서 핀-어카운트 얻어와야 함.
-    this.body.babyno = this.$route.params.babyno;
-    console.log(this.$route.params.babyno);
+    this.body.babyno = this.$store.state.babyno;
+    console.log(this.$store.state.babyno);
     // 아이 계좌 얻어오는 구문.
   },
   methods: {
@@ -115,7 +117,6 @@ export default {
       this.diary.member_id = this.$session.get('userID');
       this.diary.content = todayDiary;
       // 전송이 완료 되었으면 백에 일기 전달.
-      console.log(this.diary);
       axios
         .post(`http://localhost/diary`, this.diary)
         .then((response) => {
@@ -124,7 +125,6 @@ export default {
           this.$router.push({
             path: '/main',
           });
-          window.location.reload('/main');
         })
         .catch((error) => {
           console.log(error);

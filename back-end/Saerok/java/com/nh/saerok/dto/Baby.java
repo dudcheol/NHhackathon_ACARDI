@@ -21,6 +21,7 @@ public class Baby {
 	}
 	
 	public Baby(String no, String nickname) {
+		super();
 		this.no = no;
 		this.nickname = nickname;
 	}
