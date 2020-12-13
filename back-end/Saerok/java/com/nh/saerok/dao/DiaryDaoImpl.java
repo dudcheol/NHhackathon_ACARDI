@@ -61,4 +61,9 @@ public class DiaryDaoImpl implements DiaryDao {
 		return mapper.selectPhotos(diary_no);
 	}
 
+	@Override
+	public int updatePhoto(Photo photo) {
+		return mapper.updatePhoto(photo);
+	}
+
 }

@@ -59,4 +59,9 @@ public class DiaryServiceImpl implements DiaryService {
 		return dao.selectPhotos(diary_no);
 	}
 
+	@Override
+	public int updatePhoto(Photo photo) {
+		return dao.updatePhoto(photo);
+	}
+
 }
