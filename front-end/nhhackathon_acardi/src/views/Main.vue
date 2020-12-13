@@ -19,6 +19,10 @@
       <ul>
         <li @click="registerFamily">가족 추가하기</li>
       </ul>
+
+      <ul>
+        <h6 class="text-danger" @click="logout">로그아웃</h6>
+      </ul>
     </b-sidebar>
     <Header
       class="header-fixed"
@@ -69,7 +73,7 @@ export default {
     this.$refs.Profile.setValue(this.$store.state.babyno);
   },
   methods: {
-    ...mapActions(['GET_BABYNO']),
+    ...mapActions(['GET_BABYNO', 'RESET_STATE']),
     openSidebar() {
       console.log('open sidebar');
       this.isSidebarOpen = true;
@@ -94,6 +98,12 @@ export default {
       this.$router.push({
         name: 'RegisterFam',
       });
+    },
+    logout() {
+      console.log('logout click');
+      this.$session.set('userID', null);
+      this.RESET_STATE();
+      this.$router.push({ name: 'Login' });
     },
   },
 };
