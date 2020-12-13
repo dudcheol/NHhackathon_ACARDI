@@ -30,14 +30,19 @@
       @open-sidebar="openSidebar"
     ></Header>
     <div style="padding-top:73px;padding-bottom:117px">
-      <router-link to="/main/calendar">Calendar</router-link> |
-      <router-link
-        :to="{ name: 'List', params: { babyno: getBabyNo } }"
-        ref="List"
-        >List</router-link
-      >
-      |
-      <router-view :babyno="getBabyNo"></router-view>
+      <div class="text-right">
+        <b-form-group class="pr-3 pb-1 m-0">
+          <b-form-radio-group
+            v-model="selected"
+            :options="options"
+            buttons
+            button-variant="outline-secondary"
+            size="sm"
+            name="radio-btn-outline"
+          ></b-form-radio-group>
+        </b-form-group>
+      </div>
+      <router-view :attributes="attributes" class="px-3"></router-view>
     </div>
     <Profile
       ref="Profile"
@@ -52,6 +57,7 @@
 import Header from '@/components/main/Header.vue';
 import Profile from '@/components/main/Profile.vue';
 import { mapActions, mapGetters } from 'vuex';
+import axios from 'axios';
 
 export default {
   name: 'Main',
@@ -60,20 +66,59 @@ export default {
   data() {
     return {
       isSidebarOpen: false,
+      selected: '',
+      options: [
+        { text: '캘린더', value: 'Calendar' },
+        { text: '리스트', value: 'List' },
+      ],
+      attributes: [],
     };
   },
   computed: {
-    ...mapGetters(['getBabyInfos', 'getBabyNo', 'getBabyIdx']),
+    ...mapGetters([
+      'getBabyInfos',
+      'getBabyNo',
+      'getBabyIdx',
+      'getMainState',
+      'getCurDate',
+    ]),
+  },
+  watch: {
+    selected: function(val) {
+      console.log(val);
+      this.CHANGE_MAIN_STATE(val);
+      this.$router.push({ name: val });
+    },
+    getCurDate: function(val) {
+      this.monthChange(val);
+    },
+    getBabyNo: function() {
+      this.monthChange(this.getCurDate);
+    },
   },
   created() {
+    console.log('main created - ' + this.getMainState);
+    console.log('cur date - ' + this.getCurDate);
     var id = this.$session.get('userID');
     this.GET_BABYNO(id);
+
+    // this.monthChange(this.getCurDate);
+
+    if (this.getMainState) {
+      this.$router.push({ name: this.getMainState });
+      this.selected = this.getMainState;
+    } else {
+      this.$router.push({ name: 'Calendar' });
+      this.selected = 'Calendar';
+    }
   },
   mounted() {
+    console.log('main mounted');
+    console.log(this.getMainState);
     this.$refs.Profile.setValue(this.$store.state.babyno);
   },
   methods: {
-    ...mapActions(['GET_BABYNO', 'RESET_STATE']),
+    ...mapActions(['GET_BABYNO', 'RESET_STATE', 'CHANGE_MAIN_STATE']),
     openSidebar() {
       console.log('open sidebar');
       this.isSidebarOpen = true;
@@ -104,6 +149,46 @@ export default {
       this.$session.set('userID', null);
       this.RESET_STATE();
       this.$router.push({ name: 'Login' });
+    },
+    monthChange(date) {
+      console.log(date);
+      console.log(
+        `month chagne - date:${date.year}-${date.month} , babyno:${this.getBabyNo}`
+      );
+      axios
+        .get(
+          `http://localhost/diary/${this.getBabyNo}/${date.year}/${date.month}`
+        )
+        .then((response) => {
+          console.log(response.data);
+          this.updateAttributes(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    updateAttributes(diaries) {
+      console.log(diaries);
+      // diary 순회해서 push
+      var tmp = [];
+      for (let index = 0; index < diaries.length; index++) {
+        const d = diaries[index];
+        tmp.push({
+          key: index,
+          customData: {
+            title: d.title,
+            content: d.content,
+            cost: d.cost,
+            member_id: d.member_id,
+            no: d.no,
+            imgsrc: d.imgsrc,
+            date: d.registered_at,
+          },
+          dates: new Date(d.registered_at),
+        }); //baby_no, content, cost, member_id, no, registered_at, title
+      }
+      this.attributes = tmp;
+      console.log(this.attributes);
     },
   },
 };

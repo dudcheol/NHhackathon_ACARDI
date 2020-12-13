@@ -1,50 +1,77 @@
 <template>
   <div>
-    <b-container>
-      <b-list-group>
-        <b-list-group-item
-          v-for="(item, index) in items"
-          :key="index"
-          @click="onClickDate(item)"
-        >
-          {{ item.img }}
-          <h3>{{ item.title }} | {{ item.cost }}원</h3>
-          <p>
-            작성일자 : {{ item.registered_at }} | 작성자 : {{ item.member_id }}
-          </p>
-        </b-list-group-item>
-      </b-list-group>
-    </b-container>
+    <b-list-group>
+      <b-list-group-item
+        v-for="(item, index) in attributes"
+        :key="index"
+        @click="onClickDate(item.customData)"
+        class="pb-0"
+      >
+        <!-- {{ item.customData.imgsrc }}
+        <h3>{{ item.customData.title }} | {{ item.customData.cost }}원</h3>
+        <p>
+          작성일자 : {{ item.customData.date }} | 작성자 :
+          {{ item.customData.member_id }}
+        </p> -->
+        <b-media>
+          <template #aside v-if="item.customData.imgsrc">
+            <b-img
+              rounded
+              blank
+              blank-color="#ccc"
+              width="70"
+              alt="placeholder"
+              :src="item.customData.imgsrc"
+            ></b-img>
+          </template>
+          <template #aside v-else>
+            <b-img
+              rounded
+              blank
+              blank-color="#ccc"
+              width="70"
+              alt="placeholder"
+            ></b-img>
+          </template>
+
+          <b-row>
+            <b-col>
+              <h5 class="mt-0">{{ item.customData.title }}</h5>
+            </b-col>
+            <b-col class="p-0 m-0">
+              <p class="font-sm text-right pr-3">
+                {{ item.customData.date.split(' ')[0] }}
+                <b-badge variant="light"
+                  ><strong>{{ item.customData.cost }}</strong></b-badge
+                >원
+              </p>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col style="color:grey">
+              {{ item.customData.content }}
+            </b-col>
+          </b-row>
+          <b-row class="p-0 m-0">
+            <b-col class="text-right font-sm p-0 m-0">
+              <p>by {{ item.customData.member_id }}</p>
+            </b-col>
+          </b-row>
+        </b-media>
+      </b-list-group-item>
+    </b-list-group>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   props: {
-    babyno: String,
+    attributes: Array,
   },
   data() {
-    return {
-      items: [],
-    };
+    return {};
   },
-  created() {
-    console.log(this.$route.params.babyno);
-    console.log(this.babyno);
-    axios
-      .get('http://localhost/diary/' + this.$route.params.babyno)
-      .then((response) => {
-        console.log(response);
-        this.items = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  },
-  updated() {
-    console.log(this.$route.params.babyno);
-  },
+  created() {},
   methods: {
     onClickDate(attr) {
       attr.date = attr.registered_at;
@@ -58,4 +85,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.font-sm {
+  font-size: 12px;
+}
+</style>

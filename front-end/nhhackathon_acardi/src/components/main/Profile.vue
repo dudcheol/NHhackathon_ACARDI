@@ -1,22 +1,22 @@
 <template>
   <div class="px-2 pb-2">
-    <b-card class="px-2">
+    <b-card class="p-0">
       <b-row align-v="center" class="justify-content-between">
-        <b-col cols="2" class="p-0">
+        <b-col cols="2" class="p-0 text-center">
           <b-avatar></b-avatar>
         </b-col>
         <b-col cols="8" class="p-0">
-          <h5>
+          <h5 class="m-0">
             <strong>{{ baby.nickname }}</strong> {{ this.message }}
           </h5>
-          <h6>
-            우리가 만난지 <strong>{{ this.dday }}</strong
+          <h6 class="m-0">
+            우리가 만난지 <strong>{{ calDay(baby.birthday) }}</strong
             >일
           </h6>
         </b-col>
-        <b-col cols="2" class="ml-auto text-right p-0">
-          <b-button pill
-            ><b-icon icon="pencil" @click="insertDiary"></b-icon
+        <b-col cols="2" class="ml-auto text-center p-0">
+          <b-button variant="outline-success" size="lg" pill
+            ><b-icon icon="pencil-fill" @click="insertDiary"></b-icon
           ></b-button>
         </b-col>
       </b-row>
@@ -25,21 +25,15 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   props: ['baby'],
   data() {
     return {
-      dday: '',
       message: '',
     };
   },
-  watch: {
-    baby: function(val) {
-      this.dday = this.calDay(val.birthday);
-    },
-  },
   created() {
+    console.log(this.baby);
     var num = Math.floor(Math.random() * 4);
     switch (num) {
       case 0:
@@ -57,21 +51,6 @@ export default {
     }
   },
   methods: {
-    setValue(val) {
-      //console.log('profile: ' + this.babyno + val);
-      this.babyno = val;
-
-      axios
-        .get('http://localhost/baby/' + this.babyno)
-        .then((response) => {
-          console.log(response);
-          this.baby = response.data;
-          this.dday = this.calDay(this.baby.birthday);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
     calDay(date) {
       var day = new Date(date);
       var now = new Date();
@@ -81,7 +60,7 @@ export default {
     insertDiary() {
       console.log(this.baby.no);
       this.$router.push({
-        name: 'Write',
+        name: 'WriteAccount',
       });
     },
   },
