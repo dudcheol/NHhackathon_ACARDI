@@ -72,6 +72,15 @@
     </b-container>
     <div class="footer-fixed">
       <b-button
+        v-if="!babyInfo.nickname || !babyInfo.birthday || !babyInfo.birth_time"
+        disabled
+        block
+        squared
+        style="height:58px"
+        >다음</b-button
+      >
+      <b-button
+        v-else
         @click="next"
         block
         squared
@@ -169,17 +178,9 @@ export default {
 
     //////////////////
     next() {
-      if (!this.babyInfo.nickname) {
-        alert('이름을 입력해주세요.');
-      } else if (!this.babyInfo.birthday || !this.babyInfo.birth_time) {
-        alert('생일을 선택해주세요.'); //생일 default값 지정 필요시 수정할 부분
-        // } else if(!this.babyInfo.profile){
-        //   alert('프로필 사진을 선택해주세요.');
-      } else {
-        this.$emit('goAccount');
-        this.images.file = this.files;
-        this.$emit('postPhotos', this.images);
-      }
+      this.$emit('goAccount');
+      this.images.file = this.files;
+      this.$emit('postPhotos', this.images);
     },
     selectPhoto() {
       console.log('프로필 사진 선택');

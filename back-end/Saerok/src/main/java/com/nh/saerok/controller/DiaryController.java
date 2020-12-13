@@ -116,7 +116,7 @@ public class DiaryController {
 							"C:\\ssafy\\NHhackathon_ACARDI\\front-end\\nhhackathon_acardi\\src\\assets\\img";
 					String today = new SimpleDateFormat("yyMMdd").format(new Date()); // 오늘 날짜
 					String saveFolder = null;  // 파일 저장 폴더 (각 날짜별 저장폴더 생성)
-					saveFolder = realPath + File.separator + type;
+					saveFolder = realPath + File.separator + today + File.separator + type;
 					File folder = new File(saveFolder);
 					if(!folder.exists())
 						folder.mkdirs();

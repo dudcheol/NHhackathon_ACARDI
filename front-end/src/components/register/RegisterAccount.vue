@@ -36,12 +36,21 @@
     </b-container>
     <div class="footer-fixed">
       <b-button
+        v-if="!relation || !accountChecked"
+        disabled
+        block
+        squared
+        style="height:58px"
+        >등록</b-button
+      >
+      <b-button
+        v-else
         @click="registerBaby"
         block
         squared
         style="height: 58px"
         variant="warning"
-        >다음</b-button
+        >등록</b-button
       >
     </div>
   </div>

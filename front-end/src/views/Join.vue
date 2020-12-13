@@ -75,6 +75,23 @@
 
     <div class="footer-fixed">
       <b-button
+        v-if="
+          pass != memberInfo.password ||
+            !memberInfo.id ||
+            !memberInfo.password ||
+            !memberInfo.name ||
+            !memberInfo.phone_number ||
+            !memberInfo.email ||
+            !memberInfo.fin_account
+        "
+        disabled
+        block
+        squared
+        style="height:58px"
+        >회원가입</b-button
+      >
+      <b-button
+        v-else
         block
         squared
         style="height:58px"
