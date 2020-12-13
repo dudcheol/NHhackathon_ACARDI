@@ -3,11 +3,13 @@
     <b-card class="p-0">
       <b-row align-v="center" class="justify-content-between">
         <b-col cols="2" class="p-0 text-center">
-          <!-- <b-avatar :v-if="src"></b-avatar> -->
-          <img
-            :src="require(`@/assets/img/${baby.no}/profile/profile.jpg`)"
-            style="width:60px; height:60px; border-radius: 15px; margin-left:20px;"
-          />
+          <b-avatar v-show="imgsrc == false"></b-avatar>
+          <div v-if="imgsrc == true">
+            <img
+              :src="require(`@/assets/img/${baby.no}/profile/profile.jpg`)"
+              style="width:60px; height:60px; border-radius: 15px; margin-left:20px;"
+            />
+          </div>
         </b-col>
         <b-col cols="8" class="p-0">
           <h5 class="m-0">
@@ -35,7 +37,7 @@ export default {
   data() {
     return {
       message: '',
-      imgsrc: '',
+      imgsrc: false,
     };
   },
   created() {
@@ -63,7 +65,13 @@ export default {
         .get('http://localhost/baby/' + this.babyno)
         .then((response) => {
           console.log(response);
-          this.imgsrc = response.data.profile;
+          //this.imgsrc = response.data.profile;
+          if (response.data.profile == '') {
+            console.log('사진 없음!');
+            this.imgsrc = false;
+          } else {
+            this.imgsrc = true;
+          }
           this.baby = response.data;
           this.dday = this.calDay(this.baby.birthday);
         })
