@@ -21,7 +21,8 @@
       @open-sidebar="openSidebar"
     ></Header>
     <div style="padding-top:73px;padding-bottom:117px">
-      <router-link to="/main/calendar">Calendar</router-link> |
+      <router-link to="/main/calendar">Calendar</router-link>
+      |
       <router-link
         :to="{ name: 'List', params: { babyno: this.babyno } }"
         ref="List"

@@ -71,7 +71,6 @@ export default {
       attributes: [{ title: 'asdf' }],
     };
   },
-  created() {},
   methods: {
     onClickDate(attr) {
       console.log(attr);
