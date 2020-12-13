@@ -20,7 +20,6 @@
 import axios from 'axios';
 
 import { SearchAccount } from '@/api/account.js';
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'write',
@@ -28,7 +27,6 @@ export default {
 
   data() {
     return {
-      ...mapGetters(['getBabyNo']),
       body: {
         id: '', //사용할 아이디.
         pinAccount: '', //사용할 핀어카운트.

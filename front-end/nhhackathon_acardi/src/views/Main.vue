@@ -69,11 +69,15 @@ export default {
     var id = this.$session.get('userID');
     this.GET_BABYNO(id);
   },
+  mounted() {
+    this.$refs.Profile.setValue(this.$store.state.babyno);
+  },
   methods: {
     ...mapActions(['GET_BABYNO', 'RESET_STATE']),
     openSidebar() {
       console.log('open sidebar');
       this.isSidebarOpen = true;
+      this.$refs.Profile.setValue(this.getBabyNo); //임시 처리.
     },
     closeSidebar() {
       console.log('close sidebar');
@@ -93,7 +97,6 @@ export default {
     registerFamily() {
       this.$router.push({
         name: 'RegisterFam',
-        params: { babyno: this.babyno },
       });
     },
     logout() {

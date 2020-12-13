@@ -10,7 +10,7 @@
             <strong>{{ baby.nickname }}</strong> {{ this.message }}
           </h5>
           <h6>
-            우리가 만난지 <strong>{{ dday }}</strong
+            우리가 만난지 <strong>{{ this.dday }}</strong
             >일
           </h6>
         </b-col>
@@ -82,7 +82,6 @@ export default {
       console.log(this.baby.no);
       this.$router.push({
         name: 'Write',
-        params: { babyno: this.baby.no },
       });
     },
   },
