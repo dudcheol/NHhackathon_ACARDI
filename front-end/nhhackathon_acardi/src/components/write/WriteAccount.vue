@@ -67,6 +67,20 @@
 
     <div class="footer-fixed">
       <b-button
+        v-if="
+          body.sum <= 0 ||
+            body.sum > money ||
+            !body.content ||
+            body.content.length > 6
+        "
+        disabled
+        block
+        squared
+        style="height:58px"
+        >다음</b-button
+      >
+      <b-button
+        v-else
         block
         squared
         style="height:58px"
@@ -106,17 +120,8 @@ export default {
       this.body.sum = parseInt(this.money);
     },
     signin() {
-      if (this.body.sum > this.money || this.body.sum == 0) {
-        alert('금액을 확인해 주세요!');
-      } else if (
-        this.body.content.length > 6 ||
-        this.body.content.length == 0
-      ) {
-        alert('글자 수를 확인해주세요!');
-      } else {
-        console.log(this.body);
-        this.$emit('update', this.body);
-      }
+      console.log(this.body);
+      this.$emit('update', this.body);
     },
     clickCancel() {
       this.body.sum = 0;

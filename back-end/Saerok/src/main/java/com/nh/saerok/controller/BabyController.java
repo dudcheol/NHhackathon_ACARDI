@@ -1,5 +1,8 @@
 package com.nh.saerok.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.mybatis.spring.annotation.MapperScan;
@@ -30,9 +33,16 @@ public class BabyController {
 	@PostMapping
 	public int addBaby(@RequestBody Baby baby) throws Exception {
 		try {
-			String savePath = 
-					"C:\\ssafy\\NHhackathon_ACARDI\\front-end\\nhhackathon_acardi\\src\\assets\\img\\profile\\";
-			baby.setProfile(savePath);
+			
+			if(baby.getProfile() != null) {
+				String savePath = 
+						"C:\\ssafy\\NHhackathon_ACARDI\\front-end\\nhhackathon_acardi\\src\\assets\\img";
+				String today = new SimpleDateFormat("yyMMdd").format(new Date()); // 오늘 날짜
+				String saveFolder = savePath + File.separator + today + File.separator + "profile";
+				baby.setProfile(saveFolder);
+				
+				System.out.println(baby.getProfile());
+			}
 			return babyService.addBaby(baby);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,6 +1,17 @@
 <template>
   <div>
     <b-list-group>
+      <b-list-group-item class="pb-0">
+        <a
+          href="https://www.nhlife.co.kr/ho/ig/HOIG0001M00.nhl?prodCd=N0000709"
+          target="_blank"
+          v-b-tooltip
+          title="어린이보험"
+          ><img
+            src="@/assets/img/보험배너.png"
+            style="width:100%; height:150px;"
+        /></a>
+      </b-list-group-item>
       <b-list-group-item
         v-for="(item, index) in attributes"
         :key="index"
