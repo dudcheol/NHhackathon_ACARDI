@@ -2,7 +2,11 @@
   <div>
     <b-container>
       <b-list-group>
-        <b-list-group-item v-for="(item, index) in items" :key="index">
+        <b-list-group-item
+          v-for="(item, index) in items"
+          :key="index"
+          @click="onClickDate(item)"
+        >
           {{ item.img }}
           <h3>{{ item.title }} | {{ item.cost }}원</h3>
           <p>
@@ -40,6 +44,16 @@ export default {
   },
   updated() {
     console.log(this.$route.params.babyno);
+  },
+  methods: {
+    onClickDate(attr) {
+      attr.date = attr.registered_at;
+      attr.imgsrc = attr.profile;
+      this.$router.push({
+        name: 'Detail',
+        params: attr,
+      });
+    },
   },
 };
 </script>
