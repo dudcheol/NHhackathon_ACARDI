@@ -6,9 +6,8 @@
           <!-- <b-avatar :v-show="src == ''"></b-avatar> -->
           <img
             :src="require(`@/assets/img/${baby.no}/profile/profile.jpg`)"
-            style="width:60px; height:60px; border-radius: 15px;"
+            style="width:60px; height:60px; border-radius: 15px; margin-left:20px;"
           />
-          {{ `@/assets/img/${baby.no}/profile/profile.jpg` }}
         </b-col>
         <b-col cols="8" class="p-0">
           <h5>
