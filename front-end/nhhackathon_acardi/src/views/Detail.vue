@@ -36,13 +36,20 @@
           <b-card
             :title="diary.title"
             header-tag="header"
-            :img-src="diary.imgsrc"
-            img-alt="Image"
-            img-top
             tag="article"
             style="max-width: 30rem;"
             class="mb-2 mx-auto"
           >
+            <div>
+              <img
+                v-for="p in photo"
+                :key="p"
+                :src="
+                  require(`@/assets/img/${babyno}/diary/${diary.registered_at}/${p.save_name}`)
+                "
+                style="width:120px; height:120px; border-radius: 5px; margin:10px;"
+              />
+            </div>
             <template #header>
               <b-row>
                 <b-col class="text-right"
@@ -88,7 +95,9 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      babyno: '',
       diary: {},
+      photo: [],
     };
   },
   created() {
@@ -98,15 +107,30 @@ export default {
   },
   methods: {
     getDiary(diary) {
+      console.log(this.$store.state.babyno);
+      this.babyno = this.$store.state.babyno;
       axios
         .get(`http://localhost/diary/${this.$store.state.babyno}/${diary.no}`)
         .then((res) => {
           console.log(res.data);
           this.diary = res.data;
+          var year = this.diary.registered_at.substring(2, 4);
+          var month = this.diary.registered_at.substring(5, 7);
+          var day = this.diary.registered_at.substring(8, 10);
+          this.diary.registered_at = year + month + day;
+          console.log(this.diary.registered_at);
+          axios
+            .get(`http://localhost/diary/photo/${diary.no}`)
+            .then((res) => {
+              console.log(res.data);
+              this.photo = res.data;
+            })
+            .catch((err) => {
+              console.error(err);
+            });
         })
         .catch((err) => {
           console.error(err);
-          this.diary = diary;
         });
     },
     remove() {

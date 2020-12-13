@@ -136,6 +136,7 @@ export default {
         });
     },
     onPostPhotos(photos) {
+      if (photos == '') return;
       console.log(photos);
       photos.baby_no = this.body.babyno;
       console.log(photos);
@@ -144,7 +145,6 @@ export default {
       for (var i = 0; i < photos.file.length; i++) {
         frm.append('multipartFiles', photos.file[i].file);
       }
-      console.log(frm);
       axios
         .post(`http://localhost/upload/${photos.baby_no}/${photos.type}`, frm, {
           headers: {
