@@ -75,7 +75,8 @@
         </b-col>
       </b-row>
     </b-container>
-
+    <!-- ||
+            !memberInfo.fin_account -->
     <div class="footer-fixed">
       <b-button
         v-if="
@@ -84,8 +85,7 @@
             !memberInfo.password ||
             !memberInfo.name ||
             !memberInfo.phone_number ||
-            !memberInfo.email ||
-            !memberInfo.fin_account
+            !memberInfo.email
         "
         disabled
         block
@@ -299,7 +299,7 @@ export default {
               this.$router.push({
                 name: 'RegisterProfile',
               });
-              window.location.reload('/main');
+              // window.location.reload('/main');
             }
           } else {
             alert('회원가입에 실패했습니다. 다시 진행해주세요.');

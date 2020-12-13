@@ -26,24 +26,48 @@
         placeholder="내용을 입력하세요"
       ></b-textarea>
     </b-container> -->
-      <div class="image-box">
-        <b-row v-if="!diary.imgsrc" class="pt-3 p-0 m-0">
-          <b-col class="text-center">
-            <b-button variant="info"
-              ><label for="file">
-                <input
-                  type="file"
-                  id="file"
-                  ref="files"
-                  @change="imageUpload"
-                  multiple
-                /><b-icon icon="camera-fill"></b-icon>
-              </label>
-              {{ cameraBtnText }}</b-button
+      <b-jumbotron class="p-3">
+        <div class="image-box" v-show="!uploaded">
+          <b-row v-if="!diary.imgsrc" class="p-0 m-0">
+            <b-col class="text-center">
+              <b-button variant="info"
+                ><label for="file">
+                  <input
+                    type="file"
+                    id="file"
+                    ref="files"
+                    @change="imageUpload"
+                    multiple
+                  /><b-icon icon="camera-fill"></b-icon>
+                </label>
+                {{ cameraBtnText }}</b-button
+              >
+            </b-col>
+          </b-row>
+        </div>
+        <center>
+          <b-row
+            class="file-preview-container"
+            style="overflow:auto; max-height:120px"
+          >
+            <div
+              v-for="(file, index) in files"
+              :key="index"
+              class="file-preview-wrapper"
             >
-          </b-col>
-        </b-row>
-      </div>
+              <div
+                class="file-close-button"
+                @click="fileDeleteButton"
+                :name="file.number"
+              ></div>
+              <img
+                :src="file.preview"
+                style="width:100px; height:100px; border-radius: 15px; margin-left:20px;"
+              />
+            </div>
+          </b-row>
+        </center>
+      </b-jumbotron>
       <b-row align-v="center" class="p-0 m-0">
         <b-col>
           <b-card
@@ -81,22 +105,6 @@
           </b-card>
         </b-col>
       </b-row>
-      <center>
-        <div class="file-preview-container">
-          <div
-            v-for="(file, index) in files"
-            :key="index"
-            class="file-preview-wrapper"
-          >
-            <div
-              class="file-close-button"
-              @click="fileDeleteButton"
-              :name="file.number"
-            ></div>
-            <img :src="file.preview" />
-          </div>
-        </div>
-      </center>
     </b-container>
     <div class="footer-fixed">
       <b-row class="p-0 m-0">
@@ -123,6 +131,7 @@ export default {
   name: 'writecontent',
   data() {
     return {
+      uploaded: false,
       type: '',
       diary: {
         date: '',
@@ -198,6 +207,7 @@ export default {
       }
       this.uploadImageIndex = num + 1; //이미지 index의 마지막 값 + 1 저장
       console.log(this.files);
+      this.uploaded = true;
       // console.log(this.filesPreview);
     },
     imageAddUpload() {
@@ -259,7 +269,9 @@ export default {
     close() {
       this.$router.push({ name: 'Detail', params: this.diary });
     },
-    back() {},
+    back() {
+      this.$router.push({ name: 'WriteAccount' });
+    },
     finish() {
       var date = new Date();
       var today =

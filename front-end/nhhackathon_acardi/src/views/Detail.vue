@@ -12,8 +12,8 @@
           </h2>
         </b-col>
         <b-col align-self="center" class="text-center p-0">
-          <h5 v-if="diary.registered_at">
-            {{ diary.registered_at.split(' ')[0] }}
+          <h5>
+            다이어리
           </h5>
         </b-col>
         <b-col align-self="center" class="text-right p-0 m-0">

@@ -4,10 +4,14 @@
       <b-row align-v="center" class="vh-100">
         <b-col>
           <b-row align-h="center" class="pb-3">
-            <h1>
+            <!-- <h1>
               <b-icon icon="emoji-laughing"></b-icon>
               새록새록 육아통장
-            </h1>
+            </h1> -->
+            <img
+              :src="require(`@/assets/logo.png`)"
+              style="height:100px; border-radius: 15px;"
+            />
           </b-row>
           <b-row class="mt-2">
             <b-input v-model="memberInfo.id" placeholder="ID"></b-input>
@@ -21,10 +25,14 @@
             ></b-input>
           </b-row>
           <b-row class="mt-4">
-            <b-button block pill @click="login">로그인</b-button>
+            <b-button block pill @click="login" variant="warning"
+              >로그인</b-button
+            >
           </b-row>
           <b-row class="mt-2">
-            <b-button block pill @click="join">회원가입</b-button>
+            <b-button block pill @click="join" variant="light"
+              >회원가입</b-button
+            >
           </b-row>
         </b-col>
       </b-row>

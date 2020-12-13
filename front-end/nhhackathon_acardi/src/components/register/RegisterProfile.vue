@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container id="container">
+    <b-container id="container" class="pb-5">
       <!-- 아이 이름 입력 -->
       <h3 class="pt-5 pb-4">
         <strong>{{ username }}</strong>

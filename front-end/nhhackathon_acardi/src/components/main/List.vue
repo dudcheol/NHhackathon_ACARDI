@@ -16,7 +16,6 @@
         v-for="(item, index) in attributes"
         :key="index"
         @click="onClickDate(item.customData)"
-        class="pb-0"
       >
         <!-- {{ item.customData.imgsrc }}
         <h3>{{ item.customData.title }} | {{ item.customData.cost }}원</h3>
@@ -65,8 +64,8 @@
               {{ item.customData.content }}
             </b-col>
           </b-row>
-          <b-row class="p-0 m-0">
-            <b-col class="text-right font-sm p-0 m-0">
+          <b-row>
+            <b-col class="text-right font-sm">
               <p>by {{ item.customData.member_id }}</p>
             </b-col>
           </b-row>

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="temp">
+    <!-- <div class="temp">
       <router-link to="/register/profile">profile</router-link> |
       <router-link to="/register/account">account</router-link>
-    </div>
+    </div> -->
     <register-profile
       v-if="take == 1"
       :babyInfo="babyInfo"

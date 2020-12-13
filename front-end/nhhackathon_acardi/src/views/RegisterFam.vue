@@ -1,22 +1,41 @@
 <template>
   <div>
-    <Image
-      src="https://cdn.pixabay.com/photo/2014/10/28/20/29/baby-507132_960_720.png"
-    />
-    <b-container id="container" fluid="sm" class="px-5">
-      <b-row align-v="center" class="vh-100" style="padding-bottom:58px">
+    <b-container id="container" fluid="sm" style="padding-bottom:58px">
+      <br />
+      <br />
+      <b-row>
+        <b-col>
+          <h2><strong>육아통장</strong>,</h2>
+          <h3><strong>가족</strong>과 함께 꾸며보세요.</h3>
+        </b-col>
+      </b-row>
+      <br />
+      <b-row class="pt-5">
+        <b-col class="text-center">
+          <img
+            src="https://www.flaticon.com/svg/static/icons/svg/3597/3597740.svg"
+            style="height:200px"
+          />
+        </b-col>
+      </b-row>
+      <br />
+      <!-- <b-row align-v="center">
         <b-col class="text-right p-0">
           <h1><b-icon icon="emoji-heart-eyes"></b-icon></h1>
         </b-col>
-        <b-col class="text-center p-0">
+        <b-col cols="2" class="text-center p-0">
           <h1><b-icon icon="link"></b-icon></h1>
         </b-col>
         <b-col class="text-left p-0">
           <h1><b-icon icon="emoji-heart-eyes"></b-icon></h1>
         </b-col>
-      </b-row>
+      </b-row> -->
+      <br />
       <b-row>
-        초대하려면 전송버튼을 클릭하세요!
+        <b-col class="text-center">
+          <h5>아래 <b-badge variant="warning">공유하기</b-badge>를 클릭해서</h5>
+          <h5>새록새록 육아통장을 함께 사용해보세요!</h5>
+        </b-col>
       </b-row>
     </b-container>
     <div class="footer-fixed">

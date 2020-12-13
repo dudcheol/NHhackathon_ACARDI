@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div style="padding-top:20px; position:fixed; z-index:999">
+    <!-- <div style="padding-top:20px; position:fixed; z-index:999">
       <router-link to="/write/account">write-add account</router-link>
       |
       <router-link to="/write/content">write-content</router-link>
-    </div>
+    </div> -->
 
     <div>
       <transition name="fade" mode="out-in">
