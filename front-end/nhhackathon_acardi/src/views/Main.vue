@@ -11,7 +11,7 @@
     >
       <b-list-group>
         <b-list-group-item
-          v-for="(baby, index) in getBabyInfos"
+          v-for="baby in getBabyInfos"
           :key="baby.key"
           button
           @click="getBaby({ no: baby.no, index })"
@@ -105,6 +105,7 @@ export default {
       ],
       attributes: [],
       selectedBabyInfo: {},
+      babyno: '',
     };
   },
   computed: {
@@ -155,7 +156,7 @@ export default {
   mounted() {
     console.log('main mounted');
     console.log(this.getMainState);
-    // this.$refs.Profile.setValue(this.$store.state.babyno);
+    this.$refs.Profile.setValue(this.$store.state.babyno);
   },
   methods: {
     ...mapActions([
@@ -174,9 +175,9 @@ export default {
       this.isSidebarOpen = false;
     },
     getBaby(info) {
-      // this.babyno = no;
-      // console.log(this.babyno);
-      // this.$refs.Profile.setValue(this.babyno);
+      this.babyno = info.no;
+      console.log(info.no);
+      this.$refs.Profile.setValue(this.babyno);
       this.CHANGE_BABY(info);
       this.isSidebarOpen = false;
     },

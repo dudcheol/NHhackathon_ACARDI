@@ -2,15 +2,14 @@
   <div>
     <b-container id="container">
       <!-- 아이 이름 입력 -->
-      <h3 class="pt-5 pb-4">
-        <strong>{{ username }}</strong>
-        님,<br />
+      <h3>
+        {{ username }}님,<br />
         아이에 대해 알려주세요.
       </h3>
 
       <!-- 아이 프로필 사진 -->
-      <h4>프로필 사진</h4>
-      <b-jumbotron class="p-3">
+
+      <b-jumbotron>
         <center>
           <div class="image-box">
             <label for="file">
@@ -22,14 +21,9 @@
                 multiple
               />
 
-              <h1 v-show="!uploaded">
-                <b-icon icon="camera-fill" @click="selectPhoto"></b-icon>
-              </h1>
+              <b-icon icon="camera-fill" @click="selectPhoto"></b-icon>
 
-              <b-row
-                class="file-preview-container"
-                style="overflow:auto; max-height:120px"
-              >
+              <div class="file-preview-container">
                 <div
                   v-for="(file, index) in files"
                   :key="index"
@@ -40,43 +34,39 @@
                     @click="fileDeleteButton"
                     :name="file.number"
                   ></div>
-                  <img
-                    :src="file.preview"
-                    style="width:100px; height:100px; border-radius: 15px; margin-left:20px;"
-                  />
+                  <img :src="file.preview" />
                 </div>
-              </b-row>
+              </div>
             </label>
           </div>
         </center>
       </b-jumbotron>
-      <br />
+
       <!-- 아이 이름 -->
       <h4>이름/별명</h4>
       <b-input v-model="babyInfo.nickname" type="text" placeholder=""></b-input>
-      <br /><br />
+      <br />
 
       <!-- 성별 선택-->
       <h4>성별</h4>
       <b-row>
-        <b-col class="text-center">
+        <b-col>
           <h1 @click="gender('male')">
-            <b-icon :icon="male" variant="primary"></b-icon> 남자
+            <b-icon :icon="male" variant="primary"></b-icon>남자
           </h1>
         </b-col>
-        <b-col class="text-center">
+        <b-col>
           <h1 @click="gender('female')">
-            <b-icon :icon="female" variant="danger"></b-icon> 여자
+            <b-icon :icon="female" variant="danger"></b-icon>여자
           </h1>
         </b-col>
       </b-row>
-      <br /><br />
+      <br />
 
       <!-- 아이 생일/생시 입력 -->
       <h4>생일</h4>
       <b-datepicker v-model="babyInfo.birthday"></b-datepicker>
       <br />
-      <h5>언제 태어났나요?</h5>
       <b-timepicker v-model="babyInfo.birth_time"></b-timepicker>
       <br />
     </b-container>
@@ -109,7 +99,6 @@ export default {
   },
   data() {
     return {
-      uploaded: false,
       username: this.$session.get('userID'),
       male: 'emoji-laughing',
       female: 'emoji-laughing',
@@ -126,7 +115,6 @@ export default {
   methods: {
     imageUpload() {
       console.log(this.$refs.files.files);
-
       // this.files = [...this.files, this.$refs.files.files];
       //하나의 배열로 넣기
       let num = -1;
@@ -152,12 +140,10 @@ export default {
       }
       this.uploadImageIndex = num + 1; //이미지 index의 마지막 값 + 1 저장
       console.log(this.files);
-      this.uploaded = true;
       // console.log(this.filesPreview);
     },
     imageAddUpload() {
       console.log(this.$refs.files.files);
-
       // this.files = [...this.files, this.$refs.files.files];
       //하나의 배열로 넣기c
       let num = -1;
@@ -178,7 +164,6 @@ export default {
         num = i;
       }
       this.uploadImageIndex = this.uploadImageIndex + num + 1;
-
       console.log(this.files);
       // console.log(this.filesPreview);
     },
@@ -187,7 +172,6 @@ export default {
       this.files = this.files.filter((data) => data.number !== Number(name));
       // console.log(this.files);
     },
-
     //////////////////
     next() {
       this.$emit('goAccount');
@@ -218,7 +202,6 @@ export default {
   margin-top: 0px;
   padding-bottom: 0px;
 }
-
 .image-box input[type='file'] {
   position: absolute;
   width: 0;
@@ -227,7 +210,6 @@ export default {
   overflow: hidden;
   border: 0;
 }
-
 .image-box label {
   display: inline-block;
   padding: 0px 0px;
@@ -237,19 +219,16 @@ export default {
   cursor: pointer;
   border-radius: 5px;
 }
-
 .file-preview-wrapper {
   padding: 10px;
   position: center;
 }
-
 .file-preview-wrapper > img {
   position: center;
   width: 400px;
   height: 400px;
   z-index: 10;
 }
-
 /* .file-close-button {
   position: absolute;
   line-height: 18px;
@@ -265,7 +244,6 @@ export default {
   text-align: center;
   cursor: pointer;
 } */
-
 .header-fixed {
   position: fixed;
   top: 0;

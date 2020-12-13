@@ -29,15 +29,11 @@
       <div class="image-box">
         <b-row v-if="!diary.imgsrc" class="pt-3 p-0 m-0">
           <b-col class="text-center">
-            <b-button variant="info"
+            <b-button variant="info" @change="imageUpload"
               ><label for="file">
-                <input
-                  type="file"
-                  id="file"
-                  ref="files"
-                  @change="imageUpload"
-                  multiple
-                /><b-icon icon="camera-fill"></b-icon>
+                <input type="file" id="file" ref="files" multiple /><b-icon
+                  icon="camera-fill"
+                ></b-icon>
               </label>
               {{ cameraBtnText }}</b-button
             >
