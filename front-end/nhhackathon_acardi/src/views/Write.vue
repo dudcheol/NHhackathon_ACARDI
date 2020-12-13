@@ -9,6 +9,7 @@
     <div>
       <router-view
         @finishTransfer="onFinishTransfer"
+        @postPhotos="onPostPhotos"
         @update="onUpdateContent"
         :money="localMoney"
       ></router-view>
@@ -18,13 +19,10 @@
 
 <script>
 import axios from 'axios';
-
 import { SearchAccount } from '@/api/account.js';
-
 export default {
   name: 'write',
   tuno: Math.floor(Math.random() * 99999999999999999999),
-
   data() {
     return {
       body: {
@@ -97,7 +95,6 @@ export default {
       String(date.getMonth() + 1) +
       String(date.getDate());
   },
-
   created() {
     var id = this.$session.get('userID');
     this.body.id = id;
@@ -117,13 +114,13 @@ export default {
         params: { type: 'write', body: this.body },
       });
     },
-
     onFinishTransfer(todayDiary) {
       this.diary.title = this.body.content;
       this.diary.cost = this.body.sum;
       this.diary.baby_no = this.body.babyno;
       this.diary.member_id = this.$session.get('userID');
       this.diary.content = todayDiary;
+      console.log('finish : ' + this.diary);
       // 전송이 완료 되었으면 백에 일기 전달.
       axios
         .post(`http://localhost/diary`, this.diary)
@@ -133,6 +130,34 @@ export default {
           this.$router.push({
             path: '/main',
           });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    onPostPhotos(photos) {
+      console.log(photos);
+      photos.baby_no = this.body.babyno;
+      console.log(photos);
+      // 전송이 완료 되었으면 백에 일기 전달.
+      var frm = new FormData();
+      for (var i = 0; i < photos.file.length; i++) {
+        frm.append('multipartFiles', photos.file[i].file);
+      }
+      console.log(frm);
+      axios
+        .post(`http://localhost/upload/${photos.baby_no}/${photos.type}`, frm, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          console.log('사진 저장 완료');
+          //alert('저장되었습니다.');
+          // this.$router.push({
+          //   path: '/main',
+          // });
         })
         .catch((error) => {
           console.log(error);

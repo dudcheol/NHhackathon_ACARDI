@@ -17,6 +17,7 @@
               type="password"
               v-model="memberInfo.password"
               placeholder="비밀번호"
+              @keyup:enter="login"
             ></b-input>
           </b-row>
           <b-row class="mt-4">

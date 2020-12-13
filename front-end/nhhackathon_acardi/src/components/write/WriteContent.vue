@@ -1,5 +1,5 @@
-<template
-  ><div>
+<template>
+  <div>
     <div class="header-fixed px-3">
       <b-row class="pt-2">
         <b-col align-self="center" class="p-0">
@@ -17,7 +17,7 @@
         </b-col>
       </b-row>
     </div>
-    <b-container style="padding-top:56px;padding-bottom:56px;" class="">
+    <b-container style="padding-top: 56px; padding-bottom: 56px" class="">
       <!-- <b-container>
       <b-button><b-icon icon="camera-fill"></b-icon></b-button>
       <b-textarea :readonly="true" :placeholder="body.content"> </b-textarea>
@@ -26,13 +26,24 @@
         placeholder="내용을 입력하세요"
       ></b-textarea>
     </b-container> -->
-      <b-row v-if="!diary.imgsrc" class="pt-3 p-0 m-0">
-        <b-col class="text-center">
-          <b-button variant="info"
-            ><b-icon icon="camera-fill"></b-icon> {{ cameraBtnText }}</b-button
-          >
-        </b-col>
-      </b-row>
+      <div class="image-box">
+        <b-row v-if="!diary.imgsrc" class="pt-3 p-0 m-0">
+          <b-col class="text-center">
+            <b-button variant="info"
+              ><label for="file">
+                <input
+                  type="file"
+                  id="file"
+                  ref="files"
+                  @change="imageUpload"
+                  multiple
+                /><b-icon icon="camera-fill"></b-icon>
+              </label>
+              {{ cameraBtnText }}</b-button
+            >
+          </b-col>
+        </b-row>
+      </div>
       <b-row align-v="center" class="p-0 m-0">
         <b-col>
           <b-card
@@ -42,7 +53,7 @@
             img-alt="Image"
             img-top
             tag="article"
-            style="max-width: 30rem;"
+            style="max-width: 30rem"
             class="mb-2 mx-auto"
             border-variant="info"
           >
@@ -70,6 +81,22 @@
           </b-card>
         </b-col>
       </b-row>
+      <center>
+        <div class="file-preview-container">
+          <div
+            v-for="(file, index) in files"
+            :key="index"
+            class="file-preview-wrapper"
+          >
+            <div
+              class="file-close-button"
+              @click="fileDeleteButton"
+              :name="file.number"
+            ></div>
+            <img :src="file.preview" />
+          </div>
+        </div>
+      </center>
     </b-container>
     <div class="footer-fixed">
       <b-row class="p-0 m-0">
@@ -77,7 +104,7 @@
           <b-button
             block
             squared
-            style="height:58px"
+            style="height: 58px"
             variant="warning"
             @click="complete"
             >{{ btnText }}</b-button
@@ -100,8 +127,12 @@ export default {
       diary: {
         date: '',
         title: '',
-        imgsrc: '',
         content: '',
+      },
+      images: {
+        baby_no:'',
+        type:'diary',
+        file:[]
       },
       pageName: '다이어리 작성',
       btnText: '작성하기',
@@ -110,6 +141,10 @@ export default {
       todayDiary: '',
       AccessToken: '',
       Iscd: '',
+      ////
+      files: [], //업로드용 파일
+      filesPreview: [],
+      uploadImageIndex: 0, // 이미지 업로드를 위한 변수
     };
   },
   created() {
@@ -135,6 +170,73 @@ export default {
     this.Iscd = this.$store.state.Iscd;
   },
   methods: {
+    imageUpload() {
+      console.log(this.$refs.files.files);
+
+      // this.files = [...this.files, this.$refs.files.files];
+      //하나의 배열로 넣기
+      let num = -1;
+      for (let i = 0; i < this.$refs.files.files.length; i++) {
+        this.files = [
+          ...this.files,
+          //이미지 업로드
+          {
+            //실제 파일
+            file: this.$refs.files.files[i],
+            //이미지 프리뷰
+            preview: URL.createObjectURL(this.$refs.files.files[i]),
+            //삭제및 관리를 위한 number
+            number: i,
+          },
+        ];
+        num = i;
+        //이미지 업로드용 프리뷰
+        // this.filesPreview = [
+        //   ...this.filesPreview,
+        //   { file: URL.createObjectURL(this.$refs.files.files[i]), number: i }
+        // ];
+      }
+      this.uploadImageIndex = num + 1; //이미지 index의 마지막 값 + 1 저장
+      console.log(this.files);
+      // console.log(this.filesPreview);
+    },
+    imageAddUpload() {
+      console.log(this.$refs.files.files);
+
+      // this.files = [...this.files, this.$refs.files.files];
+      //하나의 배열로 넣기c
+      let num = -1;
+      for (let i = 0; i < this.$refs.files.files.length; i++) {
+        console.log(this.uploadImageIndex);
+        this.files = [
+          ...this.files,
+          //이미지 업로드
+          {
+            //실제 파일
+            file: this.$refs.files.files[i],
+            //이미지 프리뷰
+            preview: URL.createObjectURL(this.$refs.files.files[i]),
+            //삭제및 관리를 위한 number
+            number: i + this.uploadImageIndex,
+          },
+        ];
+        num = i;
+      }
+      this.uploadImageIndex = this.uploadImageIndex + num + 1;
+
+      console.log(this.files);
+      // console.log(this.filesPreview);
+    },
+    fileDeleteButton(e) {
+      const name = e.target.getAttribute('name');
+      this.files = this.files.filter((data) => data.number !== Number(name));
+      // console.log(this.files);
+    },
+    imageServer() {
+      // this.$emit('finishTransfer', this.todayDiary);
+    },
+    //////////////////////
+
     complete() {
       if (this.type == 'write') {
         this.finish();
@@ -204,7 +306,11 @@ export default {
             },
             (response) => {
               console.log(response);
+              this.images.file = this.files;
+              console.log(this.images);
+              console.log(this.diary);
               this.$emit('finishTransfer', this.diary.content);
+              this.$emit('postPhotos', this.images);
             },
             (error) => {
               console.log(error);
@@ -221,6 +327,58 @@ export default {
 </script>
 
 <style scoped>
+.image-box {
+  margin-top: 30px;
+  padding-bottom: 20px;
+}
+
+.image-box input[type='file'] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+
+.image-box label {
+  display: inline-block;
+  padding: 5px 5px;
+  color: #fff;
+  vertical-align: middle;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.file-preview-wrapper {
+  padding: 10px;
+  position: center;
+}
+
+.file-preview-wrapper > img {
+  position: center;
+  width: 400px;
+  height: 400px;
+  z-index: 10;
+}
+
+/* .file-close-button {
+  position: absolute;
+  line-height: 18px;
+  z-index: 99;
+  font-size: 18px;
+  right: 5px;
+  top: 10px;
+  color: #fff;
+  font-weight: bold;
+  background-color: #666666;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  cursor: pointer;
+} */
+
 .header-fixed {
   position: fixed;
   top: 0;
