@@ -74,7 +74,7 @@ export default {
       } else if (!this.babyInfo.birthday || !this.babyInfo.birth_time) {
         alert('생일을 선택해주세요.'); //생일 default값 지정 필요시 수정할 부분
         // } else if(!this.babyInfo.profile){
-        // alert('프로필 사진을 선택해주세요.');
+        //   alert('프로필 사진을 선택해주세요.');
       } else {
         this.$emit('goAccount');
       }

@@ -1,7 +1,7 @@
 <template>
   <div class="text-center section">
     <v-calendar
-      ref="calendar"
+      ref="vcalendar"
       class="custom-calendar max-w-full"
       :masks="masks"
       :attributes="attributes"
@@ -56,22 +56,41 @@
 </template>
 
 <script>
-import axios from 'axios';
-
+import { mapGetters, mapActions } from 'vuex';
 export default {
   props: {
-    babyno: String,
+    attributes: Array,
   },
   data() {
     return {
+      cnt: 0,
       date: new Date(),
       masks: {
         weekdays: 'WWW',
       },
-      attributes: [{ title: 'asdf' }],
+      // attributes: [{ title: 'asdf' }],
     };
   },
+  computed: {
+    ...mapGetters(['getCurDate']),
+  },
+  mounted() {
+    console.log(this.$refs.vcalendar);
+    console.log('현재 가리키고 있는 위치 : ' + JSON.stringify(this.getCurDate));
+    console.log(
+      '현재 가리키고 있는 위치 : ' + JSON.stringify(this.$store.state.curDate)
+    );
+    // this.$refs.vcalendar.move({
+    //   month: this.getCurDate.month,
+    //   year: this.getCurDate.year,
+    // });
+    this.$refs.vcalendar.move(this.$store.state.curDate);
+    // console.log(calendar);
+    // this.basic();
+  },
+  created() {},
   methods: {
+    ...mapActions(['CHANGE_CUR_DATE']),
     onClickDate(attr) {
       console.log(attr);
       this.$router.push({
@@ -81,42 +100,12 @@ export default {
     },
     updatePage(date) {
       console.log('updated - ' + date.year + '.' + date.month);
-      console.log('babyno - ' + this.babyno);
-      // 서버에 년,달에 해당하는 다이어리 요청 response받으면 attributes clear 후 push
-      axios
-        .get(`http://localhost/diary/${this.babyno}/${date.year}/${date.month}`)
-        // .get(`http://localhost/diary/1/${date.year}/${date.month}`)
-        .then((response) => {
-          console.log(response.data);
-          this.updateAttributes(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      console.log(this.cnt);
+      if (this.cnt++ != 0) this.CHANGE_CUR_DATE(date);
     },
-    updateAttributes(diaries) {
-      console.log(diaries);
-      // diary 순회해서 push
-      var tmp = [];
-      for (let index = 0; index < diaries.length; index++) {
-        const d = diaries[index];
-        tmp.push({
-          key: index,
-          customData: {
-            title: d.title,
-            content: d.content,
-            cost: d.cost,
-            member_id: d.member_id,
-            no: d.no,
-            imgsrc: d.imgsrc,
-            date: d.registered_at,
-          },
-          dates: new Date(d.registered_at),
-        }); //baby_no, content, cost, member_id, no, registered_at, title
-      }
-      this.attributes = tmp;
-      console.log(this.attributes);
-    },
+    // async basic() {
+    //   await calendar.move(this.getCurDate);
+    // },
   },
   filters: {},
 };

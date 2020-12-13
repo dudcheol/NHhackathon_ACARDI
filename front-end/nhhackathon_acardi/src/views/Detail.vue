@@ -4,7 +4,11 @@
       <b-row class="pt-2">
         <b-col align-self="center" class="p-0">
           <h2>
-            <b-icon icon="arrow-left" class="p-1 m-2"></b-icon>
+            <b-icon
+              icon="arrow-left"
+              class="p-1 m-2"
+              @click="goToMain"
+            ></b-icon>
           </h2>
         </b-col>
         <b-col align-self="center" class="text-center p-0">
@@ -153,6 +157,9 @@ export default {
         name: 'WriteContent',
         params: { type: 'modify', diary: this.diary },
       });
+    },
+    goToMain() {
+      this.$router.push({ name: 'Main' });
     },
   },
 };
