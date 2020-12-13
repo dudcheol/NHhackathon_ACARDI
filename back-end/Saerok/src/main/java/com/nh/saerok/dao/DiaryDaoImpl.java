@@ -66,4 +66,9 @@ public class DiaryDaoImpl implements DiaryDao {
 		return mapper.updatePhoto(photo);
 	}
 
+	@Override
+	public String maxBabyNo() {
+		return mapper.maxBabyNo();
+	}
+
 }

@@ -26,4 +26,6 @@ public interface DiaryDao {
 	List<Photo> selectPhotos(String diary_no);
 
 	int updatePhoto(Photo photo);
+
+	String maxBabyNo();
 }

@@ -47,5 +47,10 @@ public class BabyDaoImpl implements BabyDao {
 		return babyMapper.listBaby(id);
 	}
 
+	@Override
+	public String maxId() {
+		return babyMapper.maxId();
+	}
+
 
 }
