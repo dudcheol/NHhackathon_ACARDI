@@ -30,6 +30,9 @@ public class BabyController {
 	@PostMapping
 	public int addBaby(@RequestBody Baby baby) throws Exception {
 		try {
+			String savePath = 
+					"C:\\ssafy\\NHhackathon_ACARDI\\front-end\\nhhackathon_acardi\\src\\assets\\img\\profile\\";
+			baby.setProfile(savePath);
 			return babyService.addBaby(baby);
 		} catch (Exception e) {
 			e.printStackTrace();
