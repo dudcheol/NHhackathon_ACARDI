@@ -19,7 +19,6 @@ const getDefaultState = () => {
     babyno: null,
     babyidx: null,
     babyinfos: null,
-    selectedBaby: null,
     mainState: 'Calendar',
     curDate: { year, month },
   };
@@ -92,10 +91,6 @@ export const store = new Vuex.Store({
     },
     CHANGE_CUR_DATE(store, payload) {
       store.commit('setCurDate', payload);
-    },
-    CHANGE_BABY(store, payload) {
-      store.commit('setBabyNo', payload.no);
-      store.commit('setBabyIdx', payload.index);
     },
   },
   modules: {},

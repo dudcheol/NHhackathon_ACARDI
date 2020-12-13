@@ -3,7 +3,12 @@
     <b-card class="p-0">
       <b-row align-v="center" class="justify-content-between">
         <b-col cols="2" class="p-0 text-center">
-          <b-avatar v-show="imgsrc == false"></b-avatar>
+          <div v-show="imgsrc == false">
+            <img
+              src="'@/assets/img/default.png'"
+              style="width:60px; height:60px; border-radius: 15px; margin-left:20px;"
+            />
+          </div>
           <div v-if="imgsrc == true">
             <img
               :src="require(`@/assets/img/${baby.no}/profile/profile.jpg`)"
@@ -33,19 +38,12 @@
 <script>
 import axios from 'axios';
 export default {
-  props: {
-    baby: Object,
-  },
+  props: ['baby'],
   data() {
     return {
       message: '',
       imgsrc: false,
     };
-  },
-  watch: {
-    baby: function(val) {
-      console.log(val);
-    },
   },
   created() {
     //this.no = this.$store.state.babyno;
