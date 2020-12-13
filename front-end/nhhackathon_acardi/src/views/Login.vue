@@ -6,7 +6,7 @@
           <b-row align-h="center" class="pb-3">
             <h1>
               <b-icon icon="emoji-laughing"></b-icon>
-              icon area
+              새록새록 육아통장
             </h1>
           </b-row>
           <b-row class="mt-2">

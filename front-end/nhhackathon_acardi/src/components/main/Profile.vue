@@ -33,12 +33,19 @@
 <script>
 import axios from 'axios';
 export default {
-  props: ['baby'],
+  props: {
+    baby: Object,
+  },
   data() {
     return {
       message: '',
       imgsrc: false,
     };
+  },
+  watch: {
+    baby: function(val) {
+      console.log(val);
+    },
   },
   created() {
     //this.no = this.$store.state.babyno;
