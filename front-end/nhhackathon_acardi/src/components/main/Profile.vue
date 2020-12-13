@@ -3,12 +3,7 @@
     <b-card class="p-0">
       <b-row align-v="center" class="justify-content-between">
         <b-col cols="2" class="p-0 text-center">
-          <div v-show="imgsrc == false">
-            <img
-              src="'@/assets/img/default.png'"
-              style="width:60px; height:60px; border-radius: 15px; margin-left:20px;"
-            />
-          </div>
+          <b-avatar v-show="imgsrc == false"></b-avatar>
           <div v-if="imgsrc == true">
             <img
               :src="require(`@/assets/img/${baby.no}/profile/profile.jpg`)"
