@@ -3,10 +3,14 @@
     <b-card class="px-2">
       <b-row align-v="center" class="justify-content-between">
         <b-col cols="2" class="p-0">
-          <b-avatar></b-avatar>
+          <!-- <b-avatar :v-show="src == ''"></b-avatar> -->
           <img
-            src="file:///C:\Users\최나현\AppData\Local\Temp\tomcat-docbase.80.5740479615007974261\upload\201213\8665dd25-e0b1-47fe-82ff-2f17aeffb4be.jpg"
+            :src="imgsrc"
+            onerror="this.style.display='none'"
+            style="width:60px; height:60px;
+            border-radius: 15px;"
           />
+          {{ imgsrc }}
         </b-col>
         <b-col cols="8" class="p-0">
           <h5>
@@ -35,6 +39,7 @@ export default {
     return {
       dday: '',
       message: '',
+      imgsrc: '',
     };
   },
   watch: {
@@ -43,6 +48,14 @@ export default {
     },
   },
   created() {
+    //this.no = this.$store.state.babyno;
+    console.log(this.$store.state.babyno);
+    console.log(this.$store.state.babyidx);
+    console.log(this.$store.state.babyinfos);
+    this.imgsrc = this.$store.state.babyinfos[
+      this.$store.state.babyidx
+    ].profile;
+    console.log(this.imgsrc);
     var num = Math.floor(Math.random() * 4);
     switch (num) {
       case 0:
@@ -61,12 +74,12 @@ export default {
   },
   methods: {
     setValue(val) {
-      //console.log('profile: ' + this.babyno + val);
       this.babyno = val;
       axios
         .get('http://localhost/baby/' + this.babyno)
         .then((response) => {
           console.log(response);
+          this.imgsrc = response.data.profile;
           this.baby = response.data;
           this.dday = this.calDay(this.baby.birthday);
         })

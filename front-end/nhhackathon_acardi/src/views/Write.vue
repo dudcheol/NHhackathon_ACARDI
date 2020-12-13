@@ -1,10 +1,12 @@
 <template>
-  <div style="padding-top:20px">
-    <router-link to="/write/account">write-add account</router-link>
-    |
-    <router-link to="/write/content">write-content</router-link>
+  <div>
+    <div style="padding-top:20px; position:fixed; z-index:999">
+      <router-link to="/write/account">write-add account</router-link>
+      |
+      <router-link to="/write/content">write-content</router-link>
+    </div>
 
-    <div style="padding-bottom:58px">
+    <div>
       <router-view
         @finishTransfer="onFinishTransfer"
         @update="onUpdateContent"
@@ -108,12 +110,15 @@ export default {
       this.body.sum = body.sum;
       this.body.content = body.content;
       //console.log(this.body);
-      this.$router.push({ name: 'WriteContent', params: this.body });
+      this.$router.push({
+        name: 'WriteContent',
+        params: { type: 'write', body: this.body },
+      });
     },
     onFinishTransfer(todayDiary) {
       this.diary.title = this.body.content;
       this.diary.cost = this.body.sum;
-      this.diary.baby_no = this.$route.params.babyno;
+      this.diary.baby_no = this.body.babyno;
       this.diary.member_id = this.$session.get('userID');
       this.diary.content = todayDiary;
       // 전송이 완료 되었으면 백에 일기 전달.

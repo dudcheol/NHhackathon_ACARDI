@@ -1,6 +1,6 @@
 <template>
   <div
-    style="height:100vh"
+    style="height:100vh; padding-bottom:58px"
     class="d-flex align-items-center justify-content-center"
   >
     <b-container>
