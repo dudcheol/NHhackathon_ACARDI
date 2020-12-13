@@ -7,12 +7,14 @@
     </div>
 
     <div>
-      <router-view
-        @finishTransfer="onFinishTransfer"
-        @postPhotos="onPostPhotos"
-        @update="onUpdateContent"
-        :money="localMoney"
-      ></router-view>
+      <transition name="fade" mode="out-in">
+        <router-view
+          @finishTransfer="onFinishTransfer"
+          @postPhotos="onPostPhotos"
+          @update="onUpdateContent"
+          :money="localMoney"
+        ></router-view>
+      </transition>
     </div>
   </div>
 </template>

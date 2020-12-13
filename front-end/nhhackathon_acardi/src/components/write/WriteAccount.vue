@@ -19,16 +19,17 @@
       <b-row>
         <b-col cols="7">
           <b-button-group size="sm">
-            <b-button @click="addOne">+1만</b-button>
-            <b-button @click="addFive">+5만</b-button>
-            <b-button @click="addTen">+10만</b-button>
-            <b-button @click="addHundred">+100만</b-button>
-            <b-button @click="allMoney">잔액</b-button>
+            <b-button @click="addOne" variant="warning">+1만</b-button>
+            <b-button @click="addFive" variant="warning">+5만</b-button>
+            <b-button @click="addTen" variant="warning">+10만</b-button>
+            <b-button @click="addHundred" variant="warning">+100만</b-button>
+            <b-button @click="allMoney" variant="success">전액</b-button>
           </b-button-group>
         </b-col>
         <b-col class="text-right" align-self="end"
           ><h6>
-            현재 잔액 <b-badge>{{ money }}</b-badge> 원
+            잔액
+            <b-badge variant="light">{{ money | moneycomma }}</b-badge> 원
           </h6></b-col
         >
       </b-row>
@@ -61,6 +62,7 @@
         type="search"
         v-model="body.content"
         size="lg"
+        maxlength="6"
         placeholder="통장 표시 내용 또는 제목을 입력하세요"
       ></b-input>
     </b-container>
@@ -120,8 +122,17 @@ export default {
       this.body.sum = parseInt(this.money);
     },
     signin() {
-      console.log(this.body);
-      this.$emit('update', this.body);
+      if (this.body.sum > this.money || this.body.sum == 0) {
+        alert('금액을 확인해 주세요!');
+      } else if (
+        this.body.content.length > 6 ||
+        this.body.content.length == 0
+      ) {
+        alert('글자 수를 확인해주세요!');
+      } else {
+        console.log(this.body);
+        this.$emit('update', this.body);
+      }
     },
     clickCancel() {
       this.body.sum = 0;

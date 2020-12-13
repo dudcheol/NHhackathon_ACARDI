@@ -2,14 +2,15 @@
   <div>
     <b-container id="container">
       <!-- 아이 이름 입력 -->
-      <h3>
-        {{ username }}님,<br />
+      <h3 class="pt-5 pb-4">
+        <strong>{{ username }}</strong>
+        님,<br />
         아이에 대해 알려주세요.
       </h3>
 
       <!-- 아이 프로필 사진 -->
-
-      <b-jumbotron>
+      <h4>프로필 사진</h4>
+      <b-jumbotron class="p-3">
         <center>
           <div class="image-box">
             <label for="file">
@@ -21,9 +22,14 @@
                 multiple
               />
 
-              <b-icon icon="camera-fill" @click="selectPhoto"></b-icon>
+              <h1 v-show="!uploaded">
+                <b-icon icon="camera-fill" @click="selectPhoto"></b-icon>
+              </h1>
 
-              <div class="file-preview-container">
+              <b-row
+                class="file-preview-container"
+                style="overflow:auto; max-height:120px"
+              >
                 <div
                   v-for="(file, index) in files"
                   :key="index"
@@ -34,39 +40,43 @@
                     @click="fileDeleteButton"
                     :name="file.number"
                   ></div>
-                  <img :src="file.preview" />
+                  <img
+                    :src="file.preview"
+                    style="width:100px; height:100px; border-radius: 15px; margin-left:20px;"
+                  />
                 </div>
-              </div>
+              </b-row>
             </label>
           </div>
         </center>
       </b-jumbotron>
-
+      <br />
       <!-- 아이 이름 -->
       <h4>이름/별명</h4>
       <b-input v-model="babyInfo.nickname" type="text" placeholder=""></b-input>
-      <br />
+      <br /><br />
 
       <!-- 성별 선택-->
       <h4>성별</h4>
       <b-row>
-        <b-col>
+        <b-col class="text-center">
           <h1 @click="gender('male')">
-            <b-icon :icon="male" variant="primary"></b-icon>남자
+            <b-icon :icon="male" variant="primary"></b-icon> 남자
           </h1>
         </b-col>
-        <b-col>
+        <b-col class="text-center">
           <h1 @click="gender('female')">
-            <b-icon :icon="female" variant="danger"></b-icon>여자
+            <b-icon :icon="female" variant="danger"></b-icon> 여자
           </h1>
         </b-col>
       </b-row>
-      <br />
+      <br /><br />
 
       <!-- 아이 생일/생시 입력 -->
       <h4>생일</h4>
       <b-datepicker v-model="babyInfo.birthday"></b-datepicker>
       <br />
+      <h5>언제 태어났나요?</h5>
       <b-timepicker v-model="babyInfo.birth_time"></b-timepicker>
       <br />
     </b-container>
@@ -99,6 +109,7 @@ export default {
   },
   data() {
     return {
+      uploaded: false,
       username: this.$session.get('userID'),
       male: 'emoji-laughing',
       female: 'emoji-laughing',
@@ -141,6 +152,7 @@ export default {
       }
       this.uploadImageIndex = num + 1; //이미지 index의 마지막 값 + 1 저장
       console.log(this.files);
+      this.uploaded = true;
       // console.log(this.filesPreview);
     },
     imageAddUpload() {
