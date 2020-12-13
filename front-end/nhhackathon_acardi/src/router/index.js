@@ -14,8 +14,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'Main',
-    component: Main,
+    name: 'Index',
+    component: Login,
   },
   {
     path: '/join',

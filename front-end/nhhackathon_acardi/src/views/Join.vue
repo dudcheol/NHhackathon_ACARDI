@@ -242,7 +242,8 @@ export default {
             alert('새록새록 육아통장에 오신 것을 환영합니다!');
             this.$session.start();
             this.$session.set('userID', this.memberInfo.id);
-            if (this.linkNo.length > 0) {
+            if (this.linkNo) {
+              // 초대받아서 회원가입하는 사람
               console.log('linkTest');
               var family = {
                 member_id: this.memberInfo.id,
@@ -254,15 +255,20 @@ export default {
                 .post('http://localhost/family', family)
                 .then((response) => {
                   console.log(response);
+                  this.$router.push({
+                    path: '/main',
+                  });
                 })
                 .catch((error) => {
                   console.log(error);
                 });
+            } else {
+              // 새롭게 회원가입 하는 사람
+              this.$router.push({
+                name: 'RegisterProfile',
+              });
+              window.location.reload('/main');
             }
-            this.$router.push({
-              path: '/main',
-            });
-            window.location.reload('/main');
           } else {
             alert('회원가입에 실패했습니다. 다시 진행해주세요.');
           }

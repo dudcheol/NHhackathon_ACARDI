@@ -10,7 +10,7 @@ public class Member {
 	private String fin_account;
 	private int status;
 	
-	public Member() {}
+	
 	
 	public Member(String id, String password, String name, String phone_number, String email, String fin_account,
 			int status) {

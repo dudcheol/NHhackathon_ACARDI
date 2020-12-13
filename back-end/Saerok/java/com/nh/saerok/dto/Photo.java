@@ -3,12 +3,10 @@ package com.nh.saerok.dto;
 public class Photo {
 	
 	private String no;
-	private String save_path; // 저장 위치
-	private String upload_name;  // 원래 file name
-	private String save_name; // 저장된 file name => 1) 년월일시분초 이렇게 하면 파일이름이 겹칠 일 없음 2) uuid 사용
+	private String save_path;
+	private String upload_name;
+	private String save_name;
 	private String diary_no;
-	
-	public Photo() {}
 	
 	public Photo(String no, String save_path, String upload_name, String save_name, String diary_no) {
 		this.no = no;

@@ -3,7 +3,22 @@
     <Image
       src="https://cdn.pixabay.com/photo/2014/10/28/20/29/baby-507132_960_720.png"
     />
-
+    <b-container id="container" fluid="sm" class="px-5">
+      <b-row align-v="center" class="vh-100" style="padding-bottom:58px">
+        <b-col class="text-right p-0">
+          <h1><b-icon icon="emoji-heart-eyes"></b-icon></h1>
+        </b-col>
+        <b-col class="text-center p-0">
+          <h1><b-icon icon="link"></b-icon></h1>
+        </b-col>
+        <b-col class="text-left p-0">
+          <h1><b-icon icon="emoji-heart-eyes"></b-icon></h1>
+        </b-col>
+      </b-row>
+      <b-row>
+        초대하려면 전송버튼을 클릭하세요!
+      </b-row>
+    </b-container>
     <div class="footer-fixed">
       <b-button
         class="kakao-link"
@@ -12,7 +27,7 @@
         style="height:58px"
         variant="warning"
         @click="onClick"
-        >전송</b-button
+        >공유하기</b-button
       >
     </div>
   </div>

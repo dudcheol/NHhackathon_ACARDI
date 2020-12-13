@@ -1,27 +1,28 @@
 <template>
   <div class="px-2 pb-2">
-    <b-card class="px-2">
+    <b-card class="p-0">
       <b-row align-v="center" class="justify-content-between">
-        <b-col cols="2" class="p-0">
-          <!-- <b-avatar :v-show="src == ''"></b-avatar> -->
-          <img
-            :src="require(`@/assets/img/${baby.no}/profile/profile.jpg`)"
-            style="width:60px; height:60px; border-radius: 15px;"
-          />
-          {{ `@/assets/img/${baby.no}/profile/profile.jpg` }}
+        <b-col cols="2" class="p-0 text-center">
+          <b-avatar v-show="imgsrc == false"></b-avatar>
+          <div v-if="imgsrc == true">
+            <img
+              :src="require(`@/assets/img/${baby.no}/profile/profile.jpg`)"
+              style="width:60px; height:60px; border-radius: 15px; margin-left:20px;"
+            />
+          </div>
         </b-col>
         <b-col cols="8" class="p-0">
-          <h5>
+          <h5 class="m-0">
             <strong>{{ baby.nickname }}</strong> {{ this.message }}
           </h5>
-          <h6>
-            우리가 만난지 <strong>{{ this.dday }}</strong
+          <h6 class="m-0">
+            우리가 만난지 <strong>{{ calDay(baby.birthday) }}</strong
             >일
           </h6>
         </b-col>
-        <b-col cols="2" class="ml-auto text-right p-0">
-          <b-button pill
-            ><b-icon icon="pencil" @click="insertDiary"></b-icon
+        <b-col cols="2" class="ml-auto text-center p-0">
+          <b-button variant="outline-success" size="lg" pill
+            ><b-icon icon="pencil-fill" @click="insertDiary"></b-icon
           ></b-button>
         </b-col>
       </b-row>
@@ -35,15 +36,9 @@ export default {
   props: ['baby'],
   data() {
     return {
-      dday: '',
       message: '',
-      imgsrc: '',
+      imgsrc: false,
     };
-  },
-  watch: {
-    baby: function(val) {
-      this.dday = this.calDay(val.birthday);
-    },
   },
   created() {
     //this.no = this.$store.state.babyno;
@@ -70,7 +65,13 @@ export default {
         .get('http://localhost/baby/' + this.babyno)
         .then((response) => {
           console.log(response);
-          this.imgsrc = response.data.profile;
+          //this.imgsrc = response.data.profile;
+          if (response.data.profile == '') {
+            console.log('사진 없음!');
+            this.imgsrc = false;
+          } else {
+            this.imgsrc = true;
+          }
           this.baby = response.data;
           this.dday = this.calDay(this.baby.birthday);
         })
@@ -87,7 +88,7 @@ export default {
     insertDiary() {
       console.log(this.baby.no);
       this.$router.push({
-        name: 'Write',
+        name: 'WriteAccount',
       });
     },
   },

@@ -20,6 +20,10 @@ public class Baby {
 		this.profile = profile;
 	}
 	
+	public Baby(String no, String nickname) {
+		this.no = no;
+		this.nickname = nickname;
+	}
 
 	public String getNo() {
 		return no;

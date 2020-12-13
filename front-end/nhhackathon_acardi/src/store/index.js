@@ -5,6 +5,10 @@ import axios from 'axios';
 Vue.use(Vuex);
 
 const getDefaultState = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  console.log(year + ' ' + month);
   return {
     AccessToken:
       'f97844c4b63e36f17d0d67c8bd9761768f50a38dc14c3fef4c7b812e427f0d59',
@@ -15,6 +19,8 @@ const getDefaultState = () => {
     babyno: null,
     babyidx: null,
     babyinfos: null,
+    mainState: 'Calendar',
+    curDate: { year, month },
   };
 };
 
@@ -33,6 +39,12 @@ export const store = new Vuex.Store({
     getBabyIdx(state) {
       return state.babyidx;
     },
+    getMainState(state) {
+      return state.mainState;
+    },
+    getCurDate(state) {
+      return state.curDate;
+    },
   },
   mutations: {
     resetState(state) {
@@ -48,6 +60,12 @@ export const store = new Vuex.Store({
     },
     setBabyIdx(state, babyidx) {
       state.babyidx = babyidx;
+    },
+    setMainState(state, type) {
+      state.mainState = type;
+    },
+    setCurDate(state, curDate) {
+      state.curDate = curDate;
     },
   },
   actions: {
@@ -67,6 +85,12 @@ export const store = new Vuex.Store({
         .catch((err) => {
           console.error(err);
         });
+    },
+    CHANGE_MAIN_STATE(store, payload) {
+      store.commit('setMainState', payload);
+    },
+    CHANGE_CUR_DATE(store, payload) {
+      store.commit('setCurDate', payload);
     },
   },
   modules: {},
