@@ -19,19 +19,19 @@ public class Family {
 		this.relation = relation;
 	}
 	
-	public String getMember_id() {
+	public String getMemberId() {
 		return member_id;
 	}
 
-	public void setMember_id(String member_id) {
+	public void setMemberId(String member_id) {
 		this.member_id = member_id;
 	}
 
-	public int getBaby_no() {
+	public int getBabyNo() {
 		return baby_no;
 	}
 
-	public void setBaby_no(int baby_no) {
+	public void setBabyNo(int baby_no) {
 		this.baby_no = baby_no;
 	}
 

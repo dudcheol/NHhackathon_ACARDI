@@ -1,4 +1,5 @@
 <template>
+<div>
   <b-container id="container">
     <!-- 아이 이름 입력 -->
     <h3>
@@ -39,7 +40,9 @@
     <b-timepicker v-model="babyInfo.birth_time"></b-timepicker>
     <br />
 
-    <div class="footer-fixed">
+  
+  </b-container>
+  <div class="footer-fixed">
       <b-button
         @click="next"
         block
@@ -49,24 +52,19 @@
         >다음</b-button
       >
     </div>
-  </b-container>
+</div>
 </template>
 
 <script>
 export default {
+  props:{
+    babyInfo: Object
+  },
   data() {
     return {
       username: this.$session.get('userID'),
       male: 'emoji-laughing',
       female: 'emoji-laughing',
-      babyInfo: {
-        nickname: '',
-        birthday: '',
-        gender: 0,
-        birth_time: '',
-        account: '',
-        profile: '',
-      },
     };
   },
   methods: {
@@ -78,7 +76,7 @@ export default {
         // } else if(!this.babyInfo.profile){
         //   alert('프로필 사진을 선택해주세요.');
       } else {
-        this.$emit('babyProfile', this.babyInfo);
+        this.$emit('goAccount');
       }
     },
     selectPhoto() {

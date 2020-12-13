@@ -1,7 +1,5 @@
 package com.nh.saerok.dto;
 
-import java.util.List;
-
 public class Diary {
 	
 	private String no;
@@ -11,8 +9,6 @@ public class Diary {
 	private String cost;
 	private String baby_no;
 	private String member_id;
-	
-	public Diary() {}
 	
 	public Diary(String no, String title, String content, String registered_at, String cost, String baby_no,
 			String member_id) {

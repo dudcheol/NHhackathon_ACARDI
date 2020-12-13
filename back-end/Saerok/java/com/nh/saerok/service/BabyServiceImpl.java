@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.nh.saerok.dao.BabyDao;
 import com.nh.saerok.dto.Baby;
-import com.nh.saerok.dto.Photo;
 
 @Service
 public class BabyServiceImpl implements BabyService {

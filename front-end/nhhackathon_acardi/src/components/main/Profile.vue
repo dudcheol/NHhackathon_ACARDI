@@ -3,7 +3,11 @@
     <b-card class="p-0">
       <b-row align-v="center" class="justify-content-between">
         <b-col cols="2" class="p-0 text-center">
-          <b-avatar></b-avatar>
+          <!-- <b-avatar :v-if="src"></b-avatar> -->
+          <img
+            :src="require(`@/assets/img/${baby.no}/profile/profile.jpg`)"
+            style="width:60px; height:60px; border-radius: 15px;"
+          />
         </b-col>
         <b-col cols="8" class="p-0">
           <h5 class="m-0">
@@ -30,10 +34,11 @@ export default {
   data() {
     return {
       message: '',
+      imgsrc: '',
     };
   },
   created() {
-    console.log(this.baby);
+    //this.no = this.$store.state.babyno;
     var num = Math.floor(Math.random() * 4);
     switch (num) {
       case 0:
@@ -51,6 +56,20 @@ export default {
     }
   },
   methods: {
+    // setValue(val) {
+    //   this.babyno = val;
+    //   axios
+    //     .get('http://localhost/baby/' + this.babyno)
+    //     .then((response) => {
+    //       console.log(response);
+    //       this.imgsrc = response.data.profile;
+    //       this.baby = response.data;
+    //       this.dday = this.calDay(this.baby.birthday);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // },
     calDay(date) {
       var day = new Date(date);
       var now = new Date();
