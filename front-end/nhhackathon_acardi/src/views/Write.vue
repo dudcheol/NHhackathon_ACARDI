@@ -18,6 +18,7 @@
 import axios from 'axios';
 
 import { SearchAccount } from '@/api/account.js';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'write',
@@ -25,6 +26,7 @@ export default {
 
   data() {
     return {
+      ...mapGetters(['getBabyNo']),
       body: {
         id: '', //사용할 아이디.
         pinAccount: '', //사용할 핀어카운트.
@@ -100,8 +102,8 @@ export default {
     var id = this.$session.get('userID');
     this.body.id = id;
     // 여기서 핀-어카운트 얻어와야 함.
-    this.body.babyno = this.$route.params.babyno;
-    console.log(this.$route.params.babyno);
+    this.body.babyno = this.$store.state.babyno;
+    console.log(this.$store.state.babyno);
     // 아이 계좌 얻어오는 구문.
   },
   methods: {

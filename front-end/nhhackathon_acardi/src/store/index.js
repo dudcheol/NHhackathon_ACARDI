@@ -6,8 +6,12 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    AccessToken: "f97844c4b63e36f17d0d67c8bd9761768f50a38dc14c3fef4c7b812e427f0d59",
-    Iscd : "000536",
+    // AccessToken:
+    //   '7420ed5362e94397e8c59d66a5e4b17548c1ace502f5ca404ba2ed446d63aa38',
+    // Iscd: '000541',
+    AccessToken:
+      'f97844c4b63e36f17d0d67c8bd9761768f50a38dc14c3fef4c7b812e427f0d59',
+    Iscd: '000536',
     babyno: null,
     babyidx: null,
     babyinfos: null,

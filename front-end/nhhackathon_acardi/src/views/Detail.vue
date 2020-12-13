@@ -1,11 +1,14 @@
 <template>
-  <b-container class="px-0 m-0" style="padding-top:56px;padding-bottom:56px;">
+  <b-container class="" style="padding-top:56px;padding-bottom:56px;">
     <b-container class="header-fixed">
-      <b-row>
-        <b-col align-self="center">
+      <b-row class="pt-2">
+        <b-col align-self="center" class="p-0">
           <h2>
             <b-icon icon="arrow-left" class="p-1 m-2"></b-icon>
           </h2>
+        </b-col>
+        <b-col align-self="center" class="text-center p-0">
+          <h5>{{ diary.date.split(' ')[0] }}</h5>
         </b-col>
         <b-col align-self="center" class="text-right">
           <b-dropdown
@@ -15,7 +18,6 @@
             no-caret
           >
             <template #button-content>
-              <!-- &#x1f50d;<span class="sr-only">Search</span> -->
               <h6><b-icon icon="three-dots-vertical"></b-icon></h6>
             </template>
             <b-dropdown-item @click="modify">수정</b-dropdown-item>
@@ -28,9 +30,6 @@
     </b-container>
     <b-row align-v="center" class="pt-3 p-0 m-0">
       <b-col>
-        <div class="text-right">
-          <b-badge>{{ diary.date.split(' ')[0] }}</b-badge>
-        </div>
         <b-card
           :title="diary.title"
           header-tag="header"
@@ -42,10 +41,17 @@
           class="mb-2 mx-auto"
         >
           <template #header>
-            <div class="mb-0 text-right">
+            <b-row>
+              <b-col class="text-right"
+                ><b-icon icon="cash-stack"></b-icon>
+                <strong> {{ diary.cost }}</strong
+                >원</b-col
+              >
+            </b-row>
+            <!-- <div class="mb-0 text-right">
               <strong>{{ diary.cost }}</strong
               >원
-            </div>
+            </div> -->
           </template>
           <b-card-text style="min-height:100px;">
             {{ diary.content }}
