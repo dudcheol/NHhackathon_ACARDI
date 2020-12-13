@@ -31,9 +31,11 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 export default {
-  props: ['baby'],
+  props: {
+    baby: Object,
+  },
   data() {
     return {
       message: '',
@@ -59,26 +61,26 @@ export default {
     }
   },
   methods: {
-    setValue(val) {
-      this.babyno = val;
-      axios
-        .get('http://localhost/baby/' + this.babyno)
-        .then((response) => {
-          console.log(response);
-          //this.imgsrc = response.data.profile;
-          if (response.data.profile == '') {
-            console.log('사진 없음!');
-            this.imgsrc = false;
-          } else {
-            this.imgsrc = true;
-          }
-          this.baby = response.data;
-          this.dday = this.calDay(this.baby.birthday);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+    // setValue(val) {
+    //   this.babyno = val;
+    //   axios
+    //     .get('http://localhost/baby/' + this.babyno)
+    //     .then((response) => {
+    //       console.log(response);
+    //       //this.imgsrc = response.data.profile;
+    //       if (response.data.profile == '') {
+    //         console.log('사진 없음!');
+    //         this.imgsrc = false;
+    //       } else {
+    //         this.imgsrc = true;
+    //       }
+    //       this.baby = response.data;
+    //       this.dday = this.calDay(this.baby.birthday);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // },
     calDay(date) {
       var day = new Date(date);
       var now = new Date();
