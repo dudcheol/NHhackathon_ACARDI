@@ -5,11 +5,16 @@
     </h1>
 
     <b-container fluid="sm">
-      
-    <!-- 아이와의 관계 입력 -->
-      <h3>{{userId}}님, <br/>
-      {{babyInfo.nickname}}와의 관계를 알려주세요.</h3>
-      <b-input v-model="relation" type="text" placeholder="예) 엄마/아빠/가족/보호자"></b-input>
+      <!-- 아이와의 관계 입력 -->
+      <h3>
+        {{ userId }}님, <br />
+        {{ babyInfo.nickname }}와의 관계를 알려주세요.
+      </h3>
+      <b-input
+        v-model="relation"
+        type="text"
+        placeholder="예) 엄마/아빠/가족/보호자"
+      ></b-input>
       <br />
       <br />
 
@@ -22,18 +27,19 @@
               type="text"
               placeholder="계좌번호"
             ></b-input>
-            <b-button><b-icon icon="check" @click="accountCheck"></b-icon></b-button>
+            <b-button
+              ><b-icon icon="check" @click="accountCheck"></b-icon
+            ></b-button>
           </b-input-group>
         </b-col>
       </b-row>
-
     </b-container>
     <div class="footer-fixed">
       <b-button
         @click="registerBaby"
         block
         squared
-        style="height:58px"
+        style="height: 58px"
         variant="warning"
         >다음</b-button
       >
@@ -45,22 +51,22 @@
 import axios from 'axios';
 
 export default {
-  props:{
+  props: {
     babyInfo: Object,
   },
   data() {
     return {
       userId: this.$session.get('userID'),
       accountChecked: false,
-      relation: this.babyInfo.relation
+      relation: this.babyInfo.relation,
     };
   },
   methods: {
-    goBack(){
+    goBack() {
       this.babyInfo.relation = this.relation;
-      this.$emit("goProfile");
+      this.$emit('goProfile');
     },
-    accountCheck(){
+    accountCheck() {
       //계좌 확인 - nh rest api 활용하여 예금주 확인 후 (fin) account 저장
       //Join.vue/makeFin() 내용 수정
       var date = new Date();
@@ -100,45 +106,45 @@ export default {
         });
     },
     registerBaby() {
-      if(!this.relation){
+      if (!this.relation) {
         alert('아이와의 관계를 입력해주세요.');
-      } else if(!this.accountChecked){
+      } else if (!this.accountChecked) {
         alert('계좌번호를 확인해주세요.');
-      } else{
+      } else {
         console.log(this.babyInfo);
         axios
-        .post('http://localhost/baby', this.babyInfo)
-        .then((response) => {
-          console.log("baby regist reponse:" + response.data);
-          if (response.data > 0) {
-            alert('아이 추가를 완료했습니다.');
-            //family 등록
-            var family = {
-              member_id: this.userId,
-              baby_no: response.data,
-              relation: this.relation
-            };
-            console.log(family);
-            axios
-            .post('http://localhost/family', family)
-            .then((response) => {
-              console.log(response);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          .post('http://localhost/baby', this.babyInfo)
+          .then((response) => {
+            console.log('baby regist reponse:' + response.data);
+            if (response.data > 0) {
+              alert('아이 추가를 완료했습니다.');
+              //family 등록
+              var family = {
+                member_id: this.userId,
+                baby_no: response.data,
+                relation: this.relation,
+              };
+              console.log(family);
+              axios
+                .post('http://localhost/family', family)
+                .then((response) => {
+                  console.log(response);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
 
-            this.$router.push({
-              path: '/main',
-            });
-            // window.location.reload('/main');
-          } else {
-            alert('아이 추가가 되지 않았습니다.');
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+              this.$router.push({
+                path: '/main',
+              });
+              // window.location.reload('/main');
+            } else {
+              alert('아이 추가가 되지 않았습니다.');
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     },
   },

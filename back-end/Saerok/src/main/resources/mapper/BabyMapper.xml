@@ -26,7 +26,7 @@
 
 	<update id="modifyBaby" parameterType="Baby">
 		update baby set nickname = #{nickname}, birthday = #{birthday}, gender = #{gender}, 
-		birth_time = #{birth_time}, account = #{account}, profile = #{profile}
+		birth_time = #{birth_time}, account = #{account}, profile = #{profile} where no=#{no}
 	</update>
 	
 	<delete id="deleteBaby" parameterType="String">

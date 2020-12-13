@@ -102,6 +102,43 @@ public class DiaryController {
 			return 0;
 		}
 	}
+	
+	// 사진 저장만(db에는 저장 안 함)
+	@PostMapping(value = "/upload/profile/{type}")
+	public int ProfileUpload(@PathVariable String type, @RequestParam MultipartFile[] multipartFiles) throws FileNotFoundException {
+		System.out.println("파일 크기: " + multipartFiles.length);
+		System.out.println("type: " + type);
+		try {
+			for (int i = 0; i < multipartFiles.length; i++) {
+				if(multipartFiles[i] != null && !multipartFiles[i].isEmpty()){	
+					String fileName = multipartFiles[i].getOriginalFilename(); // 파일 원래 이름
+					String realPath = 
+							"C:\\ssafy\\NHhackathon_ACARDI\\front-end\\nhhackathon_acardi\\src\\assets\\img";
+					String today = new SimpleDateFormat("yyMMdd").format(new Date()); // 오늘 날짜
+					String saveFolder = null;  // 파일 저장 폴더 (각 날짜별 저장폴더 생성)
+					saveFolder = realPath + File.separator + type;
+					File folder = new File(saveFolder);
+					if(!folder.exists())
+						folder.mkdirs();
+					System.out.println(saveFolder);
+					Photo photo = new Photo();
+	
+					if (!fileName.isEmpty()) { // abc-asdfasf-asdfs-fd.png
+						String saveFileName = null;
+
+						saveFileName = "profile.jpg"; // 일단 전부 profile.jpg로 하고 나중에 이름 바꿔서
+					
+						File file = new File(saveFolder + "\\"+ saveFileName);
+						multipartFiles[i].transferTo(file);
+					}
+				}				
+			}	
+			return 1; 
+		} catch (IOException e) {
+				e.printStackTrace();
+				return 0;
+		}
+	}
 
 	@PostMapping(value = "/upload/{baby_no}/{type}")
 	public int fileUpload(@PathVariable String baby_no, @PathVariable String type, @RequestParam MultipartFile[] multipartFiles) throws FileNotFoundException {
