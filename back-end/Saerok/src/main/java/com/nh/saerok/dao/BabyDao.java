@@ -1,10 +1,11 @@
-package com.nh.saerok.mapper;
+package com.nh.saerok.dao;
 
 import java.util.List;
 
 import com.nh.saerok.dto.Baby;
+import com.nh.saerok.dto.Photo;
 
-public interface BabyMapper {
+public interface BabyDao {
 
 	int addBaby(Baby baby);
 	Baby getBaby(String babyno);

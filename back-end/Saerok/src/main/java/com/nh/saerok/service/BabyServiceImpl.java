@@ -1,47 +1,47 @@
-package com.nh.saerok.dao;
+package com.nh.saerok.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
+import com.nh.saerok.dao.BabyDao;
 import com.nh.saerok.dto.Baby;
-import com.nh.saerok.mapper.BabyMapper;
+import com.nh.saerok.dto.Photo;
 
-@Repository
-public class BabyDaoImpl implements BabyDao {
+@Service
+public class BabyServiceImpl implements BabyService {
 
-	@Autowired BabyMapper babyMapper;
+	@Autowired BabyDao babyDao;
 	
 	@Override
 	public int addBaby(Baby baby) {
-		return babyMapper.addBaby(baby);
+		return babyDao.addBaby(baby);
 	}
 
 	@Override
 	public Baby getBaby(String babyno) {
-		return babyMapper.getBaby(babyno);
-	}
-	
-	@Override
-	public String getBabyAccount(String babyno) {
-		return babyMapper.getBabyAccount(babyno);
+		return babyDao.getBaby(babyno);
 	}
 
 	@Override
+	public String getBabyAccount(String babyno) {
+		return babyDao.getBabyAccount(babyno);
+	}
+	
+	@Override
 	public List<Baby> listBaby(String id) {
-		return babyMapper.listBaby(id);
+		return babyDao.listBaby(id);
 	}
 
 	@Override
 	public int modifyBaby(Baby baby) {
-		return babyMapper.modifyBaby(baby);
+		return babyDao.modifyBaby(baby);
 	}
 
 	@Override
 	public int deleteBaby(String babyno) {
-		return babyMapper.deleteBaby(babyno);
+		return babyDao.deleteBaby(babyno);
 	}
-
 
 }

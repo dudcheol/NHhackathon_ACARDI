@@ -4,7 +4,7 @@
       <router-link to="/register/profile">profile</router-link> |
       <router-link to="/register/account">account</router-link>
     </div>
-    <register-profile v-if="take == 1" v-on:babyProfile="getBabyInfo"></register-profile>  
+    <register-profile v-if="take == 1" :babyInfo="babyInfo" v-on:goAccount="goAccount"></register-profile>  
     <hr>
     <register-account v-if="take == 2" :babyInfo="babyInfo" v-on:goProfile="goProfile"></register-account>
     </div>  
@@ -21,16 +21,24 @@ export default {
   data() {
     return {
       take:1,
-      babyInfo: {},
+      babyInfo: {
+        nickname: '',
+        birthday: '',
+        gender: 0,
+        birth_time: '',
+        account: '',
+        profile: '',
+        relation:''
+      },
     };
   },
   methods: {
     goProfile(){
       this.take--;
+      console.log(this.babyInfo);
     },
-    getBabyInfo(bi){
+    goAccount(){
       this.take++;
-      this.babyInfo = bi;
     },
     
   },

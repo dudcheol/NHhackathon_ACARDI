@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nh.saerok.dto.Baby;
+import com.nh.saerok.dto.Photo;
 import com.nh.saerok.mapper.BabyMapper;
 
 @Repository
@@ -15,7 +16,10 @@ public class BabyDaoImpl implements BabyDao {
 	
 	@Override
 	public int addBaby(Baby baby) {
-		return babyMapper.addBaby(baby);
+		if(babyMapper.addBaby(baby) == 1) {
+			return babyMapper.getBabyNoByAccount(baby.getAccount());
+		}
+		return 0; 
 	}
 
 	@Override
@@ -29,11 +33,6 @@ public class BabyDaoImpl implements BabyDao {
 	}
 
 	@Override
-	public List<Baby> listBaby(String id) {
-		return babyMapper.listBaby(id);
-	}
-
-	@Override
 	public int modifyBaby(Baby baby) {
 		return babyMapper.modifyBaby(baby);
 	}
@@ -41,6 +40,11 @@ public class BabyDaoImpl implements BabyDao {
 	@Override
 	public int deleteBaby(String babyno) {
 		return babyMapper.deleteBaby(babyno);
+	}
+
+	@Override
+	public List<Baby> listBaby(String id) {
+		return babyMapper.listBaby(id);
 	}
 
 

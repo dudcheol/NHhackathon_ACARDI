@@ -3,7 +3,6 @@ package com.nh.saerok.service;
 import java.util.List;
 
 import com.nh.saerok.dto.Baby;
-import com.nh.saerok.dto.Photo;
 
 public interface BabyService {
 	int addBaby(Baby baby);
