@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-list-group>
-      <b-list-group-item class="pb-0">
+      <b-list-group-item class="p-3">
         <a
           href="https://www.nhlife.co.kr/ho/ig/HOIG0001M00.nhl?prodCd=N0000709"
           target="_blank"

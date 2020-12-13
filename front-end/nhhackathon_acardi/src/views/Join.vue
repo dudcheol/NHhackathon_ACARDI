@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-container fluid="sm" class="h-100 footer-spacing">
-      <h1 class="pl-2 py-2">회원가입</h1>
+      <h1 class="pl-2 pt-5 pb-3"><strong>회원가입</strong></h1>
       <b-row align-h="center m-2">
         <b-col>
           <b-row class="mb-2">
@@ -52,6 +52,7 @@
                   right
                   locale="en-US"
                   aria-controls="example-input"
+                  button-variant="warning"
                   @context="onContext"
                 ></b-form-datepicker>
               </b-input-group-append>
@@ -62,11 +63,13 @@
               <b-input
                 type="text"
                 v-model="account"
-                placeholder="계좌번호"
+                placeholder="계좌 번호를 입력하세요"
+                :disabled="loading"
               ></b-input>
-              <b-button @click="makeFin"
-                ><b-icon icon="check"></b-icon
-              ></b-button>
+              <b-button @click="makeFin" variant="warning"
+                ><b-icon icon="check" v-show="!loading"></b-icon>
+                <b-spinner small v-show="loading"></b-spinner>
+              </b-button>
             </b-input-group>
           </b-row>
         </b-col>
@@ -109,6 +112,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      loading: false,
       date: '',
       birthday: '',
       formatted: '',
@@ -154,6 +158,7 @@ export default {
       }
     },
     makeFin() {
+      this.loading = true;
       var date = new Date();
       var today =
         String(date.getFullYear()) +
@@ -184,6 +189,11 @@ export default {
         )
         .then((response) => {
           console.log(response);
+          if (!response.data.Dpnm) {
+            alert('잘못된 계좌입니다. 다시 시도해주세요.');
+            this.loading = false;
+            return;
+          }
           var res = confirm(response.data.Dpnm + '님 맞으신가요?');
           this.memberInfo.name = response.data.Dpnm;
           console.log(res);
@@ -233,20 +243,25 @@ export default {
                   .then((response) => {
                     console.log(response);
                     this.memberInfo.fin_account = response.data.FinAcno;
+                    this.loading = false;
                   })
                   .catch((error) => {
                     console.log(error);
+                    this.loading = false;
                   });
               })
               .catch((error) => {
                 console.log(error);
+                this.loading = false;
               });
           } else {
             this.account = '';
+            this.loading = false;
           }
         })
         .catch((error) => {
           console.log(error);
+          this.loading = false;
         });
     },
     signin() {
