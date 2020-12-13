@@ -12,4 +12,5 @@ public interface BabyService {
 	List<Baby> listBaby(String id);
 	int modifyBaby(Baby baby);
 	int deleteBaby(String babyno);
+	String maxId();
 }

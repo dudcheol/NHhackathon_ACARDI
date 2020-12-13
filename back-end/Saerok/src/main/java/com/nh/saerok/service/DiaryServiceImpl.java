@@ -64,4 +64,9 @@ public class DiaryServiceImpl implements DiaryService {
 		return dao.updatePhoto(photo);
 	}
 
+	@Override
+	public String maxBabyNo() {
+		return dao.maxBabyNo();
+	}
+
 }

@@ -3,26 +3,36 @@
     <b-sidebar
       id="sidebar"
       v-model="isSidebarOpen"
-      title="baby list"
+      title="내 아이들"
       shadow=""
       bg-variant="white"
+      :backdrop-variant="sidebarBgVariant"
+      backdrop
     >
-      <br />
-      <ul v-for="baby in getBabyInfos" :key="baby">
-        <li @click="getBaby(baby.no)">{{ baby.nickname }}</li>
-      </ul>
-      <ul>
-        <li @click="registerBaby">아이 추가하기</li>
-      </ul>
+      <b-list-group>
+        <b-list-group-item
+          v-for="(baby, index) in getBabyInfos"
+          :key="baby.key"
+          button
+          @click="getBaby({ no: baby.no, index })"
+          >{{ baby.nickname }}</b-list-group-item
+        >
+        <b-list-group-item button @click="registerBaby">
+          <b-icon icon="plus-circle-fill"></b-icon> 아이 추가하기
+        </b-list-group-item>
+        <b-list-group-item button @click="registerFamily">
+          <b-icon icon="plus-circle-fill"></b-icon> 가족 추가하기
+        </b-list-group-item>
+      </b-list-group>
 
-      <!-- 가족 추가-->
-      <ul>
-        <li @click="registerFamily">가족 추가하기</li>
-      </ul>
-
-      <ul>
-        <h6 class="text-danger" @click="logout">로그아웃</h6>
-      </ul>
+      <template #footer="">
+        <div class="d-flex bg-dark text-light align-items-center px-3 py-2">
+          <strong class="mr-auto"></strong>
+          <b-button size="sm" @click="logout" variant="danger"
+            >로그아웃</b-button
+          >
+        </div>
+      </template>
     </b-sidebar>
     <Header
       class="header-fixed"
@@ -58,7 +68,9 @@
           ></b-form-radio-group>
         </b-form-group>
       </div>
-      <router-view :attributes="attributes" class="px-3"></router-view>
+      <transition name="fade" mode="out-in">
+        <router-view :attributes="attributes" class="px-3"></router-view>
+      </transition>
     </div>
     <Profile
       ref="Profile"
@@ -81,6 +93,7 @@ export default {
   components: { Header, Profile },
   data() {
     return {
+      sidebarBgVariant: 'dark',
       isSidebarOpen: false,
       modalShow: false,
       baby: {},
@@ -165,9 +178,12 @@ export default {
     },
     logout() {
       console.log('logout click');
-      this.$session.set('userID', null);
-      this.RESET_STATE();
-      this.$router.push({ name: 'Login' });
+      if (confirm('정말 로그아웃하시겠습니까?')) {
+        this.$session.set('userID', null);
+        this.RESET_STATE();
+        this.$router.push({ name: 'Login' });
+      }
+      this.isSidebarOpen = false;
     },
     // 이벤트 알림창.
     openEventList() {
@@ -250,5 +266,19 @@ export default {
 ul {
   list-style: none;
   font-size: 18px;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 0.25s;
+}
+
+.fade-enter-active {
+  /* transition-duration: 0.25s; */
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>

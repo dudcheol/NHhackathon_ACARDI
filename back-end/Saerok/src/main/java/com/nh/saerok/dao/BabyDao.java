@@ -13,5 +13,6 @@ public interface BabyDao {
 	List<Baby> listBaby(String id);
 	int modifyBaby(Baby baby);
 	int deleteBaby(String babyno);
+	String maxId();
 
 }

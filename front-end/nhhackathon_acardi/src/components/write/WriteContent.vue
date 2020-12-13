@@ -61,7 +61,7 @@
               <b-row>
                 <b-col class="text-right"
                   ><b-icon icon="cash-stack"></b-icon>
-                  <strong> {{ diary.cost }}</strong
+                  <strong> {{ diary.cost | moneycomma }}</strong
                   >원</b-col
                 >
               </b-row>
@@ -130,9 +130,9 @@ export default {
         content: '',
       },
       images: {
-        baby_no:'',
-        type:'diary',
-        file:[]
+        baby_no: '',
+        type: 'diary',
+        file: [],
       },
       pageName: '다이어리 작성',
       btnText: '작성하기',
