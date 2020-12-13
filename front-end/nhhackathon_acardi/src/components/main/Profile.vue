@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   props: ['baby'],
   data() {
@@ -56,20 +57,20 @@ export default {
     }
   },
   methods: {
-    // setValue(val) {
-    //   this.babyno = val;
-    //   axios
-    //     .get('http://localhost/baby/' + this.babyno)
-    //     .then((response) => {
-    //       console.log(response);
-    //       this.imgsrc = response.data.profile;
-    //       this.baby = response.data;
-    //       this.dday = this.calDay(this.baby.birthday);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // },
+    setValue(val) {
+      this.babyno = val;
+      axios
+        .get('http://localhost/baby/' + this.babyno)
+        .then((response) => {
+          console.log(response);
+          this.imgsrc = response.data.profile;
+          this.baby = response.data;
+          this.dday = this.calDay(this.baby.birthday);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     calDay(date) {
       var day = new Date(date);
       var now = new Date();
