@@ -4,10 +4,10 @@
       <b-row align-v="center" class="justify-content-between">
         <b-col cols="2" class="p-0 text-center">
           <!-- <b-avatar :v-if="src"></b-avatar> -->
-          <img
+          <!-- <img
             :src="require(`@/assets/img/${baby.no}/profile/profile.jpg`)"
             style="width:60px; height:60px; border-radius: 15px;"
-          />
+          /> -->
         </b-col>
         <b-col cols="8" class="p-0">
           <h5 class="m-0">
@@ -30,12 +30,18 @@
 
 <script>
 export default {
-  props: ['baby'],
+  props: {
+    baby: Object,
+  },
   data() {
     return {
       message: '',
-      imgsrc: '',
     };
+  },
+  watch: {
+    baby: function(val) {
+      console.log(val);
+    },
   },
   created() {
     //this.no = this.$store.state.babyno;

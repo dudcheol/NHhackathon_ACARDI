@@ -8,8 +8,8 @@
       bg-variant="white"
     >
       <br />
-      <ul v-for="baby in getBabyInfos" :key="baby">
-        <li @click="getBaby(baby.no)">{{ baby.nickname }}</li>
+      <ul v-for="(baby, index) in getBabyInfos" :key="baby.key">
+        <li @click="getBaby({ no: baby.no, index })">{{ baby.nickname }}</li>
       </ul>
       <ul>
         <li @click="registerBaby">아이 추가하기</li>
@@ -48,7 +48,7 @@
       ref="Profile"
       class="profile-fixed"
       style=""
-      :baby="getBabyInfos[getBabyIdx]"
+      :baby="selectedBabyInfo"
     ></Profile>
   </div>
 </template>
@@ -72,6 +72,7 @@ export default {
         { text: '리스트', value: 'List' },
       ],
       attributes: [],
+      selectedBabyInfo: {},
     };
   },
   computed: {
@@ -95,15 +96,22 @@ export default {
     getBabyNo: function() {
       this.monthChange(this.getCurDate);
     },
+    getBabyIdx: function(val) {
+      console.log('getbabyidx ' + val);
+      console.log('getbabyidx ' + JSON.stringify(this.getBabyInfos[val].no));
+      this.selectedBabyInfo = this.getBabyInfos[val];
+      console.log(this.selectedBabyInfo);
+    },
   },
   created() {
     console.log('main created - ' + this.getMainState);
     console.log('cur date - ' + this.getCurDate);
     var id = this.$session.get('userID');
-    this.GET_BABYNO(id);
-
-    // this.monthChange(this.getCurDate);
-
+    if (!this.getBabyNo) this.GET_BABYNO(id);
+    if (this.getBabyNo) {
+      this.monthChange(this.getCurDate);
+      this.selectedBabyInfo = this.getBabyInfos[this.getBabyIdx];
+    }
     if (this.getMainState) {
       this.$router.push({ name: this.getMainState });
       this.selected = this.getMainState;
@@ -115,23 +123,29 @@ export default {
   mounted() {
     console.log('main mounted');
     console.log(this.getMainState);
-    this.$refs.Profile.setValue(this.$store.state.babyno);
+    // this.$refs.Profile.setValue(this.$store.state.babyno);
   },
   methods: {
-    ...mapActions(['GET_BABYNO', 'RESET_STATE', 'CHANGE_MAIN_STATE']),
+    ...mapActions([
+      'GET_BABYNO',
+      'RESET_STATE',
+      'CHANGE_MAIN_STATE',
+      'CHANGE_BABY',
+    ]),
     openSidebar() {
       console.log('open sidebar');
       this.isSidebarOpen = true;
-      this.$refs.Profile.setValue(this.getBabyNo); //임시 처리.
+      // this.$refs.Profile.setValue(this.getBabyNo); //임시 처리.
     },
     closeSidebar() {
       console.log('close sidebar');
       this.isSidebarOpen = false;
     },
-    getBaby(no) {
-      this.babyno = no;
-      console.log(this.babyno);
-      this.$refs.Profile.setValue(this.babyno);
+    getBaby(info) {
+      // this.babyno = no;
+      // console.log('baby click = ' + this.babyno);
+      // this.$refs.Profile.setValue(this.babyno);
+      this.CHANGE_BABY(info);
       this.isSidebarOpen = false;
     },
     registerBaby() {
