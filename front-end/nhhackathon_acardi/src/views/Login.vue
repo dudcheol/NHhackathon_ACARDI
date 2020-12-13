@@ -23,7 +23,7 @@
             <b-button block pill @click="login">로그인</b-button>
           </b-row>
           <b-row class="mt-2">
-            <b-button block pill>회원가입</b-button>
+            <b-button block pill @click="join">회원가입</b-button>
           </b-row>
         </b-col>
       </b-row>
@@ -62,6 +62,9 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    join() {
+      this.$router.push({ name: 'Join' });
     },
   },
 };
