@@ -127,8 +127,14 @@ public class DiaryController {
 					String realPath = 
 							"C:\\ssafy\\NHhackathon_ACARDI\\front-end\\nhhackathon_acardi\\src\\assets\\img";
 					String today = new SimpleDateFormat("yyMMdd").format(new Date()); // 오늘 날짜
-					String saveFolder = realPath + File.separator + baby_no +  File.separator 
-							+ type + File.separator + today;  // 파일 저장 폴더 (각 날짜별 저장폴더 생성)
+					String saveFolder = null;  // 파일 저장 폴더 (각 날짜별 저장폴더 생성)
+					if (type == "diary") {
+						saveFolder = realPath + File.separator + baby_no +  File.separator 
+								+ type + File.separator + today;
+					} else {
+						saveFolder = realPath + File.separator + baby_no +  File.separator 
+								+ type;
+					}
 					File folder = new File(saveFolder);
 					if(!folder.exists())
 						folder.mkdirs();
@@ -136,7 +142,12 @@ public class DiaryController {
 					Photo photo = new Photo();
 	
 					if (!fileName.isEmpty()) { // abc-asdfasf-asdfs-fd.png
-						String saveFileName = UUID.randomUUID().toString() + fileName.substring(fileName.lastIndexOf('.'));
+						String saveFileName = null;
+						if (type=="diary") {
+							saveFileName = UUID.randomUUID().toString() + fileName.substring(fileName.lastIndexOf('.'));
+						}else {
+							saveFileName = "profile" + fileName.substring(fileName.lastIndexOf('.'));
+						}
 						photo.setSave_path(saveFolder);
 						photo.setUpload_name(fileName);
 						photo.setSave_name(saveFileName);
