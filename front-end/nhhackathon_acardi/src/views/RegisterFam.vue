@@ -1,5 +1,8 @@
 <template>
   <div>
+    <Image
+      src="https://cdn.pixabay.com/photo/2014/10/28/20/29/baby-507132_960_720.png"
+    />
     <b-container id="container" fluid="sm" class="px-5">
       <b-row align-v="center" class="vh-100" style="padding-bottom:58px">
         <b-col class="text-right p-0">
