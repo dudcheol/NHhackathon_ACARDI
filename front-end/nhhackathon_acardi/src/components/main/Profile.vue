@@ -38,6 +38,7 @@ export default {
     return {
       message: '',
       imgsrc: false,
+      babyno: '',
     };
   },
   created() {
@@ -60,9 +61,9 @@ export default {
   },
   methods: {
     setValue(val) {
-      this.babyno = val;
+      console.log(val);
       axios
-        .get('http://localhost/baby/' + this.babyno)
+        .get('http://localhost/baby/' + val)
         .then((response) => {
           console.log(response);
           //this.imgsrc = response.data.profile;
