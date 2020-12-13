@@ -3,17 +3,13 @@ package com.nh.saerok.controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FileUtils;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,18 +27,18 @@ import com.nh.saerok.dto.Diary;
 import com.nh.saerok.dto.Photo;
 import com.nh.saerok.service.DiaryService;
 
-@MapperScan(basePackages = {"com.nh.saerok.mapper"})
+@MapperScan(basePackages = { "com.nh.saerok.mapper" })
 @CrossOrigin
 @RestController
 public class DiaryController {
-	
+
 	@Autowired
 	ServletContext servletContext;
-	
+
 	@Autowired
 	DiaryService service;
-	
-	@GetMapping(value="/diary/{baby_no}")
+
+	@GetMapping(value = "/diary/{baby_no}")
 	public List<Diary> selectAll(@PathVariable String baby_no) {
 		List<Diary> list = null;
 		try {
@@ -52,8 +48,8 @@ public class DiaryController {
 		}
 		return list;
 	}
-	
-	@GetMapping(value="/diary/photo/{diary_no}")
+
+	@GetMapping(value = "/diary/photo/{diary_no}")
 	public List<Photo> selectPhotos(@PathVariable String diary_no) {
 		List<Photo> list = null;
 		try {
@@ -63,9 +59,10 @@ public class DiaryController {
 		}
 		return list;
 	}
-	
-	@GetMapping(value="/diary/{baby_no}/{year}/{month}")
-	public List<Diary> selectByDate(@PathVariable String baby_no, @PathVariable String year, @PathVariable String month) {
+
+	@GetMapping(value = "/diary/{baby_no}/{year}/{month}")
+	public List<Diary> selectByDate(@PathVariable String baby_no, @PathVariable String year,
+			@PathVariable String month) {
 		List<Diary> list = null;
 		try {
 			list = service.selectByDate(baby_no, year, month);
@@ -74,8 +71,8 @@ public class DiaryController {
 		}
 		return list;
 	}
-	
-	@GetMapping(value="/diary/{baby_no}/{num}")
+
+	@GetMapping(value = "/diary/{baby_no}/{num}")
 	public Diary selectOne(@PathVariable String baby_no, @PathVariable String num) {
 		Diary diary = null;
 		try {
@@ -85,18 +82,8 @@ public class DiaryController {
 		}
 		return diary;
 	}
-	
-//	@PostMapping(value="/diary")
-//	public int insert(@RequestBody Diary diary) {
-//		try {
-//			return service.insert(diary);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return 0;
-//		}
-//	}
-	
-	@DeleteMapping(value="/diary/{num}")
+
+	@DeleteMapping(value = "/diary/{num}")
 	public int delete(@PathVariable String num) {
 		try {
 			return service.delete(num);
@@ -105,8 +92,8 @@ public class DiaryController {
 			return 0;
 		}
 	}
-	
-	@PutMapping(value="/diary")
+
+	@PutMapping(value = "/diary")
 	public int update(@RequestBody Diary diary) {
 		try {
 			return service.update(diary);
@@ -115,11 +102,11 @@ public class DiaryController {
 			return 0;
 		}
 	}
-	
-	// upload
+
 	@PostMapping(value = "/upload/{baby_no}/{type}")
 	public int fileUpload(@PathVariable String baby_no, @PathVariable String type, @RequestParam MultipartFile[] multipartFiles) throws FileNotFoundException {
-
+		System.out.println("파일 크기" + multipartFiles.length);
+		System.out.println(baby_no + " " + type);
 		try {
 			for (int i = 0; i < multipartFiles.length; i++) {
 				if(multipartFiles[i] != null && !multipartFiles[i].isEmpty()){	
@@ -128,7 +115,8 @@ public class DiaryController {
 							"C:\\ssafy\\NHhackathon_ACARDI\\front-end\\nhhackathon_acardi\\src\\assets\\img";
 					String today = new SimpleDateFormat("yyMMdd").format(new Date()); // 오늘 날짜
 					String saveFolder = null;  // 파일 저장 폴더 (각 날짜별 저장폴더 생성)
-					if (type == "diary") {
+					if (type.equals("diary")) {
+						//System.out.println("diary라면");
 						saveFolder = realPath + File.separator + baby_no +  File.separator 
 								+ type + File.separator + today;
 					} else {
@@ -143,10 +131,11 @@ public class DiaryController {
 	
 					if (!fileName.isEmpty()) { // abc-asdfasf-asdfs-fd.png
 						String saveFileName = null;
-						if (type=="diary") {
+						if (type.equals("diary")) {
+							//System.out.println("diary다");
 							saveFileName = UUID.randomUUID().toString() + fileName.substring(fileName.lastIndexOf('.'));
 						}else {
-							saveFileName = "profile" + fileName.substring(fileName.lastIndexOf('.'));
+							saveFileName = "profile.jpg";
 						}
 						photo.setSave_path(saveFolder);
 						photo.setUpload_name(fileName);
@@ -168,15 +157,68 @@ public class DiaryController {
 		}
 	}
 	
-	
+
+	// update photos
+	@PutMapping(value = "/update/{baby_no}/{type}")
+	public int fileUpdate(@RequestParam("file") MultipartFile[] multipartFiles, @RequestParam("info") String[] nums, 
+			@PathVariable String baby_no, @PathVariable String type) throws FileNotFoundException {
+		int result = 0;
+		try {
+			for (int i = 0; i < multipartFiles.length; i++) {
+				System.out.println(multipartFiles[i].getOriginalFilename());
+				if (multipartFiles[i] != null && !multipartFiles[i].isEmpty()) {
+					String fileName = multipartFiles[i].getOriginalFilename(); // 파일 원래 이름
+					String realPath = "C:\\ssafy\\NHhackathon_ACARDI\\front-end\\nhhackathon_acardi\\src\\assets\\img"; // 실제
+																													// 폴더
+					String today = new SimpleDateFormat("yyMMdd").format(new Date()); // 오늘 날짜
+					String saveFolder = null; // 파일 저장 폴더 (각 날짜별 저장폴더 생성)
+					if (type == "diary") {
+						saveFolder = realPath + File.separator + baby_no +  File.separator 
+								+ type + File.separator + today;
+					} else {
+						saveFolder = realPath + File.separator + baby_no +  File.separator 
+								+ type;
+					}
+					File folder = new File(saveFolder);
+					if (!folder.exists())
+						folder.mkdirs();
+					System.out.println(saveFolder);
+
+					Photo photo = new Photo();
+
+					if (!fileName.isEmpty()) {
+						String saveFileName = null;
+						if (type=="diary") {
+							saveFileName = UUID.randomUUID().toString() + fileName.substring(fileName.lastIndexOf('.'));
+						}else {
+							saveFileName = "profile" + fileName.substring(fileName.lastIndexOf('.'));
+						}
+						photo.setSave_path(saveFolder);
+						photo.setUpload_name(fileName);
+						photo.setSave_name(saveFileName);
+						photo.setNo(nums[i]);
+						
+						File file = new File(saveFolder + "\\" + saveFileName);
+
+						multipartFiles[i].transferTo(file);
+						result += service.updatePhoto(photo);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+
 	// 다이어리 작성
-    @PostMapping(value="/diary")
-    public int insert(@RequestBody Diary d) throws FileNotFoundException {
-        System.out.println("insert");
-        int n = service.insert(d);
-        String diary_no = service.maxId();
-        return 1;
-    }
-	
+	@PostMapping(value = "/diary")
+	public int insert(@RequestBody Diary d) throws FileNotFoundException {
+		System.out.println("insert");
+		int n = service.insert(d);
+		String diary_no = service.maxId();
+		return 1;
+	}
 
 }

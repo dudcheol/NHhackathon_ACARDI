@@ -23,4 +23,6 @@ public interface DiaryMapper {
 	List<Diary> selectByDate(String baby_no, String year, String month);
 
 	List<Photo> selectPhotos(String diary_no);
+
+	int updatePhoto(Photo photo);
 }

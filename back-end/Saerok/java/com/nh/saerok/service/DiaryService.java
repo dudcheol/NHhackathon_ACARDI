@@ -25,5 +25,7 @@ public interface DiaryService {
 	int savePhoto(Photo photo);
 
 	List<Photo> selectPhotos(String diary_no);
+
+	int updatePhoto(Photo photo);
 	
 }
