@@ -3,7 +3,6 @@ package com.nh.saerok.service;
 import java.util.List;
 
 import com.nh.saerok.dto.Diary;
-import com.nh.saerok.dto.Photo;
 
 public interface DiaryService {
 
@@ -23,7 +22,5 @@ public interface DiaryService {
 	
 	// 사진 업로드
 	int savePhoto(Photo photo);
-
-	List<Photo> selectPhotos(String diary_no);
 	
 }

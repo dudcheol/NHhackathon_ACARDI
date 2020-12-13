@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nh.saerok.dto.Diary;
-import com.nh.saerok.dto.Photo;
 import com.nh.saerok.mapper.DiaryMapper;
 
 @Repository
@@ -42,23 +41,18 @@ public class DiaryDaoImpl implements DiaryDao {
 	}
 
 	@Override
-	public int savePhoto(Photo photo) {
-		return mapper.savePhoto(photo);
-	}
-
-	@Override
-	public String maxId() {
-		return mapper.maxId();
-	}
-
-	@Override
 	public List<Diary> selectByDate(String baby_no, String year, String month) {
 		return mapper.selectByDate(baby_no, year, month);
 	}
-
+	
 	@Override
-	public List<Photo> selectPhotos(String diary_no) {
-		return mapper.selectPhotos(diary_no);
+	public int savePhoto(Photo photo) {
+		return mapper.savePhoto(photo);
+	}
+	
+	@Override
+	public String maxId() {
+		return mapper.maxId();
 	}
 
 }

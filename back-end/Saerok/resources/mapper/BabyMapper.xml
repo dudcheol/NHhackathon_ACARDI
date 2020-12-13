@@ -8,20 +8,16 @@
 		values(#{nickname}, #{birthday}, #{gender}, #{birth_time}, #{account}, #{profile})
 	</insert>
 	
-	<select id="getBabyNoByAccount" parameterType="String" resultType="int">
-		select no from baby where account = #{account}
-	</select>
-	
 	<select id="getBaby" parameterType="String" resultType="Baby">
 		select * from baby where no = #{babyno}
 	</select>
 	
-	<select id="getBabyAccount" parameterType="String" resultType="String">
+	<select id="getBabyAccount" parameterType="String" resultType="Baby">
 		select account from baby where no = #{babyno}
 	</select>	
 	
 	<select id="listBaby" parameterType="String" resultType="Baby">
-		select b.no no, b.nickname nickname, b.birthday, b.gender, b.birth_time, b.account, b.profile from baby b, family f where f.member_id = #{id} and f.baby_no = b.no order by b.no;
+		select b.no no, b.nickname nickname from baby b, family f where f.member_id = #{id} and f.baby_no = b.no order by b.no;
 	</select>
 
 	<update id="modifyBaby" parameterType="Baby">

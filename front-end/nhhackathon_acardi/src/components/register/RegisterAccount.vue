@@ -1,6 +1,8 @@
 <template>
   <div id="container" class="footer-spacing">
-    <h1><b-icon icon="arrow-left" class="p-1 m-2" @click="goBack"></b-icon></h1>
+    <h1>
+      <b-icon icon="arrow-left" class="p-1 m-2" @click="goBack"></b-icon>
+    </h1>
 
     <b-container fluid="sm">
       
@@ -44,17 +46,18 @@ import axios from 'axios';
 
 export default {
   props:{
-    babyInfo: Object
+    babyInfo: Object,
   },
   data() {
     return {
       userId: this.$session.get('userID'),
       accountChecked: false,
-      relation:''
+      relation: this.babyInfo.relation
     };
   },
   methods: {
     goBack(){
+      this.babyInfo.relation = this.relation;
       this.$emit("goProfile");
     },
     accountCheck(){

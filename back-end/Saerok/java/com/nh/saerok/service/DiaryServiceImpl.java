@@ -1,12 +1,12 @@
 package com.nh.saerok.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nh.saerok.dao.DiaryDao;
 import com.nh.saerok.dto.Diary;
-import com.nh.saerok.dto.Photo;
 
 @Service
 public class DiaryServiceImpl implements DiaryService {
@@ -24,7 +24,7 @@ public class DiaryServiceImpl implements DiaryService {
 		return dao.selectOne(baby_no, num);
 	}
 
-	@Override // 게시판 등록
+	@Override
 	public int insert(Diary diary) {
 		return dao.insert(diary);
 	}
@@ -40,23 +40,8 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
-	public int savePhoto(Photo photo) {
-		return dao.savePhoto(photo);
-	}
-
-	@Override
-	public String maxId() {
-		return dao.maxId();
-	}
-
-	@Override
 	public List<Diary> selectByDate(String baby_no, String year, String month) {
 		return dao.selectByDate(baby_no, year, month);
-	}
-
-	@Override
-	public List<Photo> selectPhotos(String diary_no) {
-		return dao.selectPhotos(diary_no);
 	}
 
 }
