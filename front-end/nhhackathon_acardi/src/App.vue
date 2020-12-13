@@ -8,7 +8,9 @@
       <router-link to="/write">Write</router-link> |
       <router-link to="/detail">Detail</router-link>
     </div>
-    <router-view />
+    <transition name="fade" mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -27,29 +29,23 @@
 .footer-spacing {
   padding-bottom: 58px;
 }
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 0.25s;
+}
+
+.fade-enter-active {
+  transition-duration: 0.25s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0.5;
+}
 
 #nav {
   position: fixed;
   z-index: 1000;
 }
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-} */
 </style>

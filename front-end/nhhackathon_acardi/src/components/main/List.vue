@@ -42,7 +42,9 @@
               <p class="font-sm text-right pr-3">
                 {{ item.customData.date.split(' ')[0] }}
                 <b-badge variant="light"
-                  ><strong>{{ item.customData.cost }}</strong></b-badge
+                  ><strong>{{
+                    item.customData.cost | moneycomma
+                  }}</strong></b-badge
                 >원
               </p>
             </b-col>
