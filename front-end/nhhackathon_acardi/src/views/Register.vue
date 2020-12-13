@@ -4,17 +4,37 @@
       <router-link to="/register/profile">profile</router-link> |
       <router-link to="/register/account">account</router-link>
     </div>
-    <router-view></router-view>
-    <div class="footer-fixed">
-      <b-button block squared style="height:58px" variant="warning"
-        >다음</b-button
-      >
-    </div>
-  </div>
+    <register-profile v-if="take == 1" v-on:babyProfile="getBabyInfo"></register-profile>  
+    <hr>
+    <register-account v-if="take == 2" :babyInfo="babyInfo" v-on:goProfile="goProfile"></register-account>
+    </div>  
 </template>
 
 <script>
-export default {};
+import RegisterAccount from "@/components/register/RegisterAccount.vue";
+import RegisterProfile from '../components/register/RegisterProfile.vue';
+export default {
+  components: {
+    RegisterAccount,
+    RegisterProfile
+  },
+  data() {
+    return {
+      take:1,
+      babyInfo: {},
+    };
+  },
+  methods: {
+    goProfile(){
+      this.take--;
+    },
+    getBabyInfo(bi){
+      this.take++;
+      this.babyInfo = bi;
+    },
+    
+  },
+};
 </script>
 
 <style scoped>
