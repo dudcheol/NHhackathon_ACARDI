@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<!-- mapper file: 실행 할 쿼리 문을 저장하는 파일. 테이블 하나당 한개씩 작성
+namespace: 작업하는 테이블들을 구분해주기 위한 식별자 -->
+<mapper namespace="com.nh.saerok.mapper.MemberMapper">
+
+  <select id="selectAll" resultType="Member">
+    select * from member
+  </select>
+
+  <select id="selectOne" parameterType="java.lang.String" resultType="Member">
+    select * from member where id = #{id}
+  </select>
+  
+  <insert id="create" parameterType="Member">
+  	insert into member (id, password, name, phone_number, email, fin_account) values (#{id}, #{password}, #{name}, #{phone_number}, #{email}, #{fin_account}) 
+  </insert>
+  
+  <update id="update" parameterType="Member">
+  	update member set password = #{password}, phone_number = #{phone_number}, email = #{email} where id = #{id}
+  
+  </update>
+
+
+ <delete id="delete" parameterType="string">
+  	update member set status = if(status = 0, 1, 0) where id = #{id}
+  </delete>
+
+  <select id="login" parameterType="String" resultType="Member">
+    select * from member where id = #{id} and password = #{password}
+  </select>
+</mapper>

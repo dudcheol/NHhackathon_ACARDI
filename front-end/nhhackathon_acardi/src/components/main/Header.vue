@@ -4,7 +4,7 @@
   >
     <h3 @click="clickList"><b-icon icon="list"></b-icon></h3>
     <h3><b-icon icon="emoji-laughing"></b-icon>logoarea</h3>
-    <h3><b-icon icon="bell"></b-icon></h3>
+    <h3><b-icon icon="bell" @click="clickIcon"></b-icon></h3>
   </div>
 </template>
 
@@ -14,6 +14,10 @@ export default {
     clickList() {
       this.$emit('open-sidebar');
       console.log('click');
+    },
+    clickIcon() {
+      this.$emit('open-eventList');
+      console.log('clickEvent');
     },
   },
 };

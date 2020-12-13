@@ -28,7 +28,23 @@
       class="header-fixed"
       style="height:56px"
       @open-sidebar="openSidebar"
+      @open-eventList="openEventList"
     ></Header>
+    <b-modal v-model="modalShow" title="알림" ok-only
+      ><p class="my-2">
+        {{ baby.nickname }}이의 생일이 {{ this.bDay }}일 남았습니다.
+      </p>
+      <hr />
+      <p class="my-2">
+        <a
+          href="https://www.nhlife.co.kr/ho/ig/HOIG0001M00.nhl?prodCd=N0000709"
+          target="_blank"
+          v-b-tooltip
+          title="어린이보험"
+          >어린이 보험에 가입해 보세요!</a
+        >
+      </p>
+    </b-modal>
     <div style="padding-top:73px;padding-bottom:117px">
       <router-link to="/main/calendar">Calendar</router-link>
       |
@@ -53,7 +69,7 @@
 import Header from '@/components/main/Header.vue';
 import Profile from '@/components/main/Profile.vue';
 import { mapActions, mapGetters } from 'vuex';
-
+import axios from 'axios';
 export default {
   name: 'Main',
   props: ['params'],
@@ -61,6 +77,9 @@ export default {
   data() {
     return {
       isSidebarOpen: false,
+      modalShow: false,
+      baby: {},
+      bDay: '',
     };
   },
   computed: {
@@ -105,6 +124,27 @@ export default {
       this.$session.set('userID', null);
       this.RESET_STATE();
       this.$router.push({ name: 'Login' });
+    },
+    // 이벤트 알림창.
+    openEventList() {
+      this.modalShow = true;
+      //아이 정보를 얻어와야 함.
+      axios
+        .get('http://localhost/baby/' + this.$store.state.babyno)
+        .then((response) => {
+          console.log(response);
+          this.baby = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      this.bDay = this.getBirthday(this.baby.birthday);
+    },
+    getBirthday(bDate) {
+      var day = new Date(bDate);
+      var now = new Date();
+      var gap = now.getTime() - day.getTime();
+      return 365 - Math.floor((gap / (1000 * 60 * 60 * 24)) % 365);
     },
   },
 };
