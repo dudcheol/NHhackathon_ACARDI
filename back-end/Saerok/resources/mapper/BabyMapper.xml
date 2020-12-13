@@ -21,7 +21,7 @@
 	</select>	
 	
 	<select id="listBaby" parameterType="String" resultType="Baby">
-		select b.no no, b.nickname nickname from baby b, family f where f.member_id = #{id} and f.baby_no = b.no order by b.no;
+		select b.no no, b.nickname nickname, b.birthday, b.gender, b.birth_time, b.account, b.profile from baby b, family f where f.member_id = #{id} and f.baby_no = b.no order by b.no;
 	</select>
 
 	<update id="modifyBaby" parameterType="Baby">

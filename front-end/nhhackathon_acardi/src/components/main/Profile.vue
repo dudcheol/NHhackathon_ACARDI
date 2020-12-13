@@ -5,19 +5,17 @@
         <b-col cols="2" class="p-0">
           <!-- <b-avatar :v-show="src == ''"></b-avatar> -->
           <img
-            :src="imgsrc"
-            onerror="this.style.display='none'"
-            style="width:60px; height:60px;
-            border-radius: 15px;"
+            :src="require(`@/assets/img/${baby.no}/profile/profile.jpg`)"
+            style="width:60px; height:60px; border-radius: 15px;"
           />
-          {{ imgsrc }}
+          {{ `@/assets/img/${baby.no}/profile/profile.jpg` }}
         </b-col>
         <b-col cols="8" class="p-0">
           <h5>
             <strong>{{ baby.nickname }}</strong> {{ this.message }}
           </h5>
           <h6>
-            우리가 만난지 <strong>{{ dday }}</strong
+            우리가 만난지 <strong>{{ this.dday }}</strong
             >일
           </h6>
         </b-col>
@@ -49,13 +47,6 @@ export default {
   },
   created() {
     //this.no = this.$store.state.babyno;
-    console.log(this.$store.state.babyno);
-    console.log(this.$store.state.babyidx);
-    console.log(this.$store.state.babyinfos);
-    this.imgsrc = this.$store.state.babyinfos[
-      this.$store.state.babyidx
-    ].profile;
-    console.log(this.imgsrc);
     var num = Math.floor(Math.random() * 4);
     switch (num) {
       case 0:
@@ -97,7 +88,6 @@ export default {
       console.log(this.baby.no);
       this.$router.push({
         name: 'Write',
-        params: { babyno: this.baby.no },
       });
     },
   },
