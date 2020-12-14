@@ -54,10 +54,8 @@
 
 <script>
 import axios from 'axios';
-
 export default {
   name: 'registerFam',
-
   data() {
     return {
       babyno: '',

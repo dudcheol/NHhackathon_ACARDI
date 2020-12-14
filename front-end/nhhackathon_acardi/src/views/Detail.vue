@@ -58,7 +58,7 @@
               <b-row>
                 <b-col class="text-right"
                   ><b-icon icon="cash-stack"></b-icon>
-                  <strong> {{ diary.cost | moneycomma }}</strong
+                  <strong> {{ diary.cost }}</strong
                   >원</b-col
                 >
               </b-row>

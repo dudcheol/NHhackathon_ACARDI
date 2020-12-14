@@ -21,7 +21,6 @@
 
 <script>
 import axios from 'axios';
-
 import RegisterAccount from '@/components/register/RegisterAccount.vue';
 import RegisterProfile from '../components/register/RegisterProfile.vue';
 export default {

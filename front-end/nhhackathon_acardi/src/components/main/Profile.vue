@@ -6,7 +6,7 @@
           <b-avatar v-show="imgsrc == false"></b-avatar>
           <div v-if="imgsrc == true">
             <img
-              :src="require(`@/assets/img/${baby.no}/profile/profile.jpg`)"
+              :src="require(`@/assets/img/${babyno}/profile/profile.jpg`)"
               style="width:60px; height:60px; border-radius: 15px; margin-left:20px;"
             />
           </div>
@@ -31,19 +31,21 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 export default {
-  props: {
-    baby: Object,
-  },
   data() {
     return {
       message: '',
       imgsrc: false,
+      babyno: '',
+      baby: {},
     };
   },
   created() {
     //this.no = this.$store.state.babyno;
+    console.log(this.$store.state.babyno);
+    console.log(this.baby.no);
+    //this.setValue(this.baby);
     var num = Math.floor(Math.random() * 4);
     switch (num) {
       case 0:
@@ -61,26 +63,26 @@ export default {
     }
   },
   methods: {
-    // setValue(val) {
-    //   this.babyno = val;
-    //   axios
-    //     .get('http://localhost/baby/' + this.babyno)
-    //     .then((response) => {
-    //       console.log(response);
-    //       //this.imgsrc = response.data.profile;
-    //       if (response.data.profile == '') {
-    //         console.log('사진 없음!');
-    //         this.imgsrc = false;
-    //       } else {
-    //         this.imgsrc = true;
-    //       }
-    //       this.baby = response.data;
-    //       this.dday = this.calDay(this.baby.birthday);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // },
+    setValue(val) {
+      this.babyno = val;
+      axios
+        .get('http://localhost/baby/' + this.babyno)
+        .then((response) => {
+          console.log(response);
+          //this.imgsrc = response.data.profile;
+          if (response.data.profile == '') {
+            console.log('사진 없음!');
+            this.imgsrc = false;
+          } else {
+            this.imgsrc = true;
+          }
+          this.baby = response.data;
+          this.dday = this.calDay(this.baby.birthday);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     calDay(date) {
       var day = new Date(date);
       var now = new Date();

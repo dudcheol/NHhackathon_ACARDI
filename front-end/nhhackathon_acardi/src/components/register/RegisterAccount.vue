@@ -25,18 +25,11 @@
             <b-input
               v-model="babyInfo.account"
               type="text"
-              placeholder="계좌 번호를 입력하세요"
-              :disabled="loading"
-              size="lg"
+              placeholder="계좌번호"
             ></b-input>
-            <b-button variant="warning"
-              ><b-icon
-                icon="check"
-                @click="accountCheck"
-                v-show="!loading"
-              ></b-icon>
-              <b-spinner small v-show="loading"></b-spinner>
-            </b-button>
+            <b-button
+              ><b-icon icon="check" @click="accountCheck"></b-icon
+            ></b-button>
           </b-input-group>
         </b-col>
       </b-row>
@@ -65,7 +58,6 @@
 
 <script>
 import axios from 'axios';
-
 export default {
   props: {
     babyInfo: Object,
@@ -75,7 +67,6 @@ export default {
       userId: this.$session.get('userID'),
       accountChecked: false,
       relation: this.babyInfo.relation,
-      loading: false,
     };
   },
   methods: {
@@ -86,7 +77,6 @@ export default {
     accountCheck() {
       //계좌 확인 - nh rest api 활용하여 예금주 확인 후 (fin) account 저장
       //Join.vue/makeFin() 내용 수정
-      this.loading = true;
       var date = new Date();
       var today =
         String(date.getFullYear()) +
@@ -116,17 +106,10 @@ export default {
         )
         .then((response) => {
           console.log(response);
-          if (!response.data.Dpnm)
-            alert('잘못된 계좌번호입니다. 다시 확인해주세요!');
-          else
-            this.accountChecked = confirm(
-              response.data.Dpnm + '님 맞으신가요?'
-            );
-          this.loading = false;
+          this.accountChecked = confirm(response.data.Dpnm + '님 맞으신가요?');
           console.log(this.accountChecked);
         })
         .catch((error) => {
-          this.loading = false;
           console.log(error);
         });
     },
@@ -164,7 +147,7 @@ export default {
                 });
               // window.location.reload('/main');
             } else {
-              alert('아이 추가에 실패했습니다. 다시 시도해주세요.');
+              alert('아이 추가가 되지 않았습니다.');
             }
           })
           .catch((error) => {

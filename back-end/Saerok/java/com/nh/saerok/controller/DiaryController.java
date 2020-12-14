@@ -176,7 +176,7 @@ public class DiaryController {
 						String saveFileName = null;
 						if (type.equals("diary")) {
 							//System.out.println("diary다");
-							saveFileName = UUID.randomUUID().toString() + fileName.substring(fileName.lastIndexOf('.'));
+							saveFileName = UUID.randomUUID().toString() + ".jpg";
 						}else {
 							saveFileName = "profile.jpg";
 						}
