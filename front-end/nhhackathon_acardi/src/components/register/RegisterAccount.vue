@@ -154,14 +154,14 @@ export default {
                 .post('http://localhost/family', family)
                 .then((response) => {
                   console.log(response);
+                  this.$router.push({
+                    path: '/main',
+                  });
                 })
                 .catch((error) => {
                   console.log(error);
+                  alert('아이 추가에 실패했습니다. 다시 시도해주세요.');
                 });
-
-              this.$router.push({
-                path: '/main',
-              });
               // window.location.reload('/main');
             } else {
               alert('아이 추가에 실패했습니다. 다시 시도해주세요.');

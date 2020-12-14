@@ -11,7 +11,7 @@
             />
           </div>
         </b-col>
-        <b-col cols="8" class="p-0">
+        <b-col cols="8" class="p-0 text-center">
           <h5 class="m-0">
             <strong>{{ baby.nickname }}</strong> {{ this.message }}
           </h5>

@@ -75,8 +75,7 @@
         </b-col>
       </b-row>
     </b-container>
-    <!-- ||
-            !memberInfo.fin_account -->
+
     <div class="footer-fixed">
       <b-button
         v-if="

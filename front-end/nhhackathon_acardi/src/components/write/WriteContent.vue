@@ -26,46 +26,45 @@
         placeholder="내용을 입력하세요"
       ></b-textarea>
     </b-container> -->
-      <b-jumbotron class="p-3">
-        <div class="image-box" v-show="!uploaded">
-          <b-row v-if="!diary.imgsrc" class="p-0 m-0">
-            <b-col class="text-center">
-              <b-button variant="info"
-                ><label for="file">
-                  <input
-                    type="file"
-                    id="file"
-                    ref="files"
-                    @change="imageUpload"
-                    multiple
-                  /><b-icon icon="camera-fill"></b-icon>
-                </label>
-                {{ cameraBtnText }}</b-button
-              >
-            </b-col>
-          </b-row>
-        </div>
+      <b-jumbotron class="p-1">
         <center>
-          <b-row
-            class="file-preview-container"
-            style="overflow:auto; max-height:120px"
-          >
-            <div
-              v-for="(file, index) in files"
-              :key="index"
-              class="file-preview-wrapper"
-            >
-              <div
-                class="file-close-button"
-                @click="fileDeleteButton"
-                :name="file.number"
-              ></div>
-              <img
-                :src="file.preview"
-                style="width:100px; height:100px; border-radius: 15px; margin-left:20px;"
-              />
-            </div>
-          </b-row>
+          <div class="image-box">
+            <b-col class="text-center">
+              <b-row
+                class="file-preview-container"
+                style="overflow:auto; max-height:120px"
+              >
+                <div
+                  v-for="(file, index) in files"
+                  :key="index"
+                  class="file-preview-wrapper"
+                >
+                  <div
+                    class="file-close-button"
+                    @click="fileDeleteButton"
+                    :name="file.number"
+                  ></div>
+                  <img
+                    :src="file.preview"
+                    style="width:100px; height:100px; border-radius: 15px; margin-left:20px;"
+                  />
+                </div>
+              </b-row>
+            </b-col>
+            <b-button variant="info"
+              ><label for="file">
+                <input
+                  type="file"
+                  id="file"
+                  ref="files"
+                  @change="imageUpload"
+                  multiple
+                />
+                <b-row v-if="!diary.imgsrc" class="pt-1 px-1 p-0 m-0">
+                  <b-icon icon="camera-fill"></b-icon>
+                </b-row> </label
+            ></b-button>
+          </div>
         </center>
       </b-jumbotron>
       <b-row align-v="center" class="p-0 m-0">
@@ -131,7 +130,6 @@ export default {
   name: 'writecontent',
   data() {
     return {
-      uploaded: false,
       type: '',
       diary: {
         date: '',
@@ -145,7 +143,7 @@ export default {
       },
       pageName: '다이어리 작성',
       btnText: '작성하기',
-      cameraBtnText: '사진 추가',
+      // cameraBtnText: '사진 추가',
       body: {},
       todayDiary: '',
       AccessToken: '',
@@ -163,14 +161,14 @@ export default {
     if (params.type == 'write') {
       this.pageName = '다이어리 작성';
       this.btnText = '작성하기';
-      this.cameraBtnText = '사진 추가';
+      // this.cameraBtnText = '사진 추가';
       this.body = params.body;
       this.diary.title = this.body.content;
       this.diary.cost = this.body.sum;
     } else if (params.type == 'modify') {
       this.pageName = '다이어리 수정';
       this.btnText = '수정하기';
-      this.cameraBtnText = '사진 변경';
+      // this.cameraBtnText = '사진 변경';
       this.diary = params.diary;
     }
   },
@@ -207,7 +205,6 @@ export default {
       }
       this.uploadImageIndex = num + 1; //이미지 index의 마지막 값 + 1 저장
       console.log(this.files);
-      this.uploaded = true;
       // console.log(this.filesPreview);
     },
     imageAddUpload() {

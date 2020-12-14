@@ -29,12 +29,12 @@
               </b-row>
               <b-row>
                 <b-col>
-                  <b-img
+                  <!-- <b-img
                     rounded
                     fluid
-                    :src="attr.customData.imgsrc"
+                    :src="require(`${attr.customData.imgsrc}`)"
                     style="max-height:50px"
-                  ></b-img>
+                  ></b-img> -->
                   <!-- <div
                     class="center-cropped"
                     style="background-image: url('https://contents.sixshop.com/thumbnails/uploadedFiles/27688/default/image_1579233003051_1000.png');"

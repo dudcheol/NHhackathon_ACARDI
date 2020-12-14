@@ -25,14 +25,14 @@
         </p> -->
         <b-media>
           <template #aside v-if="item.customData.imgsrc">
-            <b-img
+            <!-- <b-img
               rounded
               blank
               blank-color="#ccc"
               width="70"
               alt="placeholder"
-              :src="item.customData.imgsrc"
-            ></b-img>
+              :src="require(`${item.customData.imgsrc}`)"
+            ></b-img> -->
           </template>
           <template #aside v-else>
             <b-img

@@ -40,9 +40,11 @@
       @open-sidebar="openSidebar"
       @open-eventList="openEventList"
     ></Header>
-    <b-modal v-model="modalShow" title="알림" ok-only
+    <b-modal v-model="modalShow" title="알림" ok-only ok-variant="warning"
       ><p class="my-2">
-        {{ baby.nickname }}이의 생일이 {{ this.bDay }}일 남았습니다.
+        {{ this.selectedBabyInfo.nickname }}(이)의 <strong>생일</strong>이
+        <strong>{{ this.bDay }}</strong
+        >일 남았습니다.
       </p>
       <hr />
       <p class="my-2">
@@ -62,7 +64,7 @@
             v-model="selected"
             :options="options"
             buttons
-            button-variant="outline-secondary"
+            button-variant="outline-success"
             size="sm"
             name="radio-btn-outline"
           ></b-form-radio-group>
@@ -203,16 +205,7 @@ export default {
     openEventList() {
       this.modalShow = true;
       //아이 정보를 얻어와야 함.
-      axios
-        .get('http://localhost/baby/' + this.$store.state.babyno)
-        .then((response) => {
-          console.log(response);
-          this.baby = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      this.bDay = this.getBirthday(this.baby.birthday);
+      this.bDay = this.getBirthday(this.selectedBabyInfo.birthday);
     },
     monthChange(date) {
       console.log(date);
@@ -243,6 +236,10 @@ export default {
       var tmp = [];
       for (let index = 0; index < diaries.length; index++) {
         const d = diaries[index];
+        var year = d.registered_at.substring(2, 4);
+        var month = d.registered_at.substring(5, 7);
+        var day = d.registered_at.substring(8, 10);
+        var registered_time = year + month + day;
         tmp.push({
           key: index,
           customData: {
@@ -251,7 +248,7 @@ export default {
             cost: d.cost,
             member_id: d.member_id,
             no: d.no,
-            imgsrc: d.imgsrc,
+            imgsrc: `@/assets/img/${this.getBabyNo}/diary/${registered_time}/${d.save_name}`,
             date: d.registered_at,
           },
           dates: new Date(d.registered_at),
