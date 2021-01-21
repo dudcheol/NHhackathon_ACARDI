@@ -1,7 +1,7 @@
 # 2020 NH디지털혁신캠퍼스 챌린지 온라인 해커톤
 <img src="https://user-images.githubusercontent.com/40655666/105364635-b9cfd580-5c40-11eb-96f1-0186b978148b.png" width="100">
 
-#### 프로젝트명 `새록새록 육아통장`
+## 새록새록 육아통장
 - 팀명
   - `어카디`
 - 개발 기간
@@ -9,17 +9,21 @@
 - 참가분야
   - 농협API를 활용한 핀테크 서비스 개발・기획
 - 수상
-  - 일반부문 **우수상** 수상
-<hr>
+  - 일반부문 ***우수상*** 수상
+<br>
 
 ## 프로젝트 소개
 - 아이의 성장과정을 담을 수 있는 `육아일기`와 특별한 날을 기록하는 `일기`를 합친 `육아통장` 서비스
 - 사진, 일기 작성과 계좌이체를 한 번에 실행 가능한 WebApp 서비스
+<br>
 
 ### 개발환경
-- FrontEnd : vuejs
-- BackEnd : SpringBoot
-- DB : MySQL
+- FrontEnd
+  - Vue.js, Node.js
+- BackEnd
+  - SpringBoot
+- DB
+  - MySQL
 
 
 ### 스크린샷
